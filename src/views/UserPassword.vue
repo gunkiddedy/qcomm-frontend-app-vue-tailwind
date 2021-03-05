@@ -63,7 +63,7 @@
                             <input
                                 v-model="user.fullName"
                                 type="text"
-                                placeholder="Full Name" 
+                                placeholder="Current Password" 
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
                             >
                         </div>
@@ -75,7 +75,7 @@
                             <input
                                 v-model="user.fullName"
                                 type="text"
-                                placeholder="Full Name" 
+                                placeholder="New Password" 
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
                             >
                         </div>
@@ -87,7 +87,7 @@
                             <input
                                 v-model="user.phoneNumber"
                                 type="text"
-                                placeholder="098778900987" 
+                                placeholder="Confirm New Password" 
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
                             >
                         </div>

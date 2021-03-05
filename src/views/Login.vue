@@ -16,7 +16,7 @@
             <div class="form md:max-w-md w-2/3 mx-auto pt-4 px-8">
                 <form class="login-form">
                     <div class="bg-white shadow-lg rounded-lg px-8 pt-6 py-8 mb-4 flex flex-col">
-                        <div v-if="response.length" class="text-red-400 px-4 py-1 font-bold text-center text-sm">
+                        <div v-if="response" class="text-red-400 px-4 py-1 font-bold text-center text-sm">
                             {{ response }}
                         </div>
                         <div class="my-8">
@@ -55,7 +55,7 @@
             <div class="forgot mx-auto text-center">
                 <span class="text-gray-300">
                     Lupa password? Klik
-                    <a href="#" class="font-bold text-gray-200">disini</a> untuk reset.
+                    <router-link to="/user-password" class="font-bold text-gray-200">disini</router-link> untuk reset.
                 </span>
             </div>
         </div>
@@ -113,6 +113,7 @@ export default {
                 }
             })
             .then((response) => {
+                console.log(response);
                 if(response.data.status == 200){
                     this.isLoging = false;
                     this.$store.dispatch('currentUser/afterLogin', response);
@@ -124,7 +125,8 @@ export default {
             })
             .catch((error) => {
                 this.response = error;
-                console.log('woooo...'+error);
+                this.isLoging = false;
+                console.log(error);
             });
         }
     },
