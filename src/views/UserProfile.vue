@@ -9,13 +9,13 @@
             <div class="wraper">
                 <div class="body flex flex-col px-4 items-center">
                     <div class="img-profle rounded-full bg-blue-200 w-64 text-center">
-                        <img class="object-contain rounded-full w-full" :src="userDetail.profilePictureUrl" alt="img-user">
+                        <img class="object-contain rounded-full w-full" src="" alt="img-user">
                     </div>
                     <div class="title text-2xl text-center mt-4 font-bold text-gray-500" >
-                        {{ userDetail.fullName }}
+                        <!-- {{ userDetail.fullName }} -->
                     </div>
                     <div class="role text-center text-lg px-12 mt-2 font-bold text-gray-400">
-                        {{ userDetail.role }}
+                        <!-- {{ userDetail.role }} -->
                     </div>
                     <div class="bergabung flex items-center justify-center px-4 mt-4 mb-8 text-gray-400">
                         Bergabung sejak 4 tahun 3 bulan yang lalu.
@@ -31,9 +31,6 @@
                             Keseluruhan
                         </button>
                     </div>
-                    <!-- <div>
-                        {{ userDetail }}
-                    </div> -->
                 </div>
             </div>
             <!-- <div class="w-full h-12 bottom-2 absolute"> -->
@@ -234,7 +231,7 @@
 </template>
 
 <script>
-import userData from '@/api/userDetail.json'
+// import userData from '@/api/userDetail.json'
 export default {
     props: ["id"],
     // components: {
@@ -244,33 +241,32 @@ export default {
     data() {
         return {
             userId: this.id,
-            profileClicked: false,
-            userDetail: userData.data,
+            // userDetail: userData.data,
             projectCount: 0,
         }
     },
     mounted() {
-        this.countProject();
+        // this.countProject();
         // this.isAuthenticated();
     },
     methods: {
-        countProject(){
-            let counter = userData.data.performance.length;
+        // countProject(){
+        //     let counter = userData.data.performance.length;
 
-            if(counter >= 2)
-                this.projectCount = counter + ' Projects';
-            else if(counter == 1)
-                this.projectCount = counter + ' Project';
-            else
-                this.projectCount = 0 +' Project';
+        //     if(counter >= 2)
+        //         this.projectCount = counter + ' Projects';
+        //     else if(counter == 1)
+        //         this.projectCount = counter + ' Project';
+        //     else
+        //         this.projectCount = 0 +' Project';
 
-            console.log(userData.data.performance);
-        },
-        isAuthenticated(){
-            if(!this.userId){
-                this.$router.push('/login');
-            }
-        }
+        //     console.log(userData.data.performance);
+        // },
+        // isAuthenticated(){
+        //     if(!this.userId){
+        //         this.$router.push('/login');
+        //     }
+        // }
     },
 }
 </script>

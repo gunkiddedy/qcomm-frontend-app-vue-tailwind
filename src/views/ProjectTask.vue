@@ -105,28 +105,11 @@
                             <div class="bg-green-200 text-sm text-green-600 px-2 rounded-full">
                                 3 responses
                             </div>
-                        </div>
-                    </div>
-                    <div class="w-full border-b my-4"></div>
-                    <div class="flex lg:flex-row flex-col lg:items-center justify-between w-full">
-                        <div class="img-ket flex lg:flex-col">
-                            <div class="flex-shrink-0 shadow rounded-full">
-                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=401&q=80" alt="">
-                            </div>
-                            <div class="flex-shrink-0 shadow rounded-full lg:mt-5 lg:mx-0 mx-3">
-                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=401&q=80" alt="">
-                            </div>
-                        </div>
-                        <div class="text flex flex-wrap w-3/4">
-                            <div class="judul mb-2 text-lg font-semibold text-gray-500">Mengirim Dokumen ke Klien</div>
-                            <div class="isi text-gray-500 text-md">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla, voluptatibus dignissimos? Maxime ullam porro ad? Repellendus voluptatum dignissimos porro laborum.
-                            </div>
-                        </div>
-                        <div class="waktu flex lg:flex-col items-center lg:justify-center lg:mt-0 mt-2">
-                            <div class="jam text-lg text-gray-300 font-semibold lg:mr-0 mr-2">12:12 PM</div>
-                            <div class="bg-green-200 text-sm text-green-600 px-2 rounded-full">
-                                3 responses
+                            <div class="archive-button my-2">
+                                <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
+                                    <svg class="w-4 mr-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                                    <span class="text-white">Archive</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -150,6 +133,41 @@
                             <div class="jam text-lg text-gray-300 font-semibold lg:mr-0 mr-2">12:12 PM</div>
                             <div class="bg-green-200 text-sm text-green-600 px-2 rounded-full">
                                 3 responses
+                            </div>
+                            <div class="archive-button my-2">
+                                <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
+                                    <svg class="w-4 mr-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                                    <span class="text-white">Archive</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full border-b my-4"></div>
+                    <div class="flex lg:flex-row flex-col lg:items-center justify-between w-full">
+                        <div class="img-ket flex lg:flex-col">
+                            <div class="flex-shrink-0 shadow rounded-full">
+                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=401&q=80" alt="">
+                            </div>
+                            <div class="flex-shrink-0 shadow rounded-full lg:mt-5 lg:mx-0 mx-3">
+                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=401&q=80" alt="">
+                            </div>
+                        </div>
+                        <div class="text flex flex-wrap w-3/4">
+                            <div class="judul mb-2 text-lg font-semibold text-gray-500">Mengirim Dokumen ke Klien</div>
+                            <div class="isi text-gray-500 text-md">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla, voluptatibus dignissimos? Maxime ullam porro ad? Repellendus voluptatum dignissimos porro laborum.
+                            </div>
+                        </div>
+                        <div class="waktu flex lg:flex-col items-center lg:justify-center lg:mt-0 mt-2">
+                            <div class="jam text-lg text-gray-300 font-semibold lg:mr-0 mr-2">12:12 PM</div>
+                            <div class="bg-green-200 text-sm text-green-600 px-2 rounded-full">
+                                3 responses
+                            </div>
+                            <div class="archive-button my-2">
+                                <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
+                                    <svg class="w-4 mr-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                                    <span class="text-white">Archive</span>
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -104,40 +104,6 @@ export default {
         },
     },
     methods: {
-        // handleLogin() {
-        //     this.isLoging = true;
-        //     axios.get('/sanctum/csrf-cookie')
-        //         .then((response) => {
-        //             axios.post('/api/login', this.user)
-        //                 .then((response) => {
-        //                     if (response.data.user.role === 'member') {
-        //                         this.$router.push({
-        //                             name: "company-page",
-        //                             params: {
-        //                                 id: response.data.user.id
-        //                             }
-        //                         });
-        //                     } else if (response.data.user.role === 'admin') {
-        //                         this.$router.push({
-        //                             name: "company-list"
-        //                         });
-        //                     }
-        //                     this.isLoging = false;
-        //                     localStorage.setItem('isloggedIn', 'true');
-        //                     localStorage.setItem('username', response.data.user.name);
-        //                     localStorage.setItem('user_id', response.data.user.id);
-        //                     localStorage.setItem('user_role', response.data.user.role);
-        //                 })
-        //                 .catch((error) => {
-        //                     this.errors = error;
-        //                     this.isLoging = false;
-        //                     console.log(this.errors)
-        //                 });
-        //         })
-        //         .catch((error) => {
-        //             this.errors = error.response.data.errors;
-        //         });
-        // },
         handleLogin(e){
             e.preventDefault();
             this.isLoging = true;

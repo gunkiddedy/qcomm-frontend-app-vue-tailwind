@@ -99,8 +99,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="isi-pesan px-4 py-4">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic deleniti accusantium quibusdam. Quam assumenda obcaecati nobis ex velit et laborum cupiditate nemo beatae accusantium! Aliquam soluta eligendi quisquam tempora odio labore officia saepe obcaecati facilis consectetur, beatae voluptatum dicta nam suscipit adipisci nesciunt nulla voluptatem quos illum? Tempora, explicabo quae.
+                            <div class="isi-pesan px-4 py-4 flex flex-col">
+                                <div>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic deleniti accusantium quibusdam. Quam assumenda obcaecati nobis ex velit et laborum cupiditate nemo beatae accusantium! Aliquam soluta eligendi quisquam tempora odio labore officia saepe obcaecati facilis consectetur, beatae voluptatum dicta nam suscipit adipisci nesciunt nulla voluptatem quos illum? Tempora, explicabo quae.</p>
+                                </div>
+                                <div class="content-end btn-archive py-2 flex justify-end">
+                                    <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
+                                        <svg class="w-4 mr-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                                        <span class="text-white">Archive</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="pesan-user">
@@ -121,8 +129,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="isi-pesan px-4 py-4">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic deleniti accusantium quibusdam. Quam assumenda obcaecati nobis ex velit et laborum cupiditate nemo beatae accusantium! Aliquam soluta eligendi quisquam tempora odio labore officia saepe obcaecati facilis consectetur, beatae voluptatum dicta nam suscipit adipisci nesciunt nulla voluptatem quos illum? Tempora, explicabo quae.
+                            <div class="isi-pesan px-4 py-4 flex flex-col">
+                                <div>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic deleniti accusantium quibusdam. Quam assumenda obcaecati nobis ex velit et laborum cupiditate nemo beatae accusantium! Aliquam soluta eligendi quisquam tempora odio labore officia saepe obcaecati facilis consectetur, beatae voluptatum dicta nam suscipit adipisci nesciunt nulla voluptatem quos illum? Tempora, explicabo quae.</p>
+                                </div>
+                                <div class="content-end btn-archive py-2 flex justify-end">
+                                    <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
+                                        <svg class="w-4 mr-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                                        <span class="text-white">Archive</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="pesan-user">
@@ -156,6 +172,12 @@
                                         <svg class="w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
                                         <span class="font-semibold text-gray-600 text-sm leading-loose">Dokumen-terkait.pdf</span>
                                     </label>
+                                </div>
+                                <div class="content-end btn-archive py-2 flex justify-end">
+                                    <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
+                                        <svg class="w-4 mr-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                                        <span class="text-white">Archive</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>

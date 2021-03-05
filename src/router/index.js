@@ -87,6 +87,16 @@ const route = [
 		component: () => import('../views/UserKpi.vue'),
 	},
 	{
+		path: '/user-kpi-table',
+		name: 'UserKpiTable',
+		component: () => import('../views/UserKpiTable.vue'),
+	},
+	{
+		path: '/user-password',
+		name: 'UserPassword',
+		component: () => import('../views/UserPassword.vue'),
+	},
+	{
 		path: '/categories',
 		name: 'CategoryList',
 		component: () => import('../views/CategoryList.vue'),
