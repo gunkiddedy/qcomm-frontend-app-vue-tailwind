@@ -58,7 +58,7 @@
             <div
                 v-for="(item, i) in userList"
                 :key="i"
-                @click="goToUserProfile(item.userId)" 
+                @click="goToUserProfile(item.id)" 
                 class="card rounded-lg shadow-lg bg-white relative cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
 
                 <div class="label-role bg-gray-900 opacity-70 py-1 px-2 text-white absolute mt-2 right-0 rounded-l-md">
@@ -68,8 +68,8 @@
                 <!-- IMAGE CARD -->
                 <div class="img-card-img flex items-center justify-center px-2 py-2">
                     <img 
-                        :src="item.profilePictureUrl" 
-                        :alt="item.userId"
+                        src="../assets/users/user-1.jpeg" 
+                        :alt="item.id"
                         class="rounded-full w-60">
                 </div>
 
@@ -84,7 +84,7 @@
                                 Aktifitas terakhir 1 jam yang lalu
                             </span> -->
                             <span class="text-xs act-time text-gray-400">
-                                {{ item.lastActivityAt }}
+                                {{ item.createdAt }}
                             </span>
                         </div>
                     </div>
@@ -113,9 +113,10 @@ export default {
     data() {
         return {
             loaderPage: false,
-            user: {
+            filter: {
                 sort: 'ASC',
-                order: 'limit',
+                order: '',
+                limit: '',
                 keyword: '',
             },
             userList: [],
@@ -135,15 +136,12 @@ export default {
         },
         getUserList(){
             this.loaderPage = true;
-            axios.get('/users', {
-                headers: {
-                    'app-id': APP_ID
-                }
-            })
+            // {{apiHost}}users?sort=ASC&order&limit&keyword
+            axios.get(`/users?sort=${this.filter.sort}&order=${this.filter.order}&limit=${this.filter.limit}&keyword=${this.filter.keyword}`)
             .then((response) => {
                 this.loaderPage = false;
                 this.userList = response.data.data;
-                // console.log('user list ' + response.data);
+                console.log(response.data.data);
             })
             .catch((error) => {
                 console.log(error);

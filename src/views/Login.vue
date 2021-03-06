@@ -21,16 +21,16 @@
                         </div>
                         <div class="my-8">
                             <input 
-                                v-model="user.email"
-                                class="shadow border rounded-full w-full py-2 px-3 text-grey-darker focus:outline-none focus:border-blue-300 focus:shadow-inner focus:bg-gray-100" 
-                                id="email" 
+                                v-model="user.username"
+                                class="shadow border rounded-full w-full py-2 px-3 text-grey-darker focus:outline-none focus:border-blue-300 focus:shadow-inner focus:bg-gray-100 text-center" 
+                                id="username" 
                                 type="text" 
-                                placeholder="Masukkan alamat email">
+                                placeholder="Masukkan username anda">
                         </div>
                         <div class="mb-4">
                             <input
                                 v-model="user.password" 
-                                class="shadow border border-red rounded-full w-full py-2 px-3 text-grey-darker mb-3 focus:outline-none focus:border-blue-300 focus:shadow-inner focus:bg-gray-100" id="password" 
+                                class="shadow border border-red rounded-full w-full py-2 px-3 text-grey-darker mb-3 focus:outline-none focus:border-blue-300 focus:shadow-inner focus:bg-gray-100 text-center" id="password" 
                                 type="password" 
                                 placeholder="Masukkan password anda">
                         </div>
@@ -89,7 +89,7 @@ export default {
     data(){
         return {
             user: {
-                email: '',
+                username: '',
                 password: '',
             },
             response: '',
@@ -107,18 +107,13 @@ export default {
         handleLogin(e){
             e.preventDefault();
             this.isLoging = true;
-            axios.post("/auth/login", this.user, {
-                headers: {
-                    'Authorization': 'Bearer ' +appToken
-                }
-            })
+            axios.post(`/auth/login?username=${this.user.username}&password=${this.user.password}`)
             .then((response) => {
-                console.log(response);
                 if(response.data.status == 200){
                     this.isLoging = false;
                     this.$store.dispatch('currentUser/afterLogin', response);
                     this.$router.push('/');
-                    console.log(response);
+                    console.log(response.data.data);
                 }else{
                     this.response = response;
                 }

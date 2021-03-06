@@ -9,13 +9,14 @@
             <div class="wraper">
                 <div class="body flex flex-col px-4 items-center">
                     <div class="img-profle rounded-full bg-blue-200 w-64 text-center">
-                        <img class="object-contain rounded-full w-full" src="" alt="img-user">
+                        <img class="object-contain rounded-full w-full" src="../assets/users/user-1.jpeg" alt="img-user">
                     </div>
                     <div class="title text-2xl text-center mt-4 font-bold text-gray-500" >
-                        <!-- {{ userDetail.fullName }} -->
+                        {{ userDetail.fullName }}
                     </div>
                     <div class="role text-center text-lg px-12 mt-2 font-bold text-gray-400">
                         <!-- {{ userDetail.role }} -->
+                        Project Manager, Senior Consultant, Lead Consultant, Dan 3 Role Lain
                     </div>
                     <div class="bergabung flex items-center justify-center px-4 mt-4 mb-8 text-gray-400">
                         Bergabung sejak 4 tahun 3 bulan yang lalu.
@@ -231,25 +232,29 @@
 </template>
 
 <script>
-// import userData from '@/api/userDetail.json'
+import axios from 'axios'
 export default {
     props: ["id"],
-    // components: {
-    //     HeaderComponent,
-    //     FooterComponent
-    // },
     data() {
         return {
-            userId: this.id,
-            // userDetail: userData.data,
             projectCount: 0,
+            userDetail: '',
         }
     },
     mounted() {
-        // this.countProject();
-        // this.isAuthenticated();
+        this.getUserDetail();
     },
     methods: {
+        getUserDetail(){
+            axios.get(`/users/${this.id}`)
+            .then((response) => {
+                this.userDetail = response.data.data;
+                console.log(response.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
         // countProject(){
         //     let counter = userData.data.performance.length;
 

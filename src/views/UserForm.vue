@@ -196,7 +196,6 @@
 
 <script>
 import axios from 'axios'
-const appToken = 'adadasd';
 import Loader from '@/components/Loader.vue'
 export default {
     components: {
@@ -276,17 +275,12 @@ export default {
     },
     methods: {
         addUser(){
-            // e.preventDefault();
             this.isSubmitting = true;
-            axios.post("/users", this.user, {
-                headers: {
-                    'Authorization': 'Bearer ' +appToken
-                }
-            })
+            // {{apiHost}}users?companyId=1&groupId=1&fullName=Budi Gunawan&email&title&phoneNumber&role&status
+            axios.post(`/users?companyId=${this.user.companyId}&groupId=${this.user.groupId}&fullName=${this.user.fullName}&email=${this.user.email}&title=${this.user.title}&phoneNumber=${this.user.phoneNumber}&role=${this.user.role}&status=${this.user.status}`)
             .then((response) => {
-                // this.$store.dispatch('currentUser/afterLogin', response);
                 this.isSubmitting = false;
-                this.$swal("Success!", `${this.user.companyId}, ${this.user.groupId}, ${this.user.fullName},${this.user.email}, ${this.user.phoneNumber}, ${this.user.title},${this.user.role}, ${this.user.status}`, "success");
+                this.$swal("Success!", `Data berhasil ditambahkan`, "success");
                 this.$router.push('/users');
                 console.log(response.data);
             })

@@ -208,14 +208,9 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HeaderComponent from '@/components/HeaderComponent.vue';
-// import FooterComponent from '@/components/FooterComponent.vue';
 import MiniSidebarComponent from '@/components/MiniSidebarComponent.vue'
 export default {
     components: {
-        // HeaderComponent,
-        // FooterComponent,
         MiniSidebarComponent
     },
     data() {
