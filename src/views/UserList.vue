@@ -62,13 +62,22 @@
                 class="card rounded-lg shadow-lg bg-white relative cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
 
                 <div class="label-role bg-gray-900 opacity-70 py-1 px-2 text-white absolute mt-2 right-0 rounded-l-md">
-                    {{ item.role }}
+                    <span v-if="item.role">
+                        {{ item.role }}
+                    </span>
+                    <span v-else>Media</span>
                 </div>
 
                 <!-- IMAGE CARD -->
                 <div class="img-card-img flex items-center justify-center px-2 py-2">
-                    <img 
+                    <img
+                        v-if="!item.profilePictureUrl"
                         src="../assets/users/user-1.jpeg" 
+                        :alt="item.id"
+                        class="rounded-full w-60">
+                    <img 
+                        v-else
+                        :src="item.profilePictureUrl" 
                         :alt="item.id"
                         class="rounded-full w-60">
                 </div>

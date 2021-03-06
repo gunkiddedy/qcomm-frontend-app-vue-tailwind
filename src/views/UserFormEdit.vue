@@ -54,7 +54,7 @@
             <div class="tambahkan-dokumen w-full my-4 justify-between bg-indigo-50">
                 <div class="bg-white shadow-lg rounded pb-1">
                     <div class="title text-purple-600 text-base font-bold px-4 py-3 rounded-t bg-gray-100">
-                        Tambah User
+                        Update Profile
                     </div>
 
                     <div class="start-date px-4 pt-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
@@ -106,10 +106,12 @@
                                 v-model="user.companyId"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
                             >
-                                <option class="text-gray-700" :value="selected">
-                                    Select Company
-                                </option>
-                                <option v-for="(item, i) in companies" :key="i" :value="item.id">
+                                <option 
+                                    v-for="(item, i) in companies" 
+                                    :key="i" 
+                                    :value="item.id"
+                                    :selected="user.companyId == item.id"
+                                    >
                                     {{ item.name }}
                                 </option>
                             </select>
@@ -120,10 +122,11 @@
                                 v-model="user.groupId"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
                             >
-                                <option class="text-gray-700" :value="selected">
-                                    Select Group
-                                </option>
-                                <option v-for="(item, i) in groups" :key="i" :value="item.id">
+                                <option 
+                                    v-for="(item, i) in groups" 
+                                    :key="i" 
+                                    :value="item.id"
+                                    :selected="user.groupId == item.id">
                                     {{ item.name }}
                                 </option>
                             </select>
@@ -137,10 +140,11 @@
                                 v-model="user.role"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
                             >
-                                <option class="text-gray-700" :value="selected">
-                                    Select Role
-                                </option>
-                                <option v-for="(item, i) in roles" :key="i" :value="item.id">
+                                <option 
+                                    v-for="(item, i) in roles" 
+                                    :key="i" 
+                                    :value="item.id"
+                                    :selected="user.role == item.id">
                                     {{ item.name }}
                                 </option>
                             </select>
@@ -151,10 +155,11 @@
                                 v-model="user.status"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
                             >
-                                <option class="text-gray-700" :value="selected">
-                                    Select Status
-                                </option>
-                                <option v-for="(item, i) in status" :key="i" :value="item.id">
+                                <option 
+                                    v-for="(item, i) in status" 
+                                    :key="i" 
+                                    :value="item.id"
+                                    :selected="user.status == item.id">
                                     {{ item.name }}
                                 </option>
                             </select>
@@ -163,7 +168,7 @@
 
                     <div class="select-file flex items-center justify-start py-4 px-4 mb-4">
                         <button 
-                            @click="addUser"
+                            @click="updateUserProfile"
                             class="bg-red-400 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none mr-4">
 
                             <svg v-if="isSubmitting" class="animate-spin mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
@@ -172,7 +177,7 @@
 
 
                             <span class="font-semibold text-white text-sm ml-2 leading-loose">
-                                {{ isSubmitting ? 'Processing...' : 'Simpan User' }}
+                                {{ isSubmitting ? 'Processing...' : 'Update Profile' }}
                             </span>
                         </button>
 
@@ -201,6 +206,7 @@ export default {
     components: {
         Loader,
     },
+    props: ['id'],
     data() {
         return {
             loadingPage: true,
@@ -272,22 +278,43 @@ export default {
         setTimeout(()=>{
             this.loadingPage = false;
         }, 1000)
+        this.getUserDetail();
     },
     methods: {
-        addUser(){
+        updateUserProfile(){
             this.isSubmitting = true;
-            // {{apiHost}}users?companyId=1&groupId=1&fullName=Budi Gunawan&email&title&phoneNumber&role&status
-            axios.post(`/users?companyId=${this.user.companyId}&groupId=${this.user.groupId}&fullName=${this.user.fullName}&email=${this.user.email}&title=${this.user.title}&phoneNumber=${this.user.phoneNumber}&role=${this.user.role}&status=${this.user.status}`)
+            // {{apiHost}}users?userId=1&companyId=1&groupId=2&fullName=Budi Gunawan&email&title&phoneNumber&role&status
+            axios.put(`/users?userId=${this.id}&companyId=${this.user.companyId}&groupId=${this.user.groupId}&fullName=${this.user.fullName}&email=${this.user.email}&title=${this.user.title}&phoneNumber=${this.user.phoneNumber}&role=${this.user.role}&status=${this.user.status}`)
             .then((response) => {
                 this.isSubmitting = false;
-                this.$swal("Success!", `Data berhasil ditambahkan`, "success");
-                this.$router.push('/users');
-                console.log(response.data);
+                this.$swal("Success!", `Data berhasil diupdate`, "success");
+                this.$router.push({
+                    name: 'UserProfile',
+                    params: {id: this.id}
+                });
+                console.log(response.data.data);
             })
             .catch((error) => {
                 this.$swal("Error!", `${error}`, "error");
                 this.isSubmitting = false;
-                console.log('woooo...'+error);
+                console.log(error);
+            });
+        },
+        getUserDetail(){
+            axios.get(`/users/${this.id}`)
+            .then((response) => {
+                this.user.companyId = response.data.data.companyId;
+                this.user.groupId = response.data.data.groupId;
+                this.user.fullName = response.data.data.fullName;
+                this.user.email = response.data.data.email;
+                this.user.phoneNumber = response.data.data.phoneNumber;
+                this.user.title = response.data.data.title;
+                this.user.role = response.data.data.role;
+                this.user.status = response.data.data.status;
+                console.log(response.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
             });
         },
         canceling(){

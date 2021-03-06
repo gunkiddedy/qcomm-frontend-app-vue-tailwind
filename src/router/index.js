@@ -77,6 +77,12 @@ const route = [
 		component: () => import('../views/UserForm.vue'),
 	},
 	{
+		path: '/user-form-edit/:id',
+		name: 'UserFormEdit',
+		props: true,
+		component: () => import('../views/UserFormEdit.vue'),
+	},
+	{
 		path: '/users',
 		name: 'UserList',
 		component: () => import('../views/UserList.vue'),
