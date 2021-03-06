@@ -1,9 +1,6 @@
 <template>
     <div id="app" class="user-kpi">
 
-        <!-- ############ HEADER APP ############# -->
-   		<!-- <HeaderComponent /> -->
-
         <!-- ############ PROJECT TITLE ############# -->
         <div class="project flex lg:flex-row flex-col lg:items-center justify-between mt-10">
 
@@ -57,11 +54,10 @@
                         <div class="w-full">
                             <label for="" class="font-semibold text-gray-400">Full name</label>
                             <input
+                                :value="user.fullName"
                                 readonly
                                 type="text"
                                 placeholder="Full Name" 
-                                name="" 
-                                id="" 
                                 class="w-full bg-gray-50 shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
                             >
                         </div>
@@ -71,9 +67,7 @@
                         <div class="lg:w-1/2 lg:mr-4">
                             <label for="" class="font-semibold text-gray-400">Select Project</label>
                             <select
-                                type="text"
-                                placeholder="Enter project title" 
-                                name="" 
+                                v-model="user.projectId"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
                             >
                                 <option value="1">Project 1</option>
@@ -83,13 +77,11 @@
                         <div class="lg:w-1/2">
                             <label for="" class="font-semibold text-gray-400">Task (Optional)</label>
                             <select
-                                type="text"
-                                placeholder="Enter project title" 
-                                name="" 
+                                v-model="user.taskId"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
                             >
-                                <option value="active">Task 1</option>
-                                <option value="disable">Task 2</option>
+                                <option value="1">Task 1</option>
+                                <option value="2">Task 2</option>
                             </select>
                         </div>
                     </div>
@@ -98,67 +90,122 @@
                         <div class="w-full mr-4">
                             <label for="" class="font-semibold text-gray-400">Quality</label>
                             <input
-                                type="text"
+                                v-model="user.quality"
+                                type="number"
+                                min="1"
                                 placeholder="eg:100" 
-                                name="" 
-                                id="" 
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
                             >
                         </div>
                         <div class="w-full mr-4">
                             <label for="" class="font-semibold text-gray-400">Design</label>
                             <input
-                                type="text"
+                                v-model="user.design"
+                                type="number"
+                                min="1"
                                 placeholder="eg:100" 
-                                name="" 
-                                id="" 
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
                             >
                         </div>
                         <div class="w-full">
                             <label for="" class="font-semibold text-gray-400">Idea</label>
                             <input
-                                type="text"
+                                v-model="user.idea"
+                                type="number"
+                                min="1"
                                 placeholder="eg:100" 
-                                name="" 
-                                id="" 
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
                             >
                         </div>
                     </div>
 
                     <div class="select-file flex items-center justify-start py-4 px-4 mb-4">
-                        <button class="bg-red-400 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none mr-4">
-                            <svg class="w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
-                            <span class="font-semibold text-white text-sm ml-2 leading-loose">Update KPI</span>
+                        <button
+                            @click="updateUserKpi"
+                            class="bg-red-400 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none mr-4">
+
+                            <svg v-if="isSubmitting" class="animate-spin mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                            <svg v-else class="w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+
+                            <span class="font-semibold text-white text-sm ml-2 leading-loose">
+                                {{ isSubmitting ? 'Processing...' : 'Update Kpi' }}
+                            </span>
                         </button>
-                        <button class="bg-gray-100 px-4 py-1 rounded hover:bg-gray-300 focus:ring-4 focus:ring-gray-200 focus:outline-none flex items-center justify-start">
-                            <svg class="w-4 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        <button 
+                            @click="canceling"
+                            class="bg-gray-100 px-4 py-1 rounded hover:bg-gray-300 focus:ring-4 focus:ring-gray-200 focus:outline-none flex items-center justify-start">
+                            <svg class="w-4 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" ><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             <span class="font-semibold text-gray-600 text-sm leading-loose" >Cancel</span>
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- ###### FOOTER APP ####### -->
-        <!-- <FooterComponent /> -->
-
 	</div><!--end DIV app -->
 </template>
 
 <script>
-// @ is an alias to /src
-// import HeaderComponent from '@/components/HeaderComponent.vue';
-// import FooterComponent from '@/components/FooterComponent.vue';
+import axios from 'axios'
 export default {
-    // components: {
-    //     HeaderComponent,
-    //     FooterComponent
-    // },
     data() {
         return {
-            profileClicked: false,
+            isSubmitting: false,
+            user: {
+                fullName: '',
+                userId: '',
+                projectId: '',
+                taskId: '',
+                scope: 'IDEA',
+                quality: 0,
+                design: 0,
+                idea: 0,
+            }
+        }
+    },
+    computed: {
+        getScore(){
+            let quality = parseInt(this.user.quality);
+            let design = parseInt(this.user.design);
+            let idea = parseInt(this.user.idea);
+            return  quality + design + idea;
+        }
+    },
+    mounted(){
+        let userdata = this.$store.getters['currentUser/userData'];
+        userdata.forEach(user => {
+            this.user.userId = user.data.data.user.id;
+            console.log(user.data.data.user.id);
+        });
+        this.getUserDetail();
+    },
+    methods: {
+        updateUserKpi(){
+            this.isSubmitting = true;
+            // {{apiHost}}users?userId=9&projectId=1&taskId=1&scope=IDEA&score=100
+            axios.put(`/users?userId=${this.user.userId}&projectId=${this.user.projectId}&taskId=${this.user.taskId}&scope=${this.user.scope}&score=${this.getScore}`)
+            .then((response) => {
+                this.isSubmitting = false;
+                this.$swal("Success!", `Data berhasil diupdate`, "success");
+                console.log(response.data);
+            })
+            .catch((error) => {
+                this.$swal("Error!", `${error}`, "error");
+                this.isSubmitting = false;
+                console.log(error);
+            });
+        },
+        getUserDetail(){
+            axios.get(`/users/${this.user.userId}`)
+            .then((response) => {
+                this.user.fullName = response.data.data.fullName;
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        canceling(){
+            this.$router.go(-1);
         }
     }
 }
