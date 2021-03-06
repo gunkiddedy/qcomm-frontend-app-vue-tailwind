@@ -85,25 +85,44 @@
                             class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2">
                         </textarea>
                     </div>
-
                     <div class="start-date px-4 pt-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
                         <div class="lg:w-1/2 lg:mr-4">
                             <label for="" class="font-semibold text-gray-400">Start Date</label>
-                            <input
+                            <!-- <input
                                 v-model="project.startDate"
                                 type="text"
                                 placeholder="Start Date" 
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
-                            >
+                            > -->
+                            <date-picker v-model="project.startDate" :masks="masks">
+								<template v-slot="{ inputValue, inputEvents }">
+								  <input
+									placeholder="Start Date"
+									class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+									:value="inputValue"
+									v-on="inputEvents"
+								  />
+								</template>
+							</date-picker>
                         </div>
                         <div class="lg:w-1/2">
                             <label for="" class="font-semibold text-gray-400">Completed Date</label>
-                            <input
+                            <!-- <input
                                 v-model="project.completedDate"
                                 type="text"
                                 placeholder="Completed Date" 
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
-                            >
+                            > -->
+                            <date-picker v-model="project.completedDate" :masks="masks">
+								<template v-slot="{ inputValue, inputEvents }">
+								  <input
+									placeholder="Completed Date"
+									class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+									:value="inputValue"
+									v-on="inputEvents"
+								  />
+								</template>
+							</date-picker>
                         </div>                        
                     </div>
 
@@ -187,15 +206,21 @@
 
 <script>
 import axios from 'axios'
-const appToken = 'adadasd';
 import Loader from '@/components/Loader.vue'
+// import Calendar from 'v-calendar/lib/components/calendar.umd'
+import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 export default {
     components: {
         Loader,
+        DatePicker,
+        // Calendar
     },
     data() {
         return {
-           loadingPage: true,
+            masks: {
+                input: 'DD-MM-YYYY',
+            },
+            loadingPage: true,
             isSubmitting: false,
             status: [
                 {
@@ -217,8 +242,8 @@ export default {
                 title: '',
                 description: '',
                 projectBrief: '',
-                startDate: '',
-                completedDate: '',
+                startDate: null,
+                completedDate: null,
                 status: '',
             } 
         }
@@ -227,23 +252,38 @@ export default {
         setTimeout(()=>{
             this.loadingPage = false;
         }, 1000)
+        let userdata = this.$store.getters['currentUser/userData'];
+        userdata.forEach(user => {
+            this.project.userId = user.data.data.user.id;
+            console.log(user.data.data.user.id);
+        });
+    },
+    computed: {
+        fixStartDate(){
+            let date = this.project.startDate.toLocaleDateString('en-GB').split('/');
+			let fixDate = date[1]+'/'+date[0]+'/'+date[2];
+            return fixDate;
+        },
+        fixCompletedDate(){
+            let date = this.project.completedDate.toLocaleDateString('en-GB').split('/');
+			let fixDate = date[1]+'/'+date[0]+'/'+date[2];
+            return fixDate;
+        }
     },
     methods: {
         addProject(){
             this.isSubmitting = true;
-            axios.post("/projects", this.project, {
-                headers: {
-                    'Authorization': 'Bearer ' +appToken
-                }
-            })
+            // {{apiHost}}projects?userId=1&companyId=1&title=My Project&description&projectBrief&startDate&completedDate&status=ACTIVE
+            axios.post(`/projects?userId=${this.project.userId}&companyId=${this.project.companyId}&title=${this.project.title}&description=${this.project.description}&projectBrief=${this.project.projectBrief}&startDate=${this.fixStartDate}&completedDate=${this.fixCompletedDate}&status=${this.project.status}`)
             .then((response) => {
-                // this.$store.dispatch('currentUser/afterLogin', response);
                 this.isSubmitting = false;
                 this.$swal("Success!", `Project berhasil disimpan!`, "success");
                 this.$router.push('/projects');
                 console.log(response.data);
             })
             .catch((error) => {
+                this.$swal("Error!", `${error}`, "error");
+                this.isSubmitting = false;
                 console.log('woooo...'+error);
             });
         },

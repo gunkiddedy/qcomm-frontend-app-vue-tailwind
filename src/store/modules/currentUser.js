@@ -4,6 +4,12 @@ const state = {
 
 const getters = {
     userData: state => state.userInformation,
+    // userId: state => {
+    //     state.userInformation.forEach(user => {
+    //         user.data.data.user.id;
+    //         console.log('getters ' + user.data.data.user.id);
+    //     })
+    // },
 };
 
 const mutations = {
