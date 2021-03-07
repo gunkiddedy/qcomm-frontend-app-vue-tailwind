@@ -38,27 +38,32 @@ import moment from 'moment'
 moment.locale('en'); //change to id for indonesian time
 Vue.filter('momentDate', function(value) {
 	if (value) {
-		return moment(String(value)).format('MM/DD/YYYY')
+		return moment(String(value)).format('MM/DD/YYYY') // (03/02/2021)
+	}
+});
+Vue.filter('momentMonthYear', function(value) {
+	if (value) {
+		return moment(String(value)).format('MMMM YYYY') // (MARCH 2021)
 	}
 });
 Vue.filter('momentDateIndo', function(value) {
 	if (value) {
-		return moment(String(value)).format('DD/MM/YYYY')
+		return moment(String(value)).format('DD/MM/YYYY') // (03/12/2021)
 	}
 });
 Vue.filter('momentDatetime', function(value) {
 	if (value) {
-		return moment(String(value)).format('h:mm:ss a')
+		return moment(String(value)).format('h:mm:ss a') // (4:51:58 am)
 	}
 });
 Vue.filter('momentDateIndoTime', function(value) {
 	if (value) {
-		return moment(String(value)).format('MMMM Do YYYY, h:mm:ss a')
+		return moment(String(value)).format('MMMM Do YYYY, h:mm:ss a') // (March 8th 2021, 4:51:58 am)
   	}
 });
 Vue.filter('momentRelativeTime', function(value) {
 	if (value) {
-		return moment(String(value)).fromNow()
+		return moment(String(value)).fromNow() // (9 years ago)
   	}
 });
 

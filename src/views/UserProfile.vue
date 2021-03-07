@@ -32,7 +32,9 @@
                         <div>
                             {{ userDetail.fullName }}
                         </div>
-                        <div class="mt-4 mb-2">
+                        <div 
+                            v-if="currentUserId == userDetail.id"
+                            class="mt-4 mb-2">
                             <button 
                                 @click="editProfile(userDetail.id)"
                                 class="bg-gray-200 hover:bg-gray-300 rounded lg:px-6 px-2 py-1 text-gray-500 font-semibold text-xs mr-4 flex items-center">
@@ -45,10 +47,11 @@
                     </div>
                     <div class="role text-center text-lg px-12 mt-2 font-bold text-gray-400">
                         <!-- {{ userDetail.role }} -->
-                        Project Manager, Senior Consultant, Lead Consultant, Dan 3 Role Lain
+                        <span v-if="userDetail.roleName">{{userDetail.roleName}}</span>
+                        <span v-else>Project Manager, Senior Consultant, Lead Consultant, Dan 3 Role Lain</span>
                     </div>
                     <div class="bergabung flex items-center justify-center px-4 mt-4 mb-8 text-gray-400">
-                        Bergabung sejak 4 tahun 3 bulan yang lalu.
+                        Bergabung {{userDetail.createdAt | momentRelativeTime}}
                     </div>
                     <div class="button-tiga flex items-center justify-center px-4 mt-4 mb-12 text-gray-400">
                         <button class="bg-blue-200 rounded lg:px-6 px-2 py-1 text-white font-semibold text-xs cursor-text mr-4">
@@ -136,16 +139,19 @@
         <div class="documents flex lg:flex-row flex-col items-center w-full mt-12 mb-4 lg:px-28 px-4 justify-between">
             <div class="font-bold text-lg text-gray-600">Task Summary</div>
             <div class="bg-blue-200 text-purple-500 rounded px-4 py-1 text-sm font-semibold">
-                300 tasks
+                {{countTasks}} tasks
             </div>
         </div>
 
         <div class="rincian w-full my-4 lg:px-28 px-4 justify-between bg-indigo-50">
-            <div class="sidebar bg-white rounded px-0 py-4 shadow-lg">
-
-                <div class="sidebar-contain flex items-center justify-between px-4">
-                    <div class="title text-md font-semibold text-purple-700">
-                        Ongoing Tasks
+            <div class="sidebar bg-white px-0 pt-2 shadow-lg">
+                <!-- loop -->
+                <div 
+                    v-for="(item, i) in tasks"
+                    :key="i"
+                    class="sidebar-contain flex items-center justify-between px-4 border-b py-4">
+                    <div class="title text-md">
+                        {{item.title}}
                     </div>
                     <div class="flex items-center">
                         <div class="mr-2 text-gray-400 font-bold">30</div>
@@ -153,35 +159,7 @@
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         </div>
                     </div>
-                </div>
-
-                <div class="garis w-full border-t my-2"></div>
-
-                <div class="sidebar-contain flex items-center justify-between px-4">
-                    <div class="title text-md font-semibold text-purple-700">
-                        Completed Tasks
-                    </div>
-                    <div class="flex items-center">
-                        <div class="mr-2 text-gray-400 font-bold">30</div>
-                        <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="garis w-full border-t my-2"></div>
-
-                <div class="sidebar-contain flex items-center justify-between px-4">
-                    <div class="title text-md font-semibold text-purple-700">
-                        Pending Tasks
-                    </div>
-                    <div class="flex items-center">
-                        <div class="mr-2 text-gray-400 font-bold">30</div>
-                        <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        </div>
-                    </div>
-                </div>
-
+                </div><!-- end loop-->
             </div>
         </div>
 
@@ -189,20 +167,25 @@
         <div class="documents flex lg:flex-row flex-col items-center w-full mt-12 mb-4 lg:px-28 px-4 justify-between">
             <div class="font-bold text-lg text-gray-600">Project Summary</div>
             <div class="bg-blue-200 text-purple-500 rounded px-4 py-1 text-sm font-semibold">
-                {{ projectCount }}
+                {{countProjects}} projects
             </div>
         </div>
 
         <div class="rincian w-full my-4 lg:px-28 px-4 justify-between bg-indigo-50">
 
-            <div class="project-summary bg-white px-0 py-0 shadow-lg">
+            <div 
+                v-for="(item, i) in projects"
+                :key="i"
+                class="project-summary bg-white px-0 py-0 shadow-lg">
                 <div class="sidebar-contain flex lg:flex-row flex-col lg:items-center justify-between px-4 border-t py-2">
                     <div class="kiri flex flex-col">
                         <div class="title">
                             <span class="font-bold text-purple-700 uppercase text-lg">
-                                gojek campaign new year 2021 
+                                {{item.title}}
                             </span>
-                            <span class="text-xs text-red-500 uppercase font-bold">januari 2021</span>
+                            <span class="text-xs text-red-500 uppercase font-bold">
+                                {{item.createdAt|momentMonthYear}}
+                            </span>
                         </div>
                         <div class="isi lg:ml-4 ml-0 my-2">
                             <ul>
@@ -222,36 +205,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="project-summary bg-white px-0 py-0 shadow-lg">
-                <div class="sidebar-contain flex lg:flex-row flex-col lg:items-center justify-between px-4 border-t py-2">
-                    <div class="kiri flex flex-col">
-                        <div class="title">
-                            <span class="font-bold text-purple-700 uppercase text-lg">
-                                gojek campaign new year 2021 
-                            </span>
-                            <span class="text-xs text-red-500 uppercase font-bold">januari 2021</span>
-                        </div>
-                        <div class="isi lg:ml-4 ml-0 my-2">
-                            <ul>
-                                <li class="font-semibold text-gray-400">Quality: 90/100</li>
-                                <li class="font-semibold text-gray-400">Idea: 90/100</li>
-                                <li class="font-semibold text-gray-400">Design: 90/100</li>
-                                <li class="font-semibold text-gray-400">Deadline: 90/100</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="image-left flex items-center justify-start">
-                        <div class="title text-base font-bold text-gray-400 mr-2">
-                            Gojek Indonesia
-                        </div>
-                        <div class="img-gojek flex-shrink-0 rounded-full bg-gray-200 px-2 py-2">
-                            <img src="https://pbs.twimg.com/media/EAKvmBZUIAUeWSN.jpg" class="rounded-full w-12">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
+            </div>            
         </div>
 
         <!-- ###### FOOTER APP ####### -->
@@ -268,10 +222,22 @@ export default {
         return {
             projectCount: 0,
             userDetail: '',
+            tasks: '',
+            projects: '',
+            currentUserId: '',
         }
     },
     mounted() {
         this.getUserDetail();
+        this.currentUserId = localStorage.userId;
+    },
+    computed: {
+        countTasks(){
+            return this.tasks.length;
+        },
+        countProjects(){
+            return this.projects.length;
+        }
     },
     methods: {
         editProfile(param){
@@ -285,29 +251,14 @@ export default {
             axios.get(`/users/${this.id}`)
             .then((response) => {
                 this.userDetail = response.data.data;
+                this.tasks = response.data.data.tasks;
+                this.projects = response.data.data.projects;
                 console.log(response.data.data);
             })
             .catch((error) => {
                 console.log(error);
             });
         },
-        // countProject(){
-        //     let counter = userData.data.performance.length;
-
-        //     if(counter >= 2)
-        //         this.projectCount = counter + ' Projects';
-        //     else if(counter == 1)
-        //         this.projectCount = counter + ' Project';
-        //     else
-        //         this.projectCount = 0 +' Project';
-
-        //     console.log(userData.data.performance);
-        // },
-        // isAuthenticated(){
-        //     if(!this.userId){
-        //         this.$router.push('/login');
-        //     }
-        // }
     },
 }
 </script>
