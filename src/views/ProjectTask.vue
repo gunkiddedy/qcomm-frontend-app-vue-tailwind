@@ -2,10 +2,15 @@
     <div class="app project-task">
         <!-- GOJEK PROJEK -->
         <div class="tambahkan-dokumen w-full mt-8 lg:px-28 justify-between bg-indigo-50">
+            <div class="loader-page flex justify-center" v-if="loaderPage">
+                <Loader />
+            </div>
             <div class="bg-white shadow-lg rounded">
                 <div class="body flex flex-col px-4">
                     <div class="title text-lg lg:text-center mt-4 font-bold text-gray-500">
-                        {{projectDetail.title}}
+                        <span>
+                            {{projectDetail.title ? projectDetail.title : 'Title'}} - props {{id}}
+                        </span>
                     </div>
                     <div class="desc lg:text-center text-sm lg:px-12 mt-2 font-semibold text-gray-400">
                         {{projectDetail.description}}
@@ -133,18 +138,27 @@
 <script>
 import axios from 'axios'
 import MiniSidebarComponent from '@/components/MiniSidebarComponent.vue'
+import Loader from '@/components/Loader'
 export default {
     components: {
-        MiniSidebarComponent
+        MiniSidebarComponent,
+        Loader
     },
     props: ['id'],
     data() {
         return {
+            loaderPage: false,
             projectDetail: '',
             tasks: 0,
             participants: 0,
             keyword: '',
         }
+    },
+    watch: {
+        id: function(){
+            this.getProjectDetail();
+        },
+        deep: true
     },
     mounted(){
         this.getProjectDetail();
@@ -157,8 +171,10 @@ export default {
                 return false;
         },
         getProjectDetail(){
+            this.loaderPage = true;
             axios.get(`/projects/${this.id}`)
             .then((response) => {
+                this.loaderPage = false;
                 this.projectDetail = response.data.data;
                 this.tasks = response.data.data.tasks;
                 if(response.data.data.participants)
@@ -168,6 +184,8 @@ export default {
                 console.log(response.data);
             })
             .catch((error) => {
+                this.$swal('Error!', `${error}`, 'error');
+                this.loaderPage = false;
                 console.log(error);
             });
         },

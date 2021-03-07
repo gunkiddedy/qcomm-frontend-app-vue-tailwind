@@ -49,7 +49,7 @@
                                 Bank Mandiri
                             </span>
                             <span class="text-xs act-time">
-                                Aktifitas terakhir 1 jam yang lalu
+                                Last activity {{item.createdAt | momentRelativeTime}}
                             </span>
                         </div>
                     </div>

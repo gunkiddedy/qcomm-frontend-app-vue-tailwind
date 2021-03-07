@@ -89,52 +89,24 @@
                                         @click="clickMyTask = !clickMyTask"
                                         v-if="clickMyTask"
                                         class="dropdown bg-white rounded px-0 py-2 shadow z-20 w-1/4 absolute mt-8">
-                                        <router-link 
-                                            to="/projects" 
-                                            class="hover:bg-blue-100 sidebar-contain flex items-center justify-start px-4 py-3">
-                                            <div class="icon rounded-full bg-blue-200 px-1 py-1 mr-4">
+                                        <div
+                                            v-for="(item, i) in projects"
+                                            :key="i"
+                                            @click="toTasks(item.id)" 
+                                            class="hover:bg-blue-100 sidebar-contain flex items-center justify-start px-4 py-3 cursor-pointer">
+                                            <div
+                                                class="icon rounded-full bg-blue-200 px-1 py-1 mr-4">
                                                 <svg class="w-5 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                             </div>
                                             <div class="title flex flex-col">
                                                 <div class="small-title text-xs text-gray-400 font-semibold">
-                                                    Bank Mandiri
+                                                    {{item.title}}
                                                 </div>
                                                 <div class="isi text-sm text-gray-400">
-                                                    Kirim dokumen ke bagian keuangan
+                                                    {{item.message}}
                                                 </div>
                                             </div>
-                                        </router-link>
-                                        <router-link 
-                                            to="/projects" 
-                                            class="hover:bg-blue-100 sidebar-contain flex items-center justify-start px-4 py-3">
-                                            <div class="icon rounded-full bg-blue-200 px-1 py-1 mr-4">
-                                                <svg class="w-5 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                            </div>
-                                            <div class="title flex flex-col">
-                                                <div class="small-title text-xs text-gray-400 font-semibold">
-                                                    Bank Mandiri
-                                                </div>
-                                                <div class="isi text-sm text-gray-400">
-                                                    Kirim dokumen ke bagian keuangan
-                                                </div>
-                                            </div>
-                                        </router-link>
-                                        <router-link 
-                                            to="/projects" 
-                                            class="hover:bg-blue-100 sidebar-contain flex items-center justify-start px-4 py-3">
-                                            <div class="icon rounded-full bg-blue-200 px-1 py-1 mr-4">
-                                                <svg class="w-5 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                            </div>
-                                            <div class="title flex flex-col">
-                                                <div class="small-title text-xs text-gray-400 font-semibold">
-                                                    Bank Mandiri
-                                                </div>
-                                                <div class="isi text-sm text-gray-400">
-                                                    Kirim dokumen ke bagian keuangan
-                                                </div>
-                                            </div>
-                                        </router-link>
-                                                                               
+                                        </div>
                                     </div>
                                 </div>
 
@@ -287,6 +259,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     name: 'HeaderComponent',
     data(){
@@ -295,9 +268,10 @@ export default {
             clickMyTask: false,
             clickManage: false,
             clickMyAccount: false,
-            userStatus: '',
             isLogin: false,
             userId: 1,
+            // tasks: '',
+            projects: '',
         }
     },
     watch: {
@@ -353,8 +327,24 @@ export default {
             this.isLogin = false;
             // this.$router.push('/login');
         }
+        this.getUserDetail();
     },
     methods: {
+        toTasks(param){
+            this.$router.push({
+                path: `/tasks/${param}`,
+            });
+        },
+        getUserDetail(){
+            axios.get(`/users/${this.userId}`)
+            .then((response) => {
+                this.projects = response.data.data.projects;
+                // this.tasks = response.data.data.tasks;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
         toggleMenu() {
             this.$refs.menu.scrollTo(0, 0)
             this.isMenuOpen = !this.isMenuOpen;
