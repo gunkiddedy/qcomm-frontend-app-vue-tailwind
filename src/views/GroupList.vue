@@ -269,20 +269,27 @@ export default {
                 console.log(error);
             });
         },
-        archiveGroup(param){
+        archiveGroup(groupId){
             this.loaderPage = true;
-            // {{apiHost}}archive?objectId=1&objectType=GROUP
-            axios.put(`/archive?objectId=${param}&objectType=GROUP`)
+            axios.put('/archive?objectId='+groupId+'&objectType=GROUP', {
+                params: {
+                    objectType: 'GROUP',
+                    objectId: groupId,
+                },
+                headers: {
+                    'Authorization': 'Bearer ' + appToken
+                }
+            })
             .then((response) => {
                 this.loaderPage = false;
-                // this.groupList = this.groupList.filter(c => c.id != param);
-                // this.groupList.push(response.data.data);
+                this.groupList = this.groupList.filter(c => c.id != groupId);
+                this.groupList.push(response.data.data);
                 console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
             });            
-        },        
+        },       
         clickMember(param){
             this.showMember = param;
             this.showMem = !this.showMem;
