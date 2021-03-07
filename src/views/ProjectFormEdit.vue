@@ -88,12 +88,6 @@
                     <div class="start-date px-4 pt-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
                         <div class="lg:w-1/2 lg:mr-4">
                             <label for="" class="font-semibold text-gray-400">Start Date</label>
-                            <!-- <input
-                                v-model="project.startDate"
-                                type="text"
-                                placeholder="Start Date" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
-                            > -->
                             <date-picker v-model="project.startDate" :masks="masks">
 								<template v-slot="{ inputValue, inputEvents }">
 								  <input
@@ -107,12 +101,6 @@
                         </div>
                         <div class="lg:w-1/2">
                             <label for="" class="font-semibold text-gray-400">Completed Date</label>
-                            <!-- <input
-                                v-model="project.completedDate"
-                                type="text"
-                                placeholder="Completed Date" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
-                            > -->
                             <date-picker v-model="project.completedDate" :masks="masks">
 								<template v-slot="{ inputValue, inputEvents }">
 								  <input
@@ -133,10 +121,11 @@
                                 v-model="project.status"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
                             >
-                                <option class="text-gray-700" :value="selected">
-                                    Select Status
-                                </option>
-                                <option v-for="(item, i) in status" :key="i" :value="item.name">
+                                <option 
+                                    v-for="(item, i) in status" 
+                                    :key="i" 
+                                    :value="item.name"
+                                    :selected="project.status == item.name">
                                     {{ item.name }}
                                 </option>
                             </select>
@@ -147,10 +136,11 @@
                                 v-model="project.companyId"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
                             >
-                                <option class="text-gray-700" :value="selected">
-                                    Select Company
-                                </option>
-                                <option v-for="(item, i) in companies" :key="i" :value="item.id">
+                                <option 
+                                    v-for="(item, i) in companies" 
+                                    :key="i" 
+                                    :value="item.id"
+                                    :selected="project.companyId == item.id">
                                     {{ item.name }}
                                 </option>
                             </select>
@@ -174,7 +164,7 @@
 
                     <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start py-4 px-4 mb-4">
                         <button 
-                            @click="addProject"
+                            @click="updateProject"
                             class="bg-red-400 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none mr-4">
 
                             <svg v-if="isSubmitting" class="animate-spin mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
@@ -183,7 +173,7 @@
 
 
                             <span class="font-semibold text-white text-sm ml-2 leading-loose">
-                                {{ isSubmitting ? 'Processing...' : 'Simpan Project' }}
+                                {{ isSubmitting ? 'Processing...' : 'Update Project' }}
                             </span>
                         </button>
 
@@ -215,6 +205,7 @@ export default {
         DatePicker,
         // Calendar
     },
+    props: ['id'],
     data() {
         return {
             masks: {
@@ -237,8 +228,10 @@ export default {
             ],
             selected: '',
             project: {
+                projectId: this.id,
                 userId : '',
                 companyId  : '',
+                categoryId: '',
                 title: '',
                 description: '',
                 projectBrief: '',
@@ -257,6 +250,7 @@ export default {
             this.project.userId = user.data.data.user.id;
             console.log(user.data.data.user.id);
         });
+        this.getProjectDetail();
     },
     computed: {
         fixStartDate(){
@@ -271,20 +265,39 @@ export default {
         }
     },
     methods: {
-        addProject(){
+        updateProject(){
             this.isSubmitting = true;
-            // {{apiHost}}projects?userId=1&companyId=1&title=My Project&description&projectBrief&startDate&completedDate&status=ACTIVE
-            axios.post(`/projects?userId=${this.project.userId}&companyId=${this.project.companyId}&title=${this.project.title}&description=${this.project.description}&projectBrief=${this.project.projectBrief}&startDate=${this.fixStartDate}&completedDate=${this.fixCompletedDate}&status=${this.project.status}`)
+            axios.put(`/projects?projectId=${this.project.projectId}&userId=${this.project.userId}&companyId=${this.project.companyId}&title=${this.project.title}&description=${this.project.description}&projectBrief=${this.project.projectBrief}&startDate=${this.project.startDate}&completedDate=${this.project.completedDate}&status=${this.project.status}`)
             .then((response) => {
                 this.isSubmitting = false;
-                this.$swal("Success!", `Project berhasil disimpan!`, "success");
-                this.$router.push('/projects');
-                console.log(response.data);
+                this.$swal("Success!", `Data berhasil diupdate`, "success");
+                this.$router.push({
+                    name: 'ProjectOverview',
+                    params: {id: this.id}
+                });
+                console.log(response.data.data);
             })
             .catch((error) => {
                 this.$swal("Error!", `${error}`, "error");
                 this.isSubmitting = false;
-                console.log('woooo...'+error);
+                console.log(error);
+            });
+        },
+        getProjectDetail(){
+            axios.get(`/projects/${this.id}`)
+            .then((response) => {
+                this.project.companyId = response.data.data.companyId;
+                this.project.categoryId = response.data.data.categoryId;
+                this.project.title = response.data.data.title;
+                this.project.description = response.data.data.description;
+                this.project.projectBrief = response.data.data.projectBrief;
+                this.project.startDate = response.data.data.startDate;
+                this.project.completedDate = response.data.data.completedDate;
+                this.project.status = response.data.data.status;
+                console.log(response.data.data);
+            })
+            .catch((error) => {
+                console.log(error);
             });
         },
         canceling(){

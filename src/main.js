@@ -18,6 +18,18 @@ Vue.use(VueSweetalert2);
 
 Vue.config.productionTip = false;
 
+// HANDLE DATE AND TIME USING MOMENT JS
+import moment from 'moment'
+Vue.filter('momentDatetime', function(value) {
+	if (value) {
+		return moment(String(value)).format('h:mm:ss a')
+	}
+});
+Vue.filter('momentDate', function(value) {
+	if (value) {
+		return moment(String(value)).format('MM/DD/YYYY')
+  	}
+});
 
 new Vue({
   router,
