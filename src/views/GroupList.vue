@@ -73,7 +73,7 @@
                                 <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
                                     Modify
                                 </button>
-                                <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
+                                <button @click="archiveGroup(item.id)" class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
                                     Archive
                                 </button>
                                 <button class="bg-purple-500 hover:bg-purple-700 focus:bg-purple-700 focus:ring-4 focus:ring-purple-300 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
@@ -279,6 +279,27 @@ export default {
                 console.log(error);
             });
         },
+        archiveGroup(groupId){
+            this.loaderPage = true;
+            axios.put('/archive?objectId='+groupId+'&objectType=GROUP', {
+                params: {
+                    objectType: 'GROUP',
+                    objectId: groupId,
+                },
+                headers: {
+                    'Authorization': 'Bearer ' + appToken
+                }
+            })
+            .then((response) => {
+                this.loaderPage = false;
+                this.groupList = this.groupList.filter(c => c.id != groupId);
+                this.groupList.push(response.data.data);
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });            
+        },        
         clickMember(){
             this.showBroadcast = false;
             this.showMember = !this.showMember;
