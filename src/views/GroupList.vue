@@ -48,10 +48,10 @@
                 <div 
                     v-for="(item, i) in groupList"
                     :key="i"
-                    class="main-wrap mb-6 bg-white shadow-lg rounded">
-                    <div 
-                        class="title-wrap px-4 py-8 flex lg:flex-row flex-col items-start justify-between">
-                        <div class="flex flex-col title-list">
+                    class="main-wrap mb-6 bg-white shadow-lg rounded px-4">
+                    <div class="title-wrap px-4 py-8 flex justify-between">
+
+                        <div class="flex flex-col title-list w-4/5">
                             <!-- TITLE -->
                             <div class="title text-lg text-gray-500 font-semibold">
                                 {{ item.title }}
@@ -74,14 +74,19 @@
                             </div>
                         </div>
                         <!-- TIME -->
-                        <div class="w-1/4">
-                            <span class="waktu bg-green-200 text-green-600 text-xs rounded-full px-4">
-                                {{ item.createdAt | momentRelativeTime}}
-                            </span>
+                        <div class="w-1/6">
+                            <div class="flex justify-end">
+                                <span class="waktu bg-green-200 text-green-600 text-xs rounded-full px-4 text-right">
+                                    {{ item.createdAt | momentRelativeTime}}
+                                </span>
+                            </div>
                         </div>
+
                     </div>
                     <!-- CLICK MEMBER -->
-                    <div @click="clickMember" class="jumlah-projek flex items-center justify-between px-4 py-6 cursor-pointer border-t">
+                    <div 
+                        @click="clickMember(i)" 
+                        class="jumlah-projek flex items-center justify-between px-4 py-6 cursor-pointer border-t">
                         <div class="jum-projek flex items-center justify-start">
                             <div class="icon">
                                 <svg class="w-6 h-6 text-yellow-600" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
@@ -96,8 +101,7 @@
                     </div>
                     <!-- MEMBER SHOW -->
                     <transition name="slide">
-                        <div class="isi grid grid-cols-2 border-t" v-if="showMember">
-
+                        <div class="isi grid grid-cols-2 border-t" v-if="showMember == i && showMem">
                             <div class="hide py-4 px-4">
                                 <div class="image-left flex items-center justify-start">
                                     <div class="img-gojek">
@@ -131,7 +135,7 @@
                         </div>
                     </transition>
                     <!-- CLICK BROADCAST -->
-                    <div @click="clickBroadcast" class="jumlah-projek flex items-center justify-between px-4 py-6 cursor-pointer border-t border-b">
+                    <div @click="clickBroadcast(i)" class="jumlah-projek flex items-center justify-between px-4 py-6 cursor-pointer border-t border-b">
                         <div class="jum-projek flex items-center justify-start">
                             <div class="icon">
                                 <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
@@ -146,7 +150,7 @@
                     </div>
                     <!-- BROADCAST SHOW -->
                     <transition name="slide">
-                        <div class="wraper-broadcast" v-if="showBroadcast">
+                        <div class="wraper-broadcast" v-if="showBroadcast == i && showBrod">
                             <!-- LOOP THIS -->
                             <div class="broadcast px-4 py-0">
                                 <div class="hover hover:bg-indigo-50 border-b flex items-start justify-between px-4 py-4 cursor-pointer">
@@ -218,7 +222,7 @@
                             </div>
                         </div>
                     </transition>
-                </div>
+                </div><!-- end loop-->
             </div>
         </div>
 	</div><!--end DIV app -->
@@ -234,10 +238,10 @@ export default {
     },
     data() {
         return {
-            showBroadcast: false,
-            showMember: false,
-            showBroadcast2: false,
-            showMember2: false,
+            showBroadcast: null,
+            showBrod: false,
+            showMember: null,
+            showMem: false,
             loaderPage: false,
             groupList: []
         }
@@ -265,43 +269,28 @@ export default {
                 console.log(error);
             });
         },
-        archiveGroup(groupId){
+        archiveGroup(param){
             this.loaderPage = true;
-            axios.put('/archive?objectId='+groupId+'&objectType=GROUP', {
-                params: {
-                    objectType: 'GROUP',
-                    objectId: groupId,
-                },
-                headers: {
-                    'Authorization': 'Bearer ' + appToken
-                }
-            })
+            // {{apiHost}}archive?objectId=1&objectType=GROUP
+            axios.put(`/archive?objectId=${param}&objectType=GROUP`)
             .then((response) => {
                 this.loaderPage = false;
-                this.groupList = this.groupList.filter(c => c.id != groupId);
-                this.groupList.push(response.data.data);
+                // this.groupList = this.groupList.filter(c => c.id != param);
+                // this.groupList.push(response.data.data);
                 console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);
             });            
         },        
-        clickMember(){
-            this.showBroadcast = false;
-            this.showMember = !this.showMember;
+        clickMember(param){
+            this.showMember = param;
+            this.showMem = !this.showMem;
         },
-        clickBroadcast(){
-            this.showMember = false;
-            this.showBroadcast = !this.showBroadcast;
+        clickBroadcast(param){
+            this.showBroadcast = param;
+            this.showBrod = !this.showBrod;
         },
-        clickMember2(){
-            this.showBroadcast2 = false;
-            this.showMember2 = !this.showMember2;
-        },
-        clickBroadcast2(){
-            this.showMember2 = false;
-            this.showBroadcast2 = !this.showBroadcast2;
-        }
     },
 }
 </script>

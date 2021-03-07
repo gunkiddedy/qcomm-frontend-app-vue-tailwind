@@ -91,7 +91,7 @@
                             <label for="" class="font-semibold text-gray-400 lg:px-4 my-1">Group Picture</label>
                             <div class="attachment lg:px-4">
                                 <div class="border shadow px-2 py-2 rounded lg:mr-2">
-                                    <input type="file" name="" id="" class="rounded text-sm">
+                                    <input @change="onFileChange" type="file" name="" id="" class="rounded text-sm">
                                 </div>
                             </div>
                         </div>
@@ -156,22 +156,30 @@ export default {
             }
         }
     },
+    mounted(){
+        this.group.userId = localStorage.userId;
+    },
     methods: {
+        onFileChange(e){
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+            // this.createImage(files[0]);
+            this.group.profilePicture = files[0].name;
+            console.log(files[0].name);
+        },
         addGroup(){
             this.isSubmitting = true;
-            axios.post("/groups", this.group, {
-                headers: {
-                    'Authorization': 'Bearer ' +appToken
-                }
-            })
+            axios.post(`/groups?userId=${localStorage.userId}&title=${this.group.title}&description=${this.group.description}&profilePicture=${this.group.profilePicture}&status=${this.group.status}`)
             .then((response) => {
-                // this.$store.dispatch('currentUser/afterLogin', response);
                 this.isSubmitting = false;
                 this.$swal("Success!", `Group berhasil disimpan!`, "success");
                 this.$router.push('/groups');
                 console.log(response.data);
             })
             .catch((error) => {
+                this.isSubmitting = false;
+                this.$swal("Error!", `${error}`, "error");
                 console.log('woooo...'+error);
             });
         },
