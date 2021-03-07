@@ -1,9 +1,5 @@
 <template>
     <div id="app" class="group-list">
-
-        <!-- ############ HEADER APP ############# -->
-   		<!-- <HeaderComponent /> -->
-
         <!-- ############ PROJECT TITLE ############# -->
         <div class="project flex lg:flex-row flex-col items-center justify-between mt-10">
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
@@ -21,7 +17,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
                 <div class="btn-selengkapnya lg:mt-0 mt-2">
                     <button
@@ -43,11 +38,9 @@
                 </div>
             </div>
         </div>
-
         <div class="loader-page flex justify-center" v-if="loaderPage">
             <Loader />
         </div>
-
         <!-- ############ ADVOCASY ############# -->
         <div class="form-project mt-8">
             <div class="w-full my-4">
@@ -67,7 +60,6 @@
                             <div class="sub text-gray-400 text-sm font-semibold">
                                 {{ item.description }} 
                             </div>
-                            
                             <!-- 3 BUTTONS -->
                             <div class="btn flex lg:flex-row flex-col lg:items-center justify-start my-4">
                                 <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
@@ -84,7 +76,7 @@
                         <!-- TIME -->
                         <div class="w-1/4">
                             <span class="waktu bg-green-200 text-green-600 text-xs rounded-full px-4">
-                                {{ item.createdAt }}
+                                {{ item.createdAt | momentRelativeTime}}
                             </span>
                         </div>
                     </div>
@@ -138,7 +130,6 @@
                             </div>
                         </div>
                     </transition>
-                    
                     <!-- CLICK BROADCAST -->
                     <div @click="clickBroadcast" class="jumlah-projek flex items-center justify-between px-4 py-6 cursor-pointer border-t border-b">
                         <div class="jum-projek flex items-center justify-start">
@@ -228,13 +219,8 @@
                         </div>
                     </transition>
                 </div>
-                
             </div>
         </div>
-
-        <!-- ###### FOOTER APP ####### -->
-        <!-- <FooterComponent /> -->
-
 	</div><!--end DIV app -->
 </template>
 

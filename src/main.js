@@ -19,15 +19,46 @@ Vue.use(VueSweetalert2);
 Vue.config.productionTip = false;
 
 // HANDLE DATE AND TIME USING MOMENT JS
+/*
+		Relative Time
+		moment("20111031", "YYYYMMDD").fromNow(); // 9 years ago
+		moment("20120620", "YYYYMMDD").fromNow(); // 9 years ago
+		moment().startOf('day').fromNow();        // 2 hours ago
+		moment().endOf('day').fromNow();          // in a day
+		moment().startOf('hour').fromNow();       // 20 minutes ago
+
+		Format Dates
+		moment().format('MMMM Do YYYY, h:mm:ss a'); // Maret 8 2021, 2:26:06 pagi
+		moment().format('dddd');                    // Senin
+		moment().format("MMM Do YY");               // Mar 8 21
+		moment().format('YYYY [escaped] YYYY');     // 2021 escaped 2021
+		moment().format();                          // 2021-03-08T02:26:06+07:00
+*/ 
 import moment from 'moment'
+moment.locale('en'); //change to id for indonesian time
+Vue.filter('momentDate', function(value) {
+	if (value) {
+		return moment(String(value)).format('MM/DD/YYYY')
+	}
+});
+Vue.filter('momentDateIndo', function(value) {
+	if (value) {
+		return moment(String(value)).format('DD/MM/YYYY')
+	}
+});
 Vue.filter('momentDatetime', function(value) {
 	if (value) {
 		return moment(String(value)).format('h:mm:ss a')
 	}
 });
-Vue.filter('momentDate', function(value) {
+Vue.filter('momentDateIndoTime', function(value) {
 	if (value) {
-		return moment(String(value)).format('MM/DD/YYYY')
+		return moment(String(value)).format('MMMM Do YYYY, h:mm:ss a')
+  	}
+});
+Vue.filter('momentRelativeTime', function(value) {
+	if (value) {
+		return moment(String(value)).fromNow()
   	}
 });
 
