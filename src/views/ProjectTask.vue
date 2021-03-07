@@ -9,7 +9,7 @@
                 <div class="body flex flex-col px-4">
                     <div class="title text-lg lg:text-center mt-4 font-bold text-gray-500">
                         <span>
-                            {{projectDetail.title ? projectDetail.title : 'Title'}} - props {{id}}
+                            {{projectDetail.title ? projectDetail.title : 'Title'}}
                         </span>
                     </div>
                     <div class="desc lg:text-center text-sm lg:px-12 mt-2 font-semibold text-gray-400">
