@@ -69,7 +69,7 @@
                                 <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded-full mr-2">
                                     Edit
                                 </button>
-                                <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded-full mr-2">
+                                <button @click="archiveCompany(item.id)" class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded-full mr-2">
                                     Archive
                                 </button>
                             </div>
@@ -198,6 +198,27 @@ export default {
                 console.log(error);
             });
         },
+        archiveCompany(companyId){
+            this.loaderPage = true;
+            axios.put('/archive?objectId='+companyId+'&objectType=COMPANY', {
+                params: {
+                    objectType: 'COMPANY',
+                    objectId: companyId,
+                },
+                headers: {
+                    'Authorization': 'Bearer ' + appToken
+                }
+            })
+            .then((response) => {
+                this.loaderPage = false;
+                this.companyList = this.companyList.filter(c => c.id != companyId);
+                this.companyList.push(response.data.data);
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });            
+        }
     },
 }
 </script>
