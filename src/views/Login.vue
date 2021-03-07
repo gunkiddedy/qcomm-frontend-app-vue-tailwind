@@ -113,7 +113,7 @@ export default {
                     this.isLoging = false;
                     this.$store.dispatch('currentUser/afterLogin', response);
                     this.$router.push('/');
-                    console.log(response.data.data);
+                    console.log(response.data);
                 }else{
                     this.response = response;
                 }

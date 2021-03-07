@@ -265,7 +265,7 @@
                         <div class="logout">
                             <button 
                                 @click="handleLogout"
-                                v-if="isLogin" 
+                                v-if="isLogin"
                                 class="text-red-600 hover:text-green-600 focus:text-green-600 focus:ring-2 focus:ring-blue-200 focus:outline-none px-4 py-2 rounded-full text-sm font-bold flex items-center">
                                 <span>LOGOUT</span>
                                 <svg class="w-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -340,12 +340,12 @@ export default {
         }
     },
     mounted() {
-        let userdata = this.$store.getters['currentUser/userData'];
-        userdata.forEach(user => {
-            this.userStatus = user.data.status;
-            console.log('userdata ' +user.data.status);
-        });
-        if(this.userStatus == 200){
+        // let userdata = this.$store.getters['currentUser/userData'];
+        // userdata.forEach(user => {
+        //     this.userStatus = user.data.status;
+        //     console.log('userdata ' +user.data.status);
+        // });
+        if(localStorage.status == '200'){
             this.isLogin = true;
         }else{
             this.isLogin = false;
@@ -387,29 +387,13 @@ export default {
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
+                cancelButtonColor: "#6b7280",
                 confirmButtonText: "Ya, logout!",
             }).then((result) => {
                 if (result.isConfirmed) {
                     this.$store.dispatch('currentUser/afterLogout');
+                    this.$swal("Success!", "Anda berhasil logout", "success");
                     this.$router.push('/login');
-                    // axios.post("/api/logout")
-                    // .then((res) => {
-                    //     this.$router.push({
-                    //         name: "login",
-                    //     });
-                    //     localStorage.setItem("isLoggedIn", "false");
-                    //     localStorage.removeItem("username");
-                    //     localStorage.removeItem("desa_id");
-                    //     localStorage.removeItem("kecamatan_id");
-                    //     localStorage.removeItem("role");
-                    //     localStorage.removeItem("isAdmin");
-                    //     this.isLoggedIn = "false";
-                    // })
-                    // .catch((err) => {
-                    //     console.log(err);
-                    // });
-                // this.$swal("Success!", "Anda berhasil logout", "success");
                 }
                 else if (result.isDismissed) {
                   this.$swal("Canceled!", "Logout Dibatalkan!", "info");

@@ -15,21 +15,17 @@ const getters = {
 const mutations = {
     AFTER_LOGIN : (state, payload) => {
         state.userInformation.push(payload);
-        // state.userRole = payload.user.role;
-        // state.userId = payload.user.id;
-        // localStorage.setItem('username', payload.user.name);
-        // localStorage.setItem('user_id', payload.user.id);
-        // localStorage.setItem('isloggedIn', 'true');
+        localStorage.setItem('userId', payload.data.data.user.id);
+        localStorage.setItem('roleName', payload.data.data.user.roleName);
+        localStorage.setItem('fullName', payload.data.data.user.fullName);
+        localStorage.setItem('status', payload.data.status);
     },
     AFTER_LOGOUT: (state) => {
         state.userInformation = [];
-        // state.userRole = '';
-        // state.userId = '';
-        // state.companyName = '';
-        localStorage.removeItem('userdata');
-        // localStorage.removeItem('user_id');
-        // localStorage.removeItem('isloggedIn');
-        // localStorage.removeItem('user_role');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('roleName');
+        localStorage.removeItem('fullName');
+        localStorage.removeItem('status');
     }
 };
 

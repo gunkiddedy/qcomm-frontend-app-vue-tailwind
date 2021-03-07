@@ -227,7 +227,7 @@ export default {
             .then((response) => {
                 this.isSubmitting = false;
                 this.$swal("Success!", `Document berhasil diupload!`, "success");
-                this.document = '';
+                this.getProjectDetail();
                 console.log(response.data);
             })
             .catch((error) => {

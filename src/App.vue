@@ -23,9 +23,9 @@
 
 <script>
 
-window.onbeforeunload = function(){
-    return "Are you sure you want to close the window?";
-}
+// window.onbeforeunload = function(){
+//     return "Are you sure you want to close the window?";
+// }
 
 import HeaderComponent from '@/components/HeaderComponent.vue'
 import FooterComponent from '@/components/FooterComponent.vue'

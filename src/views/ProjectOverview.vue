@@ -133,7 +133,9 @@
                 {{countTasks}} tasks
             </div>
         </div>
-        <div class="rincian w-full my-4 lg:px-28 justify-between bg-indigo-50">
+        <div 
+            v-if="countTasks > 0"
+            class="rincian w-full my-4 lg:px-28 justify-between bg-indigo-50">
             <div class="sidebar bg-white rounded px-0 py-4 shadow-lg">
                 <!-- loop this -->
                 <div 

@@ -101,7 +101,7 @@ export default {
     data() {
         return {
             loaderPage: false,
-            projectList: []
+            projectList: '',
         }
     },
     mounted() {
@@ -110,15 +110,28 @@ export default {
     methods: {
         getProjects(){
             this.loaderPage = true;
-            axios.get('/projects')
-            .then((response) => {
-                this.loaderPage = false;
-                this.projectList = response.data.data;
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+            if(localStorage.roleName == 'EMPLOYEE'){
+                axios.get(`/users/${localStorage.userId}`)
+                .then((response) => {
+                    this.loaderPage = false;
+                    this.projectList = response.data.data.projects;
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }else {
+                axios.get('/projects')
+                .then((response) => {
+                    this.loaderPage = false;
+                    this.projectList = response.data.data;
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
+            
         },
         goToProjectOverview(param){
             this.$router.push({
