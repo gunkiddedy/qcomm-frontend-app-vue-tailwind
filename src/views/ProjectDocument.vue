@@ -76,14 +76,21 @@
                     </textarea>
                 </div>
                 <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start py-4 px-4 mb-4">
-                    <label class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:mr-4 lg:my-0 my-2">
+                    <label 
+                        class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:mr-4 lg:my-0 my-2">
                         <svg class="w-4 text-gray-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
                         <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">
                             Select file
                         </span>
+                        <input hidden type="file" id="file" @change="onFileChange">
                     </label>
+                    <!-- <img 
+                        class="w-8 h-8 object-contain mr-4"
+                        v-if="document.rawFile"
+                        :src="document.rawFile" 
+                    /> -->
                     <button 
-                        @click="addDocument"
+                        @click="uploadDocument"
                         class="bg-red-400 text-white px-4 py-1 rounded hover:bg-red-500 flex items-center justify-center">
 
                         <svg v-if="isSubmitting" class="animate-spin mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
@@ -162,6 +169,7 @@ export default {
                 title: '',
                 rawFile: '',
             },
+            selectedFile: '',
         }
     },
     mounted(){
@@ -173,6 +181,25 @@ export default {
         }
     },
     methods: {
+        onFileChange(e){
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+            // this.createImage(files[0]);
+            this.document.rawFile = files[0].name;
+            console.log(files[0].name);
+        },
+        // createImage(file) {
+        //     // var image = new Image();
+        //     var reader = new FileReader();
+        //     reader.onload = (e) => {
+        //         this.selectedFile = e.target.result;
+        //     };
+        //     reader.readAsDataURL(file);
+        // },
+        // removeImage: function (e) {
+        //     this.document.rawFile = '';
+        // },
         getProjectDetail(){
             this.loaderPage = true;
             axios.get(`/projects/${this.id}`)
@@ -180,7 +207,7 @@ export default {
                 this.loaderPage = false;
                 this.projectDetail = response.data.data;
                 this.documents = response.data.data.documents;
-                this.document.projectId = response.data.data.documents.projectId;
+                this.document.projectId = response.data.data.id;
                 this.document.taskId = response.data.data.documents.taskId;
                 this.document.discussionId = response.data.data.documents.discussionId;
                 this.document.title = response.data.data.documents.title;
@@ -193,16 +220,19 @@ export default {
                 console.log(error);
             });
         },
-        addDocument(){
+        uploadDocument(){
             this.isSubmitting = true;
-            axios.post("/documents", this.document)
+            // {{apiHost}}documents?projectId=1&title=My File&rawFile
+            axios.post(`/documents?projectId=${this.document.projectId}&title=${this.document.title}&rawFile=${this.document.rawFile}`)
             .then((response) => {
                 this.isSubmitting = false;
-                this.$swal("Success!", `Tasks berhasil disimpan!`, "success");
+                this.$swal("Success!", `Document berhasil diupload!`, "success");
                 this.document = '';
                 console.log(response.data);
             })
             .catch((error) => {
+                this.isSubmitting = false;
+                this.$swal("Error!", `${error}`, "error");
                 console.log('woooo...'+error);
             });
         },
