@@ -56,19 +56,16 @@
                     <div class="txt-area px-4 py-6">
                         <label for="" class="font-semibold text-gray-400">Title</label>
                         <input
+                            v-model="category.title"
                             type="text"
                             placeholder="Enter project title" 
-                            name="" 
-                            id="" 
                             class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2">
                     </div>
 
                     <div class="txt-area px-4 pb-6">
                         <label for="" class="font-semibold text-gray-400">Description</label>
                         <textarea
-                            placeholder="Type your Description..." 
-                            name="" 
-                            id="" 
+                            v-model="category.description"
                             rows="5" 
                             class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2">
                         </textarea>
@@ -93,7 +90,7 @@
                             <label for="" class="font-semibold text-gray-400 lg:px-4 my-1">Category Picture</label>
                             <div class="attachment lg:px-4">
                                 <div class="border shadow px-2 py-2 rounded lg:mr-2">
-                                    <input type="file" name="" id="" class="rounded text-sm">
+                                    <input @change="onFileChange" type="file" name="" id="" class="rounded text-sm">
                                 </div>
                             </div>
                         </div>
@@ -159,21 +156,25 @@ export default {
         }
     },
     methods: {
+        onFileChange(e){
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+            this.category.image = files[0].name;
+            console.log(files[0].name);
+        },
         addCategory(){
             this.isSubmitting = true;
-            axios.post("/categories", this.category, {
-                headers: {
-                    'Authorization': 'Bearer ' +appToken
-                }
-            })
+            axios.post(`/categories?userId=${localStorage.userId}&title=${this.category.title}&description=${this.category.description}&image=${this.category.image}&status=${this.category.status}`)
             .then((response) => {
-                // this.$store.dispatch('currentUser/afterLogin', response);
                 this.isSubmitting = false;
                 this.$swal("Success!", `Category berhasil disimpan!`, "success");
                 this.$router.push('/categories');
                 console.log(response.data);
             })
             .catch((error) => {
+                this.isSubmitting = false;
+                this.$swal("Error!", `${error}`, "error");
                 console.log('woooo...'+error);
             });
         },

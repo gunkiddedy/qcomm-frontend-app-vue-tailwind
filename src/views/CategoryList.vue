@@ -51,37 +51,38 @@
         <!-- ############ ADVOCASY ############# -->
         <div class="form-project mt-8">
             <div class="w-full my-4 justify-between">
-
                 <div 
                     v-for="(item, i) in categoryList"
                     :key="i"
-                    class="mb-6 advocacy bg-white shadow-lg rounded" :class="{'pb-20': clicked1, 'pb-0': !clicked1}">
-                    <div class="title-category-list px-4 py-8 flex lg:flex-row flex-col lg:items-center justify-between">
-                        <div class="flex flex-col title-list">
+                    class="mb-6 px-4 advocacy bg-white shadow-lg rounded" :class="{'pb-20': showProjects == i && showPro}">
+                    <div class="title-category-list px-4 py-8 flex justify-between items-center">
+                        <div class="flex flex-col title-list w-3/4">
                             <div class="title text-lg text-gray-500 font-semibold">
                                 {{ item.title }}
                             </div>
                             <div class="sub text-gray-400 text-sm font-semibold">
-                                Sub categories: {{ item.description }}
+                                {{ item.description }}
                             </div>
                         </div>
-                        <div class="flex flex-wrap lg:mt-0 mt-2 title-tag lg:w-1/4">
-                            <div class="tag-rounded text-xs text-green-500 bg-green-200 px-2 rounded-full mr-2 w-auto my-1">
-                                story pitch
+                        <div class="tag flex flex-wrap justify-start mt-2 w-1/4">
+                            <div class="tag-rounded text-xs text-green-500 px-2 mx-1 w-auto my-1">
+                                <span class="bg-green-200 rounded-full px-2">story pitch</span>
                             </div>
-                            <div class="tag-rounded text-xs text-green-500 bg-green-200 px-2 rounded-full mr-2 w-auto my-1">
-                                editorial opinion
+                            <div class="tag-rounded text-xs text-green-500 px-2 mx-1 w-auto my-1">
+                                <span class="bg-green-200 rounded-full px-2">editorial opinion</span>
                             </div>
-                            <div class="tag-rounded text-xs text-green-500 bg-green-200 px-2 rounded-full mr-2 w-auto my-1">
-                                inteligence gathering
+                            <div class="tag-rounded text-xs text-green-500 px-2 mx-1 w-auto my-1">
+                                <span class="bg-green-200 rounded-full px-2">inteligence gathering</span>
                             </div>
-                            <div class="tag-rounded text-xs text-green-500 bg-green-200 px-2 rounded-full mr-2 w-auto my-1">
-                                insight
+                            <div class="tag-rounded text-xs text-green-500 px-2 mx-1 w-auto my-1">
+                                <span class="bg-green-200 rounded-full px-2">insight</span>
                             </div>
                         </div>
                     </div>
 
-                    <div @click="clicked1 = !clicked1" class="jumlah-projek flex items-center justify-between px-4 py-6 cursor-pointer border-t border-b">
+                    <div 
+                        @click="clickProjects(i)" 
+                        class="jumlah-projek flex items-center justify-between px-4 py-6 cursor-pointer border-t border-b">
                         <div class="jum-projek flex items-center justify-start">
                             <div class="icon">
                                 <svg class="w-6 h-6 text-yellow-600" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
@@ -95,7 +96,7 @@
                         </div>
                     </div>
                     <transition name="slide">
-                        <div class="isi" v-if="clicked1">
+                        <div class="isi" v-if="showProjects == i && showPro">
                             <div class="hide flex items-center justify-between px-8 py-4 border-b">
                                 <div class="text">
                                     Sengketa Driver dan Perusahaan
@@ -163,15 +164,18 @@ export default {
         return {
             loaderPage: false,
             categoryList: [],
-            clicked1: false,
-            clicked2: false,
-            clicked3: false,
+            showProjects: null,
+            showPro: false,
         }
     },
     mounted() {
         this.getCategories();
     },
     methods: {
+        clickProjects(param){
+            this.showProjects = param;
+            this.showPro = !this.showPro;
+        },
         goToCategoryForm(){
             this.$router.push('/category-form');
         },
