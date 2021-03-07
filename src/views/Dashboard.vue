@@ -1,9 +1,5 @@
 <template>
     <div id="app" class="aa">
-
-        <!-- ############ HEADER APP ############# -->
-   		<!-- <HeaderComponent /> -->
-
         <!-- ############ PROJECT SAYA ############# -->
         <div class="project flex items-center justify-between mt-10">
             <div class="project-title">
@@ -18,17 +14,14 @@
                 </router-link>
             </div>
         </div>
-
         <!-- ############ PROJECT AKTIF TITLE SMALL ############# -->
         <div class="">
             <span class="text-md font-base">
                 Project aktif yang sedang berjalan
             </span>
         </div>
-
         <!-- ############ IMAGE PROJEk ############# -->
         <div class="image-project mt-8 grid xl:grid-cols-4 lg:grid-cols-2 gap-12">
-
             <!-- CARD -->
             <!-- hover:scale-110 -->
             <div @click="toProjectOverview" class="card rounded shadow-lg relative cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-100">
@@ -198,12 +191,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- <div class="bg-indigo-100 -ml-36 -mr-36 h-20"></div> -->
-
-        <!-- ###### FOOTER APP ####### -->
-        <!-- <FooterComponent /> -->
-
 	</div><!--end DIV app -->
 </template>
 
@@ -217,6 +204,9 @@ export default {
         return {
             profileClicked: false,
         }
+    },
+    mounted(){
+        
     },
     methods: {
         toProjectOverview(){

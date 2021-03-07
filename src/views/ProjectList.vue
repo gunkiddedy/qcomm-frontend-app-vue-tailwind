@@ -1,9 +1,5 @@
 <template>
     <div id="app" class="app">
-
-        <!-- ############ HEADER APP ############# -->
-   		<!-- <HeaderComponent /> -->
-
         <div class="main lg:px-0 md:px-12">
             <!-- ############ PROJECT SAYA ############# -->
             <div class="project flex items-center justify-between mt-10">
@@ -19,25 +15,21 @@
                     </router-link>
                 </div>
             </div>
-
             <!-- ############ PROJECT AKTIF TITLE SMALL ############# -->
             <div class="">
                 <span class="text-md font-base">
                     Project aktif yang sedang berjalan
                 </span>
             </div>
-
             <div class="loader-page flex justify-center" v-if="loaderPage">
                 <Loader />
             </div>
-
             <!-- ############ IMAGE PROJEk ############# -->
             <div class="image-project mt-8 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-12 gap-4">
-
                 <div
                     v-for="(item, i) in projectList"
                     :key="i" 
-                    @click="goToProjectOverview"
+                    @click="goToProjectOverview(item.id)"
                     class="card rounded shadow-lg relative cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-100">
                     <!-- IMAGE CARD -->
                     <div class="img-card-img">
@@ -69,10 +61,7 @@
                         </div>
                     </div>
                 </div>
-                
-
             </div>
-
             <!-- ########## PAGINATION ########## -->
             <div class="pagination flex justify-center my-8">
                 <nav class="relative z-0 inline-flex shadow-sm space-x-1" aria-label="Pagination">
@@ -100,18 +89,11 @@
                     </a>
                 </nav>
             </div>
-
         </div>
-
-
-        <!-- ###### FOOTER APP ####### -->
-        <!-- <FooterComponent /> -->
-
 	</div><!--end DIV app -->
 </template>
 
 <script>
-const appToken = 'asdsada12313';
 import axios from 'axios'
 import Loader from '@/components/Loader'
 export default {
@@ -128,11 +110,7 @@ export default {
     methods: {
         getProjects(){
             this.loaderPage = true;
-            axios.get('/projects', {
-                headers: {
-                    'Authorization': 'Bearer ' + appToken
-                }
-            })
+            axios.get('/projects')
             .then((response) => {
                 this.loaderPage = false;
                 this.projectList = response.data.data;
@@ -142,8 +120,11 @@ export default {
                 console.log(error);
             });
         },
-        goToProjectOverview(){
-            this.$router.push('/project-overview')
+        goToProjectOverview(param){
+            this.$router.push({
+                name: 'ProjectOverview',
+                params: {id: param}
+            })
         }
     },
 }

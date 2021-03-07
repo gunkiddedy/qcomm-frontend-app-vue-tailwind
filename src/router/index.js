@@ -17,8 +17,9 @@ const route = [
 		component: Login
 	},
 	{
-		path: '/project-overview',
+		path: '/projects/:id',
 		name: 'ProjectOverview',
+		props: true,
 		component: () => import('../views/ProjectOverview.vue'),
 	},
 	{
@@ -27,13 +28,15 @@ const route = [
 		component: () => import('../views/ProjectTaskDetail.vue'),
 	},
 	{
-		path: '/project-document',
+		path: '/documents/:id',
 		name: 'ProjectDocument',
+		props: true,
 		component: () => import('../views/ProjectDocument.vue'),
 	},
 	{
-		path: '/project-task',
+		path: '/tasks/:id',
 		name: 'ProjectTask',
+		props: true,
 		component: () => import('../views/ProjectTask.vue'),
 	},
 	{
@@ -45,6 +48,12 @@ const route = [
 		path: '/projects',
 		name: 'ProjectList',
 		component: () => import('../views/ProjectList.vue'),
+	},
+	{
+		path: '/project-form/:id',
+		name: 'ProjectFormEdit',
+		props: true,
+		component: () => import('../views/ProjectFormEdit.vue'),
 	},
 	{
 		path: '/project-form',
