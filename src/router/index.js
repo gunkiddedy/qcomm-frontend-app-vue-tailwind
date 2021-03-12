@@ -23,7 +23,7 @@ const route = [
 		component: () => import('../views/ProjectOverview.vue'),
 	},
 	{
-		path: '/task-detail/:id',
+		path: '/tasks/:id',
 		name: 'ProjectTaskDetail',
 		props: true,
 		component: () => import('../views/ProjectTaskDetail.vue'),

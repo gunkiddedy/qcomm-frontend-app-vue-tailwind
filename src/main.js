@@ -35,7 +35,7 @@ Vue.config.productionTip = false;
 		moment().format();                          // 2021-03-08T02:26:06+07:00
 */ 
 import moment from 'moment'
-moment.locale('en'); //change to id for indonesian time
+moment.locale('id'); //change to id for indonesian time
 Vue.filter('momentDate', function(value) {
 	if (value) {
 		return moment(String(value)).format('MM/DD/YYYY') // (03/02/2021)

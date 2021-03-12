@@ -6,9 +6,6 @@
 
         <!-- GOJEK PROJEK -->
         <div class="tambahkan-dokumen w-full mt-8 lg:px-28 justify-between bg-indigo-50">
-            <pre>
-                {{taskDetail}}
-            </pre>
             <div class="bg-white shadow-lg rounded">
                 <div class="body flex flex-col px-4">
                     <div class="title text-lg lg:text-center mt-4 font-bold text-gray-500">
@@ -83,48 +80,7 @@
                             <span class="text-yellow-500 text-sm font-bold">Pending</span>
                         </div>
                     </div>
-                    <div class="bg-white shadow-lg rounded" v-if="taskDetail.documents || taskDetail.discussions">
-                        <div
-                            v-for="(item, i) in taskDetail.documents"
-                            :key="i" 
-                            class="pesan-user">
-                            <div class="title px-4 py-3 rounded-t bg-gray-100">
-                                <div class="isi flex items-center justify-between">
-                                    <div class="nama flex flex-col">
-                                        <div class="nama-saja text-gray-500 text-md font-bold">
-                                            {{item.userId}}
-                                        </div>
-                                        <div class="waktu text-gray-400 text-xs">
-                                            {{item.createdAt|momentRelativeTime}}
-                                        </div>
-                                    </div>
-                                    <div class="img">
-                                        <div class="flex-shrink-0 shadow rounded-full">
-                                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=401&q=80" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="isi-pesan px-4 py-4 flex flex-col">
-                                <div class="isi">
-                                    {{item.title}}
-                                </div>
-                                <div class="kondisi-file my-2 lg:w-1/3">
-                                    <label class="bg-gray-100 flex justify-center px-2 items-center py-1 rounded cursor-pointer hover:bg-gray-200 mr-4 mb-1">
-                                        <svg class="w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                                        <span class="font-semibold text-gray-600 text-sm leading-loose">
-                                            {{item.rawFile}}
-                                        </span>
-                                    </label>
-                                </div>
-                                <div class="content-end btn-archive py-2 flex justify-end">
-                                    <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
-                                        <svg class="w-4 mr-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
-                                        <span class="text-white">Archive</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="bg-white shadow-lg rounded" v-if="taskDetail.discussions">
                         <div
                             v-for="(item, i) in taskDetail.discussions"
                             :key="i" 
@@ -174,17 +130,32 @@
                                 class="w-full border focus:outline-none focus:shadow-inner my-4 rounded font-semibold px-2 py-2">
                             </textarea>
                         </div>
+                        <div v-if="rawFile" class="flex flex-col px-4 pt-2 pb-4">
+                            <span class="text-xs" v-for="(item, i) in rawFile" :key="i">{{item.name}}</span>
+                        </div>
                         <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start px-4 mb-4">
-                            <button class="bg-red-400 text-white px-4 py-1 rounded hover:bg-red-500">
-                                <span class="font-semibold text-gray-50 text-sm leading-loose" >Tambah Task</span>
+                            <button
+                                @click="replyTask" 
+                                class="bg-red-400 text-white px-4 py-1 rounded hover:bg-red-500">
+                                <span class="font-semibold text-gray-50 text-sm leading-loose" >
+                                    {{isReply ? 'Processing...' : 'Tambah Task' }}
+                                </span>
                             </button>
-                            <label class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
+                            <label 
+                                class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
                                 <svg class="w-4 text-gray-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
+                                <input multiple @change="onFileChange" type="file" id="fileid" hidden class="rounded text-sm">
                                 <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">Attach File</span>
                             </label>
-                            <label class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
+                            <label
+                                @click="isResolved"
+                                :class="{'bg-green-500 text-gray-50': resolved}" 
+                                class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">Mark as Resolved</span>
+                                <span
+                                    class="font-semibold text-sm ml-2 leading-loose">
+                                    {{resolved ? 'Resolved' : 'Mark as Resolved'}}
+                                </span>
                             </label>
                         </div>
                     </div>
@@ -209,7 +180,10 @@ export default {
     props: ['id'],
     data() {
         return {
+            isReply: false,
+            resolved: false,
             taskDetail: '',
+            rawFile: '',
         }
     },
     mounted(){
@@ -218,6 +192,28 @@ export default {
     computed: {
     },
     methods: {
+        isResolved(){
+            this.resolved = !this.resolved;
+        },
+        onFileChange(e){
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length) return;
+            this.rawFile = files;
+        },
+        replyTask(){
+            this.isReply = true;
+            axios.post(`/tasks/reply?userId=${this.taskDetail.userId}&projectId=${this.taskDetail.projectId}&taskId=${this.taskDetail.taskId}&title=${this.taskDetail.title}&message=${this.taskDetail.message}&progress=${this.taskDetail.progress}&rawFile=${this.rawFile}&resolved=true`)
+            .then((response) => {
+                this.isReply = false;
+                this.$swal('Success!', 'Task inserted successfully!', 'info');
+                console.log(response.data);
+            })
+            .catch((error) => {
+                this.isReply = false;
+                this.$swal('Error!', `${error}`, 'error');
+                console.log(error);
+            });
+        },
         getTaskDetail(){
             axios.get(`/tasks/${this.id}`)
             .then((response) => {

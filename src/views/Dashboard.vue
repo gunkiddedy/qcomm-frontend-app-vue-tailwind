@@ -93,7 +93,7 @@
                             </div>
                         </div>
                         <div class="text flex flex-wrap w-3/4">
-                            <router-link :to="`/task-detail/${item.id}`"> 
+                            <router-link :to="`/tasks/${item.id}`"> 
                                 <div class="judul mb-2 text-lg font-semibold text-gray-500 cursor-pointer hover:text-blue-500">
                                     {{item.title}}
                                 </div>

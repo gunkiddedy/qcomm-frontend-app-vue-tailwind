@@ -68,7 +68,7 @@
             <!-- SECOND CONTENT -->
             <div class="col-span-3 search">
                 <!-- SEARCH -->
-                <div class="search flex items-center w-full">
+                <div v-if="tasks.length" class="search flex items-center w-full">
                     <button 
                         @click="searchTask()"
                         class="bg-red-400 text-white flex items-center px-4 py-2 rounded-tl rounded-bl shadow leading-thight">
@@ -82,7 +82,9 @@
                         placeholder="Masukkan kata kunci...">
                 </div>
                 <!-- DAFTAR TUGAS -->
-                <div class="task-list py-6 px-4 shadow-lg rounded bg-white mt-4">
+                <div
+                    v-if="tasks.length" 
+                    class="task-list py-6 px-4 shadow-lg rounded bg-white mt-4">
                     <!-- loop this -->
                     <div 
                         v-for="(item, i) in tasks"
@@ -97,14 +99,14 @@
                                 <img class="h-8 w-8 rounded-full" src="../assets/users/user-1.jpeg" alt="">
                             </div>
                         </div>
-                        <div class="text flex flex-col w-3/4">
+                        <router-link :to="`/tasks/${item.id}`" class="text flex flex-col w-3/4">
                             <div class="judul mb-2 font-semibold text-gray-500">
                                 {{item.title}}
                             </div>
                             <div class="isi text-gray-500">
                                 {{item.message}}
                             </div>
-                        </div>
+                        </router-link>
                         <div class="waktu flex lg:flex-col items-center lg:justify-center lg:mt-0 mt-2">
                             <div class="jam text-sm text-gray-300 font-semibold lg:mr-0 mr-2">
                                 {{item.createdAt | momentDatetime}}
@@ -149,8 +151,8 @@ export default {
         return {
             loaderPage: false,
             projectDetail: '',
-            tasks: 0,
-            participants: 0,
+            tasks: '',
+            // participants: 0,
             keyword: '',
         }
     },
@@ -177,10 +179,10 @@ export default {
                 this.loaderPage = false;
                 this.projectDetail = response.data.data;
                 this.tasks = response.data.data.tasks;
-                if(response.data.data.participants)
-                    this.participants = response.data.data.participants;
-                else
-                    this.participants = 5;
+                // if(response.data.data.participants)
+                //     this.participants = response.data.data.participants;
+                // else
+                //     this.participants = 5;
                 console.log(response.data);
             })
             .catch((error) => {
