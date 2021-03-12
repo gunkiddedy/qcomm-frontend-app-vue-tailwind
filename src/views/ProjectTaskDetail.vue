@@ -6,16 +6,19 @@
 
         <!-- GOJEK PROJEK -->
         <div class="tambahkan-dokumen w-full mt-8 lg:px-28 justify-between bg-indigo-50">
+            <pre>
+                {{taskDetail}}
+            </pre>
             <div class="bg-white shadow-lg rounded">
                 <div class="body flex flex-col px-4">
                     <div class="title text-lg lg:text-center mt-4 font-bold text-gray-500">
-                        Gojek Projeck Lorem ipsum dolor sit amet.
+                        {{taskDetail.title}}
                     </div>
                     <div class="desc lg:text-center text-sm lg:px-12 mt-2 font-semibold text-gray-400">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex animi odit neque officiis nemo placeat iusto facere magnam, laudantium veniam et cupiditate dicta doloremque doloribus debitis veritatis, repellat minima consectetur autem temporibus maxime at porro reprehenderit! Deserunt, veritatis modi voluptatibus soluta cupiditate nesciunt esse reprehenderit praesentium dignissimos, pariatur atque ipsa?
+                        {{taskDetail.message}}
                     </div>
                     <div class="button flex lg:flex-row flex-col items-center justify-center px-4 mt-4 mb-8">
-                        <router-link to="/project-task" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600 lg:mr-4 lg:mb-0 mb-2">
+                        <router-link :to="`/tasks/${taskDetail.projectId}`" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600 lg:mr-4 lg:mb-0 mb-2">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >Progress</span>
                         </router-link>
                         <router-link to="/project-document" class="bg-purple-500 px-6 py-1 rounded-full hover:bg-purple-600 lg:mr-4 lg:mb-0 mb-2">
@@ -70,8 +73,8 @@
 
             <!-- SECOND CONTENT -->
             <div class="col-span-3 search">
-                <!-- MENGIRIM DOKUMEN PENDING -->
                 <div class="tambahkan-dokumen w-full bg-indigo-50">
+                    <!-- MENGIRIM DOKUMEN PENDING -->
                     <div class="pending-wrap flex lg:flex-row flex-col lg:items-center lg:justify-between pb-4">
                         <div class="big-title text-xl font-bold text-gray-600">
                             Mengirim Dokumen Laporan ke Klien
@@ -80,76 +83,19 @@
                             <span class="text-yellow-500 text-sm font-bold">Pending</span>
                         </div>
                     </div>
-                    <div class="bg-white shadow-lg rounded">
-                        <div class="pesan-user">
+                    <div class="bg-white shadow-lg rounded" v-if="taskDetail.documents || taskDetail.discussions">
+                        <div
+                            v-for="(item, i) in taskDetail.documents"
+                            :key="i" 
+                            class="pesan-user">
                             <div class="title px-4 py-3 rounded-t bg-gray-100">
                                 <div class="isi flex items-center justify-between">
                                     <div class="nama flex flex-col">
                                         <div class="nama-saja text-gray-500 text-md font-bold">
-                                            Khairul Ikhwan
+                                            {{item.userId}}
                                         </div>
                                         <div class="waktu text-gray-400 text-xs">
-                                            Sekitar 3 jam yang lalu
-                                        </div>
-                                    </div>
-                                    <div class="img">
-                                        <div class="flex-shrink-0 shadow rounded-full">
-                                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=401&q=80" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="isi-pesan px-4 py-4 flex flex-col">
-                                <div>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic deleniti accusantium quibusdam. Quam assumenda obcaecati nobis ex velit et laborum cupiditate nemo beatae accusantium! Aliquam soluta eligendi quisquam tempora odio labore officia saepe obcaecati facilis consectetur, beatae voluptatum dicta nam suscipit adipisci nesciunt nulla voluptatem quos illum? Tempora, explicabo quae.</p>
-                                </div>
-                                <div class="content-end btn-archive py-2 flex justify-end">
-                                    <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
-                                        <svg class="w-4 mr-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
-                                        <span class="text-white">Archive</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pesan-user">
-                            <div class="title px-4 py-3 rounded-t bg-gray-100">
-                                <div class="isi flex items-center justify-between">
-                                    <div class="nama flex flex-col">
-                                        <div class="nama-saja text-gray-500 text-md font-bold">
-                                            Khairul Ikhwan
-                                        </div>
-                                        <div class="waktu text-gray-400 text-xs">
-                                            Sekitar 3 jam yang lalu
-                                        </div>
-                                    </div>
-                                    <div class="img">
-                                        <div class="flex-shrink-0 shadow rounded-full">
-                                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=401&q=80" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="isi-pesan px-4 py-4 flex flex-col">
-                                <div>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic deleniti accusantium quibusdam. Quam assumenda obcaecati nobis ex velit et laborum cupiditate nemo beatae accusantium! Aliquam soluta eligendi quisquam tempora odio labore officia saepe obcaecati facilis consectetur, beatae voluptatum dicta nam suscipit adipisci nesciunt nulla voluptatem quos illum? Tempora, explicabo quae.</p>
-                                </div>
-                                <div class="content-end btn-archive py-2 flex justify-end">
-                                    <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
-                                        <svg class="w-4 mr-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
-                                        <span class="text-white">Archive</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pesan-user">
-                            <div class="title px-4 py-3 rounded-t bg-gray-100">
-                                <div class="isi flex items-center justify-between">
-                                    <div class="nama flex flex-col">
-                                        <div class="nama-saja text-gray-500 text-md font-bold">
-                                            Khairul Ikhwan
-                                        </div>
-                                        <div class="waktu text-gray-400 text-xs">
-                                            Sekitar 3 jam yang lalu
+                                            {{item.createdAt|momentRelativeTime}}
                                         </div>
                                     </div>
                                     <div class="img">
@@ -161,17 +107,48 @@
                             </div>
                             <div class="isi-pesan px-4 py-4 flex flex-col">
                                 <div class="isi">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, aperiam.
+                                    {{item.title}}
                                 </div>
                                 <div class="kondisi-file my-2 lg:w-1/3">
                                     <label class="bg-gray-100 flex justify-center px-2 items-center py-1 rounded cursor-pointer hover:bg-gray-200 mr-4 mb-1">
                                         <svg class="w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                                        <span class="font-semibold text-gray-600 text-sm leading-loose">Dokumen-lap.pdf</span>
+                                        <span class="font-semibold text-gray-600 text-sm leading-loose">
+                                            {{item.rawFile}}
+                                        </span>
                                     </label>
-                                    <label class="bg-gray-100 flex justify-center px-2 items-center py-1 rounded cursor-pointer hover:bg-gray-200 mr-4">
-                                        <svg class="w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                                        <span class="font-semibold text-gray-600 text-sm leading-loose">Dokumen-terkait.pdf</span>
-                                    </label>
+                                </div>
+                                <div class="content-end btn-archive py-2 flex justify-end">
+                                    <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
+                                        <svg class="w-4 mr-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                                        <span class="text-white">Archive</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            v-for="(item, i) in taskDetail.discussions"
+                            :key="i" 
+                            class="pesan-user">
+                            <div class="title px-4 py-3 rounded-t bg-gray-100">
+                                <div class="isi flex items-center justify-between">
+                                    <div class="nama flex flex-col">
+                                        <div class="nama-saja text-gray-500 text-md font-bold">
+                                            {{item.userId}}
+                                        </div>
+                                        <div class="waktu text-gray-400 text-xs">
+                                            {{item.createdAt|momentRelativeTime}}
+                                        </div>
+                                    </div>
+                                    <div class="img">
+                                        <div class="flex-shrink-0 shadow rounded-full">
+                                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=401&q=80" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="isi-pesan px-4 py-4 flex flex-col">
+                                <div class="isi">
+                                    {{item.message}}
                                 </div>
                                 <div class="content-end btn-archive py-2 flex justify-end">
                                     <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
@@ -201,11 +178,11 @@
                             <button class="bg-red-400 text-white px-4 py-1 rounded hover:bg-red-500">
                                 <span class="font-semibold text-gray-50 text-sm leading-loose" >Tambah Task</span>
                             </button>
-                            <label @click="selectImage" class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
+                            <label class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
                                 <svg class="w-4 text-gray-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
                                 <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">Attach File</span>
                             </label>
-                            <label @click="selectImage" class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
+                            <label class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                 <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">Mark as Resolved</span>
                             </label>
@@ -223,22 +200,33 @@
 </template>
 
 <script>
-import MiniSidebarComponent from '@/components/MiniSidebarComponent.vue';
+import axios from 'axios'
+import MiniSidebarComponent from '@/components/MiniSidebarComponent.vue'
 export default {
     components: {
         MiniSidebarComponent,
     },
+    props: ['id'],
     data() {
         return {
-            profileClicked: false,
+            taskDetail: '',
         }
     },
+    mounted(){
+        this.getTaskDetail();
+    },
+    computed: {
+    },
     methods: {
-        selectImage(){
-            // this.loadingImage = true;
-            // if(this.form.bukti_trasnfer){
-            // 	this.loadingImage = false;
-            // }
+        getTaskDetail(){
+            axios.get(`/tasks/${this.id}`)
+            .then((response) => {
+                this.taskDetail = response.data.data;
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         },
     },
 }

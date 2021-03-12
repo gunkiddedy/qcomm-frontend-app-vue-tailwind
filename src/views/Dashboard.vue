@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="footer-card bg-gray-100 px-6 rounded-b py-1">
-                    <div class="footer-contain flex items-center justify-around">
+                    <div class="footer-contain flex items-center justify-start">
                         <div class="flex-shrink-0 shadow rounded-full mr-2">
                             <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=401&q=80" alt="">
                         </div>
@@ -49,7 +49,7 @@
                                 Bank Mandiri
                             </span>
                             <span class="text-xs act-time">
-                                Last activity {{item.createdAt | momentRelativeTime}}
+                                Aktifitas terakhir {{item.createdAt | momentRelativeTime}}
                             </span>
                         </div>
                     </div>
@@ -93,11 +93,11 @@
                             </div>
                         </div>
                         <div class="text flex flex-wrap w-3/4">
-                            <router-link to="/project-task-detail">
-                                <div class="judul mb-2 text-lg font-semibold text-gray-500">
+                            <router-link :to="`/task-detail/${item.id}`"> 
+                                <div class="judul mb-2 text-lg font-semibold text-gray-500 cursor-pointer hover:text-blue-500">
                                     {{item.title}}
                                 </div>
-                                <div class="isi text-gray-500 text-md cursor-pointer hover:text-blue-500">
+                                <div class="isi text-gray-500 cursor-pointer hover:text-blue-500 text-md">
                                     {{item.message}}
                                 </div>
                             </router-link>

@@ -23,21 +23,22 @@ const route = [
 		component: () => import('../views/ProjectOverview.vue'),
 	},
 	{
-		path: '/project-task-detail',
+		path: '/task-detail/:id',
 		name: 'ProjectTaskDetail',
+		props: true,
 		component: () => import('../views/ProjectTaskDetail.vue'),
 	},
 	{
-		path: '/documents/:id',
-		name: 'ProjectDocument',
-		props: true,
-		component: () => import('../views/ProjectDocument.vue'),
-	},
-	{
-		path: '/tasks/:id',
+		path: '/projects/:id/progress',
 		name: 'ProjectTask',
 		props: true,
 		component: () => import('../views/ProjectTask.vue'),
+	},
+	{
+		path: '/projects/:id/documents',
+		name: 'ProjectDocument',
+		props: true,
+		component: () => import('../views/ProjectDocument.vue'),
 	},
 	{
 		path: '/project-new-task',

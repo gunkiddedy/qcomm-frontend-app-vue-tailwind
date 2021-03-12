@@ -11,10 +11,10 @@
                         {{projectDetail.description}}
                     </div>
                     <div class="button flex lg:flex-row flex-col items-center justify-center px-4 mt-4 mb-8">
-                        <router-link :to="'/tasks/'+projectDetail.id" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600 lg:mr-4 lg:mb-0 mb-2">
+                        <router-link :to="`/projects/${projectDetail.id}/progress`" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600 lg:mr-4 lg:mb-0 mb-2">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >Progress</span>
                         </router-link>
-                        <router-link :to="'/documents/'+projectDetail.id" class="bg-purple-500 px-6 py-1 rounded-full hover:bg-purple-600 lg:mr-4 lg:mb-0 mb-2">
+                        <router-link :to="`/projects/${projectDetail.id}/documents`" class="bg-purple-500 px-6 py-1 rounded-full hover:bg-purple-600 lg:mr-4 lg:mb-0 mb-2">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >dokumen</span>
                         </router-link>
                         <router-link :to="'/projects/'+projectDetail.id" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600">
