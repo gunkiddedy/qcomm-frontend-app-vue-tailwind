@@ -140,7 +140,7 @@
                         <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start px-4 mb-4">
                             <button
                                 @click="replyTask" 
-                                class="bg-red-400 text-white px-4 py-1 rounded hover:bg-red-500">
+                                class="bg-red-400 text-white px-4 py-1 rounded hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none">
                                 <span class="font-semibold text-gray-50 text-sm leading-loose" >
                                     {{isReply ? 'Processing...' : 'Tambah Task' }}
                                 </span>
