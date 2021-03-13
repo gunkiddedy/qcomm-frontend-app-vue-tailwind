@@ -124,14 +124,18 @@
                         </div>
                         <div class="txt-area px-4">
                             <textarea
+                                v-model="message"
                                 placeholder="Tulis komentar disini..." 
-                                name="" 
                                 rows="5" 
                                 class="w-full border focus:outline-none focus:shadow-inner my-4 rounded font-semibold px-2 py-2">
                             </textarea>
                         </div>
-                        <div v-if="rawFile" class="flex flex-col px-4 pt-2 pb-4">
-                            <span class="text-xs" v-for="(item, i) in rawFile" :key="i">{{item.name}}</span>
+                        <div v-if="rawFile.length" class="flex flex-col px-4 pt-2 pb-4">
+                            <span class="text-xs">
+                                {{rawFile}}
+                                <span @click="clearFiles" class="text-xs text-red-400 cursor-pointer">clear files</span>
+                            </span>
+                            
                         </div>
                         <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start px-4 mb-4">
                             <button
@@ -145,13 +149,14 @@
                                 class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
                                 <svg class="w-4 text-gray-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
                                 <input multiple @change="onFileChange" type="file" id="fileid" hidden class="rounded text-sm">
-                                <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">Attach File</span>
+                                <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">
+                                    Attach File
+                                </span>
                             </label>
                             <label
                                 @click="isResolved"
-                                :class="{'bg-green-500 text-gray-50': resolved}" 
                                 class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <svg v-if="resolved" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                 <span
                                     class="font-semibold text-sm ml-2 leading-loose">
                                     {{resolved ? 'Resolved' : 'Mark as Resolved'}}
@@ -183,7 +188,9 @@ export default {
             isReply: false,
             resolved: false,
             taskDetail: '',
-            rawFile: '',
+            rawFile: [],
+            message: '',
+            progress: 'on going'
         }
     },
     mounted(){
@@ -192,20 +199,37 @@ export default {
     computed: {
     },
     methods: {
+        clearFiles(){
+            this.rawFile = [];
+        },
         isResolved(){
             this.resolved = !this.resolved;
         },
         onFileChange(e){
             var files = e.target.files || e.dataTransfer.files;
             if (!files.length) return;
-            this.rawFile = files;
+            files.forEach(el => {
+                if(this.rawFile.length > 2){
+                    alert('maksimal 3 files');
+                    return false;
+                }
+                this.rawFile.push(el.name)
+            });
         },
         replyTask(){
             this.isReply = true;
-            axios.post(`/tasks/reply?userId=${this.taskDetail.userId}&projectId=${this.taskDetail.projectId}&taskId=${this.taskDetail.taskId}&title=${this.taskDetail.title}&message=${this.taskDetail.message}&progress=${this.taskDetail.progress}&rawFile=${this.rawFile}&resolved=true`)
+            if(!this.message) {
+                this.$swal('tidak boleh kosong');
+                this.isReply = false;
+                return false;
+            }
+            axios.post(`/tasks/reply?userId=${this.taskDetail.userId}&projectId=${this.taskDetail.projectId}&taskId=${this.taskDetail.id}&title=${this.taskDetail.title}&message=${this.message}&progress=${this.progress}&rawFile=${this.rawFile}&resolved=${this.resolved}`)
             .then((response) => {
                 this.isReply = false;
-                this.$swal('Success!', 'Task inserted successfully!', 'info');
+                this.message = '';
+                this.rawFile = [];
+                this.getTaskDetail();
+                // this.$swal('Success!', 'Task inserted successfully!', 'info');
                 console.log(response.data);
             })
             .catch((error) => {
