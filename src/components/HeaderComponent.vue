@@ -87,7 +87,7 @@
                                     <div 
                                         @click="clickMyTask = !clickMyTask"
                                         v-if="clickMyTask"
-                                        class="dropdown bg-white rounded px-0 py-2 shadow z-20 w-1/4 absolute mt-8 h-80 overflow-y-auto">
+                                        class="dropdown bg-white rounded px-0 py-2 shadow z-20 w-1/4 absolute mt-8 h-96 overflow-y-auto">
                                         <router-link
                                             v-for="(item, i) in tasks.slice(0,6)"
                                             :key="i"
