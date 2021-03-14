@@ -66,7 +66,6 @@
                             <div class="flex items-baseline space-x-4">
                                 <!-- DASHBOARD -->
                                 <router-link to="/" class="text-gray-700 px-3 py-2 rounded-md text-sm font-semibold">Dashboard</router-link>
-            
                                 <!-- MY TASK-->
                                 <div class="text-gray-700 px-3 py-2 rounded-md text-sm font-semibold flex flex-col">
                                     <div
@@ -88,11 +87,11 @@
                                     <div 
                                         @click="clickMyTask = !clickMyTask"
                                         v-if="clickMyTask"
-                                        class="dropdown bg-white rounded px-0 py-2 shadow z-20 w-1/4 absolute mt-8">
-                                        <div
-                                            v-for="(item, i) in projects"
+                                        class="dropdown bg-white rounded px-0 py-2 shadow z-20 w-1/4 absolute mt-8 h-80 overflow-y-auto">
+                                        <router-link
+                                            v-for="(item, i) in tasks.slice(0,6)"
                                             :key="i"
-                                            @click="toTasks(item.id)" 
+                                            :to="`/tasks/${item.id}`"
                                             class="hover:bg-blue-100 sidebar-contain flex items-center justify-start px-4 py-3 cursor-pointer">
                                             <div
                                                 class="icon rounded-full bg-blue-200 px-1 py-1 mr-4">
@@ -106,7 +105,7 @@
                                                     {{item.message}}
                                                 </div>
                                             </div>
-                                        </div>
+                                        </router-link>
                                     </div>
                                 </div>
 
@@ -270,8 +269,7 @@ export default {
             clickMyAccount: false,
             isLogin: false,
             userId: 1,
-            // tasks: '',
-            projects: '',
+            tasks: '',
         }
     },
     watch: {
@@ -336,10 +334,10 @@ export default {
             });
         },
         getUserDetail(){
-            axios.get(`/users/${this.userId}`)
+            axios.get(`/users/${localStorage.userId}`)
             .then((response) => {
-                this.projects = response.data.data.projects;
-                // this.tasks = response.data.data.tasks;
+                this.tasks = response.data.data.tasks;
+                console.log(response.data);
             })
             .catch((error) => {
                 console.log(error);

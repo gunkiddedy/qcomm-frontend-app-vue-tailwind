@@ -1,15 +1,11 @@
 <template>
     <div class="app project-task-detail">
-
-        <!-- ############ HEADER APP ############# -->
-   		<!-- <HeaderComponent /> -->
-
         <!-- GOJEK PROJEK -->
         <div class="tambahkan-dokumen w-full mt-8 lg:px-28 justify-between bg-indigo-50">
             <div class="bg-white shadow-lg rounded">
                 <div class="body flex flex-col px-4">
                     <div class="title text-lg lg:text-center mt-4 font-bold text-gray-500">
-                        {{taskDetail.title}}
+                        {{taskDetail.title}} ------{{id}}
                     </div>
                     <div class="desc lg:text-center text-sm lg:px-12 mt-2 font-semibold text-gray-400">
                         {{taskDetail.message}}
@@ -167,11 +163,6 @@
                 </div>
             </div>
         </div>
-        
-
-        <!-- ###### FOOTER APP ####### -->
-        <!-- <FooterComponent /> -->
-
 	</div><!--end DIV app -->
 </template>
 
@@ -196,7 +187,11 @@ export default {
     mounted(){
         this.getTaskDetail();
     },
-    computed: {
+    watch: {
+        id(){
+            this.getTaskDetail()
+        },
+        deep: true
     },
     methods: {
         clearFiles(){
@@ -238,8 +233,8 @@ export default {
                 console.log(error);
             });
         },
-        getTaskDetail(){
-            axios.get(`/tasks/${this.id}`)
+        async getTaskDetail(){
+            await axios.get(`/tasks/${this.id}`)
             .then((response) => {
                 this.taskDetail = response.data.data;
                 console.log(response.data);
