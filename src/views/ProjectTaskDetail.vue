@@ -5,7 +5,7 @@
             <div class="bg-white shadow-lg rounded">
                 <div class="body flex flex-col px-4">
                     <div class="title text-lg lg:text-center mt-4 font-bold text-gray-500">
-                        {{taskDetail.title}} ------{{id}}
+                        {{taskDetail.title}}
                     </div>
                     <div class="desc lg:text-center text-sm lg:px-12 mt-2 font-semibold text-gray-400">
                         {{taskDetail.message}}
