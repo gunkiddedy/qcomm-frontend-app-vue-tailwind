@@ -72,6 +72,12 @@ const route = [
 		component: () => import('../views/CategoryForm.vue'),
 	},
 	{
+		path: '/category-edit/:id',
+		name: 'CategoryFormEdit',
+		props: true,
+		component: () => import('../views/CategoryFormEdit.vue'),
+	},
+	{
 		path: '/group-form',
 		name: 'GroupForm',
 		component: () => import('../views/GroupForm.vue'),
@@ -80,6 +86,12 @@ const route = [
 		path: '/company-form',
 		name: 'CompanyForm',
 		component: () => import('../views/CompanyForm.vue'),
+	},
+	{
+		path: '/company-edit/:id',
+		name: 'CompanyFormEdit',
+		props: true,
+		component: () => import('../views/CompanyFormEdit.vue'),
 	},
 	{
 		path: '/user-form',
@@ -126,6 +138,12 @@ const route = [
 		path: '/groups',
 		name: 'GroupList',
 		component: () => import('../views/GroupList.vue'),
+	},
+	{
+		path: '/group-edit/:id',
+		name: 'GroupFormEdit',
+		props: true,
+		component: () => import('../views/GroupFormEdit.vue'),
 	},
 	{
 		path: '/users/:id',

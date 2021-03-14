@@ -52,6 +52,16 @@
                     <div class="title-wrap px-4 py-8 flex justify-between">
 
                         <div class="flex flex-col title-list w-4/5">
+                            <div class="mb-2">
+                                <button 
+                                    @click="editGroup(item.id)"
+                                    class="bg-gray-200 hover:bg-gray-300 rounded lg:px-6 px-2 py-1 text-gray-500 font-semibold text-xs mr-4 flex items-center">
+                                    <span class="mr-1">Edit</span>
+                                    <svg class="w-4" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                    </svg>
+                                </button>
+                            </div>
                             <!-- TITLE -->
                             <div class="title text-lg text-gray-500 font-semibold">
                                 {{ item.title }}
@@ -250,6 +260,11 @@ export default {
         this.getGroups();
     },
     methods: {
+        editGroup(param){
+            this.$router.push({
+                path: `/group-edit/${param}`
+            })
+        },
         goToGroupForm(){
             this.$router.push('/group-form');
         },
