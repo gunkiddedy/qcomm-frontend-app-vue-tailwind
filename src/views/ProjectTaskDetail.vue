@@ -223,6 +223,7 @@ export default {
                 this.isReply = false;
                 this.message = '';
                 this.rawFile = [];
+                this.resolved = false;
                 this.getTaskDetail();
                 // this.$swal('Success!', 'Task inserted successfully!', 'info');
                 console.log(response.data);
