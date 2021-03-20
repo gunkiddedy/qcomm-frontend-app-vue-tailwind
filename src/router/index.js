@@ -62,8 +62,9 @@ const route = [
 		component: () => import('../views/ProjectForm.vue'),
 	},
 	{
-		path: '/broadcast-form',
+		path: '/broadcast-form/:groupId',
 		name: 'BroadcastForm',
+		props: true,
 		component: () => import('../views/BroadcastForm.vue'),
 	},
 	{

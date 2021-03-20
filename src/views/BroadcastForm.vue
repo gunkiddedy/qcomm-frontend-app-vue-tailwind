@@ -93,11 +93,13 @@
                                 v-model="broadcast.groupId"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
                             >
-                                <option class="text-gray-700" :value="selected">
-                                    Select Group
-                                </option>
-                                <option v-for="(item, i) in groups" :key="i" :value="item.id">
-                                    {{ item.name }}
+                                <option 
+                                    v-for="(item, i) in groupList" 
+                                    :key="i" 
+                                    :value="item.id"
+                                    :selected="groupId == item.id"
+                                    :disabled="disabled">
+                                    {{ item.title ? item.title: `Group Title ${item.id}` }}
                                 </option>
                             </select>
                         </div>
@@ -106,15 +108,15 @@
                     <div class="attachment px-4 py-8 grid lg:grid-cols-3 w-full">
                         <div class="border lg:px-2 px-1 py-2 lg:my-0 my-1 rounded lg:mr-2">
                             <label for="" class="font-semibold text-gray-400">Attachment 1</label>
-                            <input type="file" name="" id="" class="rounded text-sm">
+                            <input type="file" name="" id="" class="rounded text-sm" @change="onFileChange1">
                         </div>
                         <div class="border lg:px-2 px-1 py-2 lg:my-0 my-1 rounded lg:mr-2">
                             <label for="" class="font-semibold text-gray-400">Attachment 2</label>
-                            <input type="file" name="" id="" class="rounded text-sm">
+                            <input type="file" name="" id="" class="rounded text-sm" @change="onFileChange2">
                         </div>
                         <div class="border lg:px-2 px-1 py-2 lg:my-0 my-1 rounded lg:mr-2">
                             <label for="" class="font-semibold text-gray-400">Attachment 3</label>
-                            <input type="file" name="" id="" class="rounded text-sm">
+                            <input type="file" name="" id="" class="rounded text-sm" @change="onFileChange3">
                         </div>
                     </div>
 
@@ -156,12 +158,14 @@ export default {
     components: {
         Loader,
     },
+    props: ['groupId'],
     data() {
         return {
+            disabled: true,
             isSubmitting: false,
             broadcast: {
-                userId: '',
-                groupId: '',
+                userId: localStorage.userId,
+                groupId: this.groupId,
                 title: '',
                 description: '',
                 attachment1: '',
@@ -169,6 +173,7 @@ export default {
                 attachment3: '',
                 status: '',
             },
+            // urlFile: '',
             selected: '',
             status: [
                 {
@@ -178,19 +183,58 @@ export default {
                     name: 'DRAFT',
                 },
             ],
-            groups: [
-                {id: 1, name: 'GROUP 1'},
-                {id: 2, name: 'GROUP 2'},
-                {id: 3, name: 'GROUP 3'}
-            ],
+            // groups: [
+            //     {id: 1, name: 'GROUP 1'},
+            //     {id: 2, name: 'GROUP 2'},
+            //     {id: 3, name: 'GROUP 3'}
+            // ],
+            groupList: '',
         }
     },
+    mounted(){
+        this.getGroups();
+    },
     methods: {
+        getGroups(){
+            axios.get(`/groups?sort=ASC&order&limit&keyword`, {
+                headers: {
+                    'Authorization': 'Bearer ' + appToken
+                }
+            })
+            .then((response) => {
+                this.groupList = response.data.data;
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        onFileChange1(e) {
+            const file = e.target.files[0];
+            this.broadcast.attachment1 = file;
+            console.log(this.broadcast.attachment1)
+        },
+        onFileChange2(e) {
+            const file = e.target.files[0];
+            this.broadcast.attachment2 = file;
+            console.log(this.broadcast.attachment2)
+        },
+        onFileChange3(e) {
+            const file = e.target.files[0];
+            this.broadcast.attachment3 = file;
+            console.log(this.broadcast.attachment3)
+        },
         addBroadcast(){
             this.isSubmitting = true;
-            axios.post("/broadcasts", this.group, {
+            const formData = new FormData();
+            formData.append('attachment1', this.broadcast.attachment1);
+            formData.append('attachment2', this.broadcast.attachment2);
+            formData.append('attachment3', this.broadcast.attachment3);
+
+            axios.post(`/broadcasts?userId=${this.broadcast.userId}&groupId=${this.broadcast.groupId}&title=${this.broadcast.title}&description=${this.broadcast.description}&status=${this.broadcast.status}`, formData, {
                 headers: {
-                    'Authorization': 'Bearer ' +appToken
+                    'Authorization': 'Bearer ' +appToken,
+                    'Content-Type': 'multipart/form-data'
                 }
             })
             .then((response) => {
@@ -201,6 +245,8 @@ export default {
                 console.log(response.data);
             })
             .catch((error) => {
+                this.isSubmitting = false;
+                this.$swal("Error!", `${error}`, "error");
                 console.log('woooo...'+error);
             });
         },

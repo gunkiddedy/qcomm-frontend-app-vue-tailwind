@@ -75,6 +75,9 @@
                         class="w-full border focus:outline-none focus:shadow-inner my-4 rounded font-semibold px-2">
                     </textarea>
                 </div>
+                <div v-if="document.rawFile" class="px-4">
+                    <span>{{document.rawFile.name}}</span>
+                </div>
                 <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start py-4 px-4 mb-4">
                     <label 
                         class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:mr-4 lg:my-0 my-2">
@@ -84,11 +87,7 @@
                         </span>
                         <input hidden type="file" id="file" @change="onFileChange">
                     </label>
-                    <!-- <img 
-                        class="w-8 h-8 object-contain mr-4"
-                        v-if="document.rawFile"
-                        :src="document.rawFile" 
-                    /> -->
+                    
                     <button 
                         @click="uploadDocument"
                         class="bg-red-400 text-white px-4 py-1 rounded hover:bg-red-500 flex items-center justify-center">
@@ -163,7 +162,7 @@ export default {
             projectDetail: '',
             documents: '',
             document: {
-                projectId: '',
+                projectId: this.id,
                 taskId: '',
                 discussionId: '',
                 title: '',
@@ -182,24 +181,27 @@ export default {
     },
     methods: {
         onFileChange(e){
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length)
-                return;
-            // this.createImage(files[0]);
-            this.document.rawFile = files[0].name;
-            console.log(files[0].name);
+            const file = e.target.files[0] || e.dataTransfer.files[0];
+            this.document.rawFile = file;
+            console.log(this.document.rawFile);
         },
-        // createImage(file) {
-        //     // var image = new Image();
-        //     var reader = new FileReader();
-        //     reader.onload = (e) => {
-        //         this.selectedFile = e.target.result;
-        //     };
-        //     reader.readAsDataURL(file);
-        // },
-        // removeImage: function (e) {
-        //     this.document.rawFile = '';
-        // },
+        uploadDocument(){
+            this.isSubmitting = true;
+            const formData = new FormData();
+            formData.append('rawFile', this.document.rawFile);
+            axios.post(`/documents?projectId=${this.document.projectId}&title=${this.document.title}`)
+            .then((response) => {
+                this.isSubmitting = false;
+                this.$swal("Success!", `Document berhasil diupload!`, "success");
+                this.getProjectDetail();
+                console.log(response.data);
+            })
+            .catch((error) => {
+                this.isSubmitting = false;
+                this.$swal("Error!", `${error}`, "error");
+                console.log('woooo...'+error);
+            });
+        },
         getProjectDetail(){
             this.loaderPage = true;
             axios.get(`/projects/${this.id}`)
@@ -218,22 +220,6 @@ export default {
                 this.loaderPage = false;
                 this.$swal("Error!", `${error}`, "error");
                 console.log(error);
-            });
-        },
-        uploadDocument(){
-            this.isSubmitting = true;
-            // {{apiHost}}documents?projectId=1&title=My File&rawFile
-            axios.post(`/documents?projectId=${this.document.projectId}&title=${this.document.title}&rawFile=${this.document.rawFile}`)
-            .then((response) => {
-                this.isSubmitting = false;
-                this.$swal("Success!", `Document berhasil diupload!`, "success");
-                this.getProjectDetail();
-                console.log(response.data);
-            })
-            .catch((error) => {
-                this.isSubmitting = false;
-                this.$swal("Error!", `${error}`, "error");
-                console.log('woooo...'+error);
             });
         },
     },

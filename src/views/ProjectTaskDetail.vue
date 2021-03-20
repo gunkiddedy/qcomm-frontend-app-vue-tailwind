@@ -14,10 +14,10 @@
                         <router-link :to="`/tasks/${taskDetail.projectId}`" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600 lg:mr-4 lg:mb-0 mb-2">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >Progress</span>
                         </router-link>
-                        <router-link to="/project-document" class="bg-purple-500 px-6 py-1 rounded-full hover:bg-purple-600 lg:mr-4 lg:mb-0 mb-2">
+                        <router-link :to="`/projects/${taskDetail.projectId}/documents`" class="bg-purple-500 px-6 py-1 rounded-full hover:bg-purple-600 lg:mr-4 lg:mb-0 mb-2">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >dokumen</span>
                         </router-link>
-                        <router-link to="/project-overview" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600">
+                        <router-link :to="`/tasks/${taskDetail.projectId}`" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >overview</span>
                         </router-link>
                     </div>

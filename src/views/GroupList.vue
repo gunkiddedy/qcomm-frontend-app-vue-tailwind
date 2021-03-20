@@ -78,7 +78,9 @@
                                 <button @click="archiveGroup(item.id)" class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
                                     Archive
                                 </button>
-                                <button class="bg-purple-500 hover:bg-purple-700 focus:bg-purple-700 focus:ring-4 focus:ring-purple-300 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
+                                <button
+                                    @click="toBroadcastForm(item.id)" 
+                                    class="bg-purple-500 hover:bg-purple-700 focus:bg-purple-700 focus:ring-4 focus:ring-purple-300 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
                                     Kirim Broadcast
                                 </button>
                             </div>
@@ -260,6 +262,9 @@ export default {
         this.getGroups();
     },
     methods: {
+        toBroadcastForm(param){
+            this.$router.push(`/broadcast-form/${param}`);
+        },
         editGroup(param){
             this.$router.push({
                 path: `/group-edit/${param}`
