@@ -7,6 +7,7 @@
 _files/
 _page_example/
 src/api/
+src/views/Table.vue
 
 # Node artifact files
 node_modules/
