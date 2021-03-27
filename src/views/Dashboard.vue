@@ -68,14 +68,20 @@
             <div class="lg:col-span-3 search">
                 <!-- SEARCH -->
                 <div class="search flex items-center w-full">
-                    <button class="bg-red-400 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-2 py-2 rounded-tl rounded-bl w-auto shadow leading-thight">
-                        <span class="block mr-2 font-semibold text-md">Search</span>
-                        <svg class="w-6 h-6 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
                     <input 
                         type="search" 
-                        class="w-full rounded-tr rounded-br py-2 px-2 shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                        v-model="keyword"
+                        @change="searchTask"
+                        class="w-full rounded-tl rounded-bl py-2 px-2 shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
                         placeholder="Masukkan kata kunci...">
+                    <button
+                        @click="searchTask" 
+                        class="bg-red-400 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-2 py-2 rounded-tr rounded-br w-auto shadow leading-thight">
+                        <span class="block mr-1 font-semibold text-md">Search</span>
+                        <svg class="w-4 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
                 </div>
                 <!-- TASKS -->
                 <div class="task-list py-6 px-4 shadow-lg rounded bg-white mt-4">
@@ -134,6 +140,7 @@ export default {
         return {
             projects: '',
             tasks: '',
+            keyword: '',
         }
     },
     mounted(){
@@ -142,6 +149,9 @@ export default {
         this.getUserDetail();
     },
     methods: {
+        searchTask(){
+            this.$swal('belum ada');
+        },
         getUserDetail(){
             axios.get(`/users/${localStorage.userId}`)
             .then((response) => {
