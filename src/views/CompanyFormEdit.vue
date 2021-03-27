@@ -91,7 +91,7 @@
                             <label for="" class="font-semibold text-gray-400 lg:px-4 my-1">Company Picture</label>
                             <div class="attachment lg:px-4">
                                 <div class="border shadow px-2 py-2 rounded lg:mr-2">
-                                    <input type="file" name="" id="" class="rounded text-sm">
+                                    <input type="file" name="" id="" class="rounded text-sm" @change="onFileChange">
                                 </div>
                             </div>
                         </div>
@@ -180,9 +180,20 @@ export default {
                 console.log(error);
             });
         },
+        onFileChange(e) {
+            const file = e.target.files[0];
+            this.company.profilePicture = file;
+        },
         updateCompany(){
             this.isSubmitting = true;
-            axios.put(`/companies?companyId=${this.company.id}&userId=${localStorage.userId}&title=${this.company.title}&description=${this.company.description}&profilePicture=${this.company.profilePicture}&status=${this.company.status}`)
+            const formData = new FormData();
+            formData.append('profilePicture', this.company.profilePicture);
+            axios.put(`/companies?companyId=${this.company.id}&userId=${localStorage.userId}&title=${this.company.title}&description=${this.company.description}&status=${this.company.status}`, formData, {
+                headers: {
+                    'Authorization': 'Bearer ' +appToken,
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
             .then((response) => {
                 this.isSubmitting = false;
                 this.$swal("Success!", `Data berhasil diupdate`, "success");

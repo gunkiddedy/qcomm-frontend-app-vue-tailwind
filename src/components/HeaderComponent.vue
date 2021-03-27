@@ -197,10 +197,10 @@
                                                     Account
                                                 </div>
 
-                                                <router-link :to="'/users/'+userId" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <!-- <router-link :to="'/users/'+userId" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
                                                     Profil Akun
-                                                </router-link>
-                                                <router-link to="/user-form" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                </router-link> -->
+                                                <router-link :to="`/user-form-edit/${userId}`" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
                                                     Update Akun
                                                 </router-link>
                                                 <router-link to="/user-form" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">

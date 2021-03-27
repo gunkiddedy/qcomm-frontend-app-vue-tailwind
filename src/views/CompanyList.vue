@@ -32,14 +32,20 @@
                     </button>
                 </div>
                 <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
-                    <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-4 py-2 rounded-tl rounded-bl w-1/3 shadow leading-thight">
-                        <span class="block mr-2 font-semibold text-md">Search</span>
-                        <svg class="w-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
                     <input 
-                        type="search" 
-                        class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
+                        type="search"
+                        v-model="keyword"
+                        @change="searchCompanies" 
+                        class="w-full rounded-tl rounded-bl py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
                         placeholder="Masukkan kata kunci...">
+                    <button
+                        @click="searchCompanies" 
+                        class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-4 py-2 rounded-tr rounded-br w-1/3 shadow leading-thight">
+                        <span class="block mr-1 font-semibold text-md">Search</span>
+                        <svg class="w-8 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -58,7 +64,7 @@
                     class="mb-6 advocacy bg-white shadow-lg rounded" :class="{'pb-20': clicked1, 'pb-0': !clicked1}">
                     <div class="title-category-list px-4 py-8 flex items-start justify-between">
                         <div class="flex flex-col title-list">
-                            <div class="mb-2">
+                            <!-- <div class="mb-2">
                                 <button 
                                     @click="editCompany(item.id)"
                                     class="bg-gray-200 hover:bg-gray-300 rounded lg:px-6 px-2 py-1 text-gray-500 font-semibold text-xs mr-4 flex items-center">
@@ -67,7 +73,7 @@
                                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                     </svg>
                                 </button>
-                            </div>
+                            </div> -->
                             <div class="title text-lg text-gray-500 font-semibold">
                                 {{ item.title }}
                             </div>
@@ -76,29 +82,37 @@
                             </div>
                             
                             <div class="btn flex items-center justify-start my-4">
-                                <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded-full mr-2">
+                                <button
+                                    @click="editCompany(item.id)" 
+                                    class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded-full mr-2">
                                     Edit
                                 </button>
                                 <button @click="archiveCompany(item.id)" class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded-full mr-2">
                                     Archive
                                 </button>
                             </div>
-                            <div class="w-1/2">
+                            <div class="w-full">
                                 <span class="waktu bg-green-200 text-green-600 text-xs rounded-full px-4">
-                                    {{ item.createdAt }}
+                                    {{ item.createdAt | momentRelativeTime }}
                                 </span>
                             </div>
 
                         </div>
                         <div class="logo-company w-1/4">
-                            <img 
+                            <img
+                                class="object-contain" 
+                                src="https://images.unsplash.com/photo-1496200186974-4293800e2c20?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80" alt="">
+                            <!-- <img
+                                v-else 
                                 class="rounded-lg"
                                 :src="item.profilePictureUrl" 
-                                :alt="item.profilePictureUrl">
+                                :alt="item.profilePictureUrl"> -->
                         </div>
                     </div>
 
-                    <div @click="clicked1 = !clicked1" class="jumlah-projek flex items-center justify-between px-4 py-6 cursor-pointer border-t border-b">
+                    <div 
+                        @click="clickProjects(i)" 
+                        class="jumlah-projek flex items-center justify-between px-4 py-6 cursor-pointer border-t border-b">
                         <div class="jum-projek flex items-center justify-start">
                             <div class="icon">
                                 <svg class="w-6 h-6 text-yellow-600" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
@@ -112,7 +126,7 @@
                         </div>
                     </div>
                     <transition name="slide">
-                        <div class="isi" v-if="clicked1">
+                        <div class="isi" v-if="showProjects == i && showProj">
                             <div class="hide flex items-center justify-between px-8 py-4 border-b">
                                 <div class="text">
                                     Sengketa Driver dan Perusahaan
@@ -183,12 +197,33 @@ export default {
             clicked3: false,
             companyList: [],
             loaderPage: false,
+            keyword: '',
+            showProjects: null,
+            showProj: false,
         }
     },
     mounted() {
         this.getCompanies();
     },
     methods: {
+        clickProjects(param){
+            this.showProjects = param;
+            this.showProj = !this.showProj;
+        },
+        searchCompanies(){
+            this.loaderPage = true;
+            axios.get(`/companies?sort=ASC&order&limit&keyword=${this.keyword}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + appToken
+                }
+            }).then((response) => {
+                this.loaderPage = false;
+                this.companyList = response.data.data;
+                console.log(response.data);
+            }).catch((error) => {
+                console.log(error);
+            });
+        },
         editCompany(param){
             this.$router.push({
                 path: `/company-edit/${param}`

@@ -5,6 +5,7 @@
 
 #file acuan
 _files/
+_page_example/
 src/api/
 
 # Node artifact files

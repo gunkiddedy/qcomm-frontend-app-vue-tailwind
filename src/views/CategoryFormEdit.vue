@@ -129,6 +129,7 @@
 <script>
 import axios from 'axios'
 import Loader from '@/components/Loader.vue'
+const appToken = 'dsadads'
 export default {
     components: {
         Loader,
@@ -174,27 +175,29 @@ export default {
                 console.log(error);
             });
         },
+        onFileChange(e) {
+            const file = e.target.files[0];
+            this.category.image = file;
+        },
         updateCategory(){
             this.isSubmitting = true;
-            axios.put(`/categories?categoryId=${this.id}&userId=${localStorage.userId}&title=${this.category.title}&description=${this.category.description}&image=${this.category.image}&status=${this.category.status}`)
-            .then((response) => {
+            const formData = new FormData();
+            formData.append('image', this.category.image);
+            axios.put(`/categories?categoryId=${this.id}&userId=${localStorage.userId}&title=${this.category.title}&description=${this.category.description}&status=${this.category.status}`, formData, {
+                headers: {
+                    'Authorization': 'Bearer ' +appToken,
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then((response) => {
                 this.isSubmitting = false;
                 this.$swal("Success!", `Data berhasil diupdate`, "success");
                 this.$router.go(-1);
                 console.log(response.data);
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 this.$swal("Error!", `${error}`, "error");
                 this.isSubmitting = false;
                 console.log(error);
             });
-        },
-        onFileChange(e){
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length)
-                return;
-            this.category.image = files[0].name;
-            console.log(files[0].name);
         },
         canceling(){
             this.$router.go(-1);

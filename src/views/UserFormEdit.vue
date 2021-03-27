@@ -135,7 +135,7 @@
 
                     <div class="status px-4 pb-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
                         <div class="lg:w-1/2 lg:mr-4">
-                            <label for="" class="font-semibold text-gray-400">Role</label>
+                            <label for="" class="font-semibold text-gray-400">Role {{user.role}}</label>
                             <select
                                 v-model="user.role"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
@@ -143,8 +143,8 @@
                                 <option 
                                     v-for="(item, i) in roles" 
                                     :key="i" 
-                                    :value="item.id"
-                                    :selected="user.role == item.id">
+                                    :value="item.name"
+                                    :selected="user.role == item.name">
                                     {{ item.name }}
                                 </option>
                             </select>
@@ -158,8 +158,8 @@
                                 <option 
                                     v-for="(item, i) in status" 
                                     :key="i" 
-                                    :value="item.id"
-                                    :selected="user.status == item.id">
+                                    :value="item.name"
+                                    :selected="user.status == item.name">
                                     {{ item.name }}
                                 </option>
                             </select>
@@ -283,7 +283,6 @@ export default {
     methods: {
         updateUserProfile(){
             this.isSubmitting = true;
-            // {{apiHost}}users?userId=1&companyId=1&groupId=2&fullName=Budi Gunawan&email&title&phoneNumber&role&status
             axios.put(`/users?userId=${this.id}&companyId=${this.user.companyId}&groupId=${this.user.groupId}&fullName=${this.user.fullName}&email=${this.user.email}&title=${this.user.title}&phoneNumber=${this.user.phoneNumber}&role=${this.user.role}&status=${this.user.status}`)
             .then((response) => {
                 this.isSubmitting = false;
@@ -309,7 +308,7 @@ export default {
                 this.user.email = response.data.data.email;
                 this.user.phoneNumber = response.data.data.phoneNumber;
                 this.user.title = response.data.data.title;
-                this.user.role = response.data.data.role;
+                this.user.role = response.data.data.roleName;
                 this.user.status = response.data.data.status;
                 console.log(response.data.data);
             })

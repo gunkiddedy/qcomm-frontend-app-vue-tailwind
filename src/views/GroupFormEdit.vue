@@ -129,6 +129,7 @@
 <script>
 import axios from 'axios'
 import Loader from '@/components/Loader.vue'
+const appToken = 'dadsad'
 export default {
     components: {
         Loader,
@@ -161,12 +162,9 @@ export default {
         this.getGroupDetail();
     },
     methods: {
-        onFileChange(e){
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length)
-                return;
-            this.group.profilePicture = files[0].name;
-            console.log(files[0].name);
+        onFileChange(e) {
+            const file = e.target.files[0];
+            this.group.profilePicture = file;
         },
         getGroupDetail(){
             axios.get(`/groups/${this.id}`)
@@ -186,14 +184,19 @@ export default {
         },
         updateGroup(){
             this.isSubmitting = true;
-            axios.put(`/groups?groupId=${this.group.id}&userId=${this.group.userId}&title=${this.group.title}&description=${this.group.description}&profilePicture=${this.group.profilePicture}&status=${this.group.status}`)
-            .then((response) => {
+            const formData = new FormData();
+            formData.append('profilePicture', this.group.profilePicture);
+            axios.put(`/groups?groupId=${this.group.id}&userId=${this.group.userId}&title=${this.group.title}&description=${this.group.description}&status=${this.group.status}`, formData, {
+                headers: {
+                    'Authorization': 'Bearer ' + appToken,
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then((response) => {
                 this.isSubmitting = false;
                 this.$swal("Success!", `Data berhasil diupdate`, "success");
                 this.$router.go(-1);
                 console.log(response.data);
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 this.$swal("Error!", `${error}`, "error");
                 this.isSubmitting = false;
                 console.log(error);

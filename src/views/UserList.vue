@@ -33,14 +33,20 @@
                     </button>
                 </div>
                 <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
-                    <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-4 py-2 rounded-tl rounded-bl w-1/3 shadow leading-thight">
-                        <span class="block mr-2 font-semibold text-md">Search</span>
-                        <svg class="w-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
                     <input 
-                        type="search" 
-                        class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
+                        type="search"
+                        v-model="filter.keyword"
+                        @change="searchUser" 
+                        class="w-full rounded-tl rounded-bl py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
                         placeholder="Masukkan kata kunci...">
+                    <button
+                        @click="searchUser" 
+                        class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-4 py-2 rounded-tr rounded-br w-1/3 shadow leading-thight">
+                        <span class="block mr-1 font-semibold text-md">Search</span>
+                        <svg class="w-8 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
                 </div>
             </div>
 
@@ -114,7 +120,7 @@
 <script>
 import axios from 'axios'
 import Loader from '@/components/Loader.vue'
-const APP_ID = '6027c83b1a75fe2bb9fd75f4'
+const appToken = '6027c83b1a75fe2bb9fd75f4'
 export default {
     components: {
         Loader
@@ -135,6 +141,20 @@ export default {
         this.getUserList();
     },
     methods: {
+        searchUser(){
+            this.loaderPage = true;
+            axios.get(`/users?sort=ASC&order=updatedAt&limit=12&keyword=${this.filter.keyword}`, {
+                headers: {
+                    'Authorization': 'Bearer ' + appToken
+                }
+            }).then((response) => {
+                this.loaderPage = false;
+                this.userList = response.data.data;
+                console.log(response.data);
+            }).catch((error) => {
+                console.log(error);
+            });
+        },
         goToUserForm(){
             this.$router.push('/user-form');
         },
