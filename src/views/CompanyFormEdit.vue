@@ -157,10 +157,16 @@ export default {
                 description: '',
                 profilePicture: '',
                 status: '',
-            }
+            },
+            userMenu: localStorage.userMenuEdit.split(','),
         }
     },
     mounted(){
+        const find_menu = this.userMenu.find(menu => menu == "companyUpdate");
+        if(!find_menu){
+            this.$swal('Maaf, anda tidak punya hak akses untuk halaman ini!');
+            this.$router.go(-1);
+        }
         this.getCompanyDetail();
     },
     methods: {

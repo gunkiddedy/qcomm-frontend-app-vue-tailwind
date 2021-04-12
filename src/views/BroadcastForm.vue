@@ -189,9 +189,15 @@ export default {
             //     {id: 3, name: 'GROUP 3'}
             // ],
             groupList: '',
+            userMenu: localStorage.userMenuAdd.split(','),
         }
     },
     mounted(){
+        const find_menu = this.userMenu.find(menu => menu == "broadcastAdd");
+        if(!find_menu){
+            this.$swal('Maaf, anda tidak punya hak akses untuk halaman ini!');
+            this.$router.go(-1);
+        }
         this.getGroups();
     },
     methods: {

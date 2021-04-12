@@ -153,6 +153,14 @@ export default {
                     name: 'DISABLED',
                 },
             ],
+            userMenu: localStorage.userMenuAdd.split(','),
+        }
+    },
+    mounted(){
+        const find_menu = this.userMenu.find(menu => menu == "categoryAdd");
+        if(!find_menu){
+            this.$swal('Maaf, anda tidak punya hak akses untuk halaman ini!');
+            this.$router.go(-1);
         }
     },
     methods: {

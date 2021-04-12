@@ -271,10 +271,16 @@ export default {
                 title: '',
                 role: '',
                 status: '',
-            }
+            },
+            userMenu: localStorage.userMenuEdit.split(','),
         }
     },
     mounted() {
+        const find_menu = this.userMenu.find(menu => menu == "userUpdate");
+        if(!find_menu){
+            this.$swal('Maaf, anda tidak punya hak akses untuk halaman ini!');
+            this.$router.go(-1);
+        }
         setTimeout(()=>{
             this.loadingPage = false;
         }, 1000)

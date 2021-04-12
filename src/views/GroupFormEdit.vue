@@ -154,10 +154,16 @@ export default {
                 profilePicture: '',
                 status: '',
                 userId: '',
-            }
+            },
+            userMenu: localStorage.userMenuEdit.split(','),
         }
     },
     mounted(){
+        const find_menu = this.userMenu.find(menu => menu == "groupUpdate");
+        if(!find_menu){
+            this.$swal('Maaf, anda tidak punya hak akses untuk halaman ini!');
+            this.$router.go(-1);
+        }
         this.group.userId = localStorage.userId;
         this.getGroupDetail();
     },

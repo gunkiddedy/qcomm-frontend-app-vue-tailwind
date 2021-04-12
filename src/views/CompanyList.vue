@@ -200,9 +200,15 @@ export default {
             keyword: '',
             showProjects: null,
             showProj: false,
+            userMenu: localStorage.userMenuManage.split(','),
         }
     },
     mounted() {
+        const find_menu = this.userMenu.find(menu => menu == "companyList");
+        if(!find_menu){
+            this.$swal('Maaf, anda tidak punya hak akses untuk halaman ini!');
+            this.$router.go(-1);
+        }
         this.getCompanies();
     },
     methods: {

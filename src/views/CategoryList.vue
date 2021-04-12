@@ -183,9 +183,15 @@ export default {
             showProjects: null,
             showPro: false,
             keyword: '',
+            userMenu: localStorage.userMenuManage.split(','),
         }
     },
     mounted() {
+        const find_menu = this.userMenu.find(menu => menu == "categoryList");
+        if(!find_menu){
+            this.$swal('Maaf, anda tidak punya hak akses untuk halaman ini!');
+            this.$router.go(-1);
+        }
         this.getCategories();
     },
     methods: {

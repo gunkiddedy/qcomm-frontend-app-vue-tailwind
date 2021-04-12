@@ -135,9 +135,15 @@ export default {
                 keyword: '',
             },
             userList: [],
+            userMenu: localStorage.userMenuManage.split(','),
         }
     },
     mounted() {
+        const find_menu = this.userMenu.find(menu => menu == "userList");
+        if(!find_menu){
+            this.$swal('Maaf, anda tidak punya hak akses untuk halaman ini!');
+            this.$router.go(-1);
+        }
         this.getUserList();
     },
     methods: {
