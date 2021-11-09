@@ -15,8 +15,8 @@
                         <span class="text-2xl font-semibold leading-3">Companies</span>
                     </div>
                     <div class="">
-                        <span class="text-md font-semibold text-gray-400">
-                            Daftar perusahaan atau institusi sebagai klien atau partner
+                        <span class="text-md text-gray-400">
+                            Daftar Perusahaan atau Institusi (Klien, Partner)
                         </span>
                     </div>
                 </div>
@@ -31,6 +31,7 @@
                         <span class="block text-white font-semibold">Tambah</span>
                     </button>
                 </div>
+                <!--
                 <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
                     <input 
                         type="search"
@@ -47,6 +48,7 @@
                         </svg>
                     </button>
                 </div>
+                -->
             </div>
         </div>
 
@@ -84,12 +86,14 @@
                             <div class="btn flex items-center justify-start my-4">
                                 <button
                                     @click="editCompany(item.id)" 
-                                    class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded-full mr-2">
+                                    class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
                                     Edit
                                 </button>
-                                <button @click="archiveCompany(item.id)" class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded-full mr-2">
+                                <!--
+                                <button @click="archiveCompany(item.id)" class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
                                     Archive
                                 </button>
+                                -->
                             </div>
                             <div class="w-full">
                                 <span class="waktu bg-green-200 text-green-600 text-xs rounded-full px-4">
@@ -101,7 +105,7 @@
                         <div class="logo-company w-1/4">
                             <img
                                 class="object-contain" 
-                                src="https://images.unsplash.com/photo-1496200186974-4293800e2c20?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80" alt="">
+                                src="" alt="">
                             <!-- <img
                                 v-else 
                                 class="rounded-lg"

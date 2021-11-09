@@ -13,11 +13,11 @@
                 </div>
                 <div class="flex flex-col">
                     <div class="project-title lg:mt-0 mt-2">
-                        <span class="text-2xl font-semibold leading-3">Daftar User</span>
+                        <span class="text-2xl font-semibold leading-3">Add User</span>
                     </div>
                     <div class="">
-                        <span class="text-md font-semibold text-gray-400">
-                            Semua user yang menggunakan sistem
+                        <span class="text-md text-gray-400">
+                            Add User Baru Aplikasi
                         </span>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                                 v-model="user.fullName"
                                 type="text"
                                 placeholder="Full Name" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             >
                         </div>
                         <div class="lg:w-1/2">
@@ -76,7 +76,7 @@
                                 v-model="user.title"
                                 type="text"
                                 placeholder="Jabatan di perusahaan" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             >
                         </div>                        
                     </div>
@@ -88,7 +88,7 @@
                                 v-model="user.phoneNumber"
                                 type="text"
                                 placeholder="Input no hp" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             >
                         </div>
                         <div class="lg:w-1/2">
@@ -97,7 +97,7 @@
                                 v-model="user.email"
                                 type="text"
                                 placeholder="name@example.com" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             >
                         </div>                        
                     </div>
@@ -108,7 +108,7 @@
                             <select
                                 v-if="isCompaniesLoaded"
                                 v-model="user.companyId"
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
                             >
                                 <option class="text-gray-700" :value="selected">
                                     Select Company
@@ -123,7 +123,7 @@
                             <select
                                 v-if="isGroupsLoaded"
                                 v-model="user.groupId"
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
                             >
                                 <option class="text-gray-700" :value="selected">
                                     Select Group
@@ -140,7 +140,7 @@
                             <label for="" class="font-semibold text-gray-400">Role</label>
                             <select
                                 v-model="user.role"
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
                             >
                                 <option class="text-gray-700" :value="selected">
                                     Select Role
@@ -154,7 +154,7 @@
                             <label for="" class="font-semibold text-gray-400">Status</label>
                             <select
                                 v-model="user.status"
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
                             >
                                 <option class="text-gray-700" :value="selected">
                                     Select Status

@@ -63,11 +63,11 @@
                 </div>
             </div>
             <!-- ########## PAGINATION ########## -->
+            <!--
             <div class="pagination flex justify-center my-8">
                 <nav class="relative z-0 inline-flex shadow-sm space-x-1" aria-label="Pagination">
                     <a href="#" class="relative inline-flex items-center justify-center px-2 py-2  rounded bg-white text-purple-500 hover:bg-gray-50 font-bold w-10">
                         <span class="sr-only">Previous</span>
-                        <!-- Heroicon name: chevron-left -->
                         <svg class="w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path></svg>
                     </a>
                     <a href="#" class="relative inline-flex items-center px-4 py-3 bg-yellow-500 text-sm text-white hover:bg-gray-50 font-bold  rounded">
@@ -84,11 +84,11 @@
                     </a>
                     <a href="#" class="relative inline-flex items-center justify-center px-2 py-2  rounded bg-white text-purple-500 hover:bg-gray-50 font-bold w-10">
                         <span class="sr-only">Next</span>
-                        <!-- Heroicon name: chevron-right -->
                         <svg class="w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path></svg>
                     </a>
                 </nav>
             </div>
+            -->
         </div>
 	</div><!--end DIV app -->
 </template>

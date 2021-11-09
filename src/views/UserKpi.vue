@@ -10,17 +10,18 @@
                 </div>
                 <div class="flex flex-col">
                     <div class="project-title lg:mt-0 mt-2">
-                        <span class="text-2xl font-semibold leading-3">Daftar User</span>
+                        <span class="text-2xl font-semibold leading-3">Update User KPI</span>
                     </div>
                     <div class="">
-                        <span class="text-md font-semibold text-gray-400">
-                            Semua user yang menggunakan sistem
+                        <span class="text-md text-gray-400">
+                            Update KPI User
                         </span>
                     </div>
                 </div>
             </div>
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start lg:mb-0 mb-4">
+                <!--
                 <div class="btn-selengkapnya lg:mt-0 mt-2">
                     <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none rounded px-6 py-2 shadow flex items-center leading-thight">
                         <svg class="w-4 mt-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
@@ -37,6 +38,7 @@
                         class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
                         placeholder="Masukkan kata kunci...">
                 </div>
+                -->
             </div>
 
         </div>
@@ -58,7 +60,7 @@
                                 readonly
                                 type="text"
                                 placeholder="Full Name" 
-                                class="w-full bg-gray-50 shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full bg-gray-50 shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             >
                         </div>
                     </div>
@@ -68,7 +70,7 @@
                             <label for="" class="font-semibold text-gray-400">Select Project</label>
                             <select
                                 v-model="user.projectId"
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
                             >
                                 <option value="1">Project 1</option>
                                 <option value="2">Project 2</option>
@@ -94,7 +96,7 @@
                                 type="number"
                                 min="1"
                                 placeholder="eg:100" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             >
                         </div>
                         <div class="w-full mr-4">
@@ -104,7 +106,7 @@
                                 type="number"
                                 min="1"
                                 placeholder="eg:100" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             >
                         </div>
                         <div class="w-full">
@@ -114,7 +116,7 @@
                                 type="number"
                                 min="1"
                                 placeholder="eg:100" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             >
                         </div>
                     </div>

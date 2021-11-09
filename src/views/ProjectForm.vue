@@ -13,17 +13,18 @@
                 </div>
                 <div class="flex flex-col">
                     <div class="project-title lg:mt-0 mt-2">
-                        <span class="text-2xl font-semibold leading-3">Project</span>
+                        <span class="text-2xl font-semibold leading-3">Add Project</span>
                     </div>
                     <div class="">
-                        <span class="text-md font-semibold text-gray-400">
-                            Tambah project baru
+                        <span class="text-md text-gray-400">
+                            Tambah Project Baru
                         </span>
                     </div>
                 </div>
             </div>
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
+                <!--
                 <div class="btn-selengkapnya lg:mt-0 mt-2">
                     <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none rounded px-6 py-2 shadow flex items-center leading-thight">
                         <svg class="w-4 mt-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
@@ -40,6 +41,7 @@
                         class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
                         placeholder="Masukkan kata kunci...">
                 </div>
+                -->
             </div>
 
         </div>
@@ -63,7 +65,7 @@
                             v-model="project.title"
                             type="text"
                             placeholder="Enter project title" 
-                            class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2">
+                            class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2">
                     </div>
 
                     <div class="txt-area px-4 pb-6">
@@ -72,7 +74,7 @@
                             v-model="project.description"
                             placeholder="Deskripsi dokumen..." 
                             rows="5" 
-                            class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2">
+                            class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2">
                         </textarea>
                     </div>
 
@@ -82,7 +84,7 @@
                             v-model="project.projectBrief"
                             placeholder="Type project brief" 
                             rows="5" 
-                            class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2">
+                            class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2">
                         </textarea>
                     </div>
                     <div class="start-date px-4 pt-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
@@ -92,13 +94,13 @@
                                 v-model="project.startDate"
                                 type="text"
                                 placeholder="Start Date" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             > -->
                             <date-picker v-model="project.startDate" :masks="masks">
 								<template v-slot="{ inputValue, inputEvents }">
 								  <input
 									placeholder="Start Date"
-									class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+									class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
 									:value="inputValue"
 									v-on="inputEvents"
 								  />
@@ -111,13 +113,13 @@
                                 v-model="project.completedDate"
                                 type="text"
                                 placeholder="Completed Date" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             > -->
                             <date-picker v-model="project.completedDate" :masks="masks">
 								<template v-slot="{ inputValue, inputEvents }">
 								  <input
 									placeholder="Completed Date"
-									class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+									class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
 									:value="inputValue"
 									v-on="inputEvents"
 								  />
@@ -127,30 +129,46 @@
                     </div>
 
                     <div class="status px-4 py-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
-                        <div class="lg:w-1/2 lg:mr-4">
-                            <label for="" class="font-semibold text-gray-400">Status</label>
+                        <div class="lg:w-1/3 pr-2">
+                            <label for="" class="font-semibold text-gray-400">Category</label>
                             <select
-                                v-model="project.status"
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
+                                v-if="isCategoriesLoaded"
+                                v-model="project.categoryId"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
                             >
                                 <option class="text-gray-700" :value="selected">
-                                    Select Status
+                                    Select Category
                                 </option>
-                                <option v-for="(item, i) in status" :key="i" :value="item.name">
-                                    {{ item.name }}
+                                <option v-for="(item, i) in categories" :key="i" :value="item.id">
+                                    {{ item.title }}
                                 </option>
                             </select>
                         </div>
-                        <div class="lg:w-1/2">
+                        <div class="lg:w-1/3 pr-2">
                             <label for="" class="font-semibold text-gray-400">Company</label>
                             <select
+                                v-if="isCompaniesLoaded"
                                 v-model="project.companyId"
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
                             >
                                 <option class="text-gray-700" :value="selected">
                                     Select Company
                                 </option>
                                 <option v-for="(item, i) in companies" :key="i" :value="item.id">
+                                    {{ item.title }}
+                                </option>
+                            </select>
+                        </div>                                            
+                        <div class="lg:w-1/3 lg:mr-4">
+                            <label for="" class="font-semibold text-gray-400">Status</label>
+                            <select
+                                v-model="project.status"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
+                            >
+                                <option class="text-gray-700" :value="selected">
+                                    Select Status
+                                </option>
+                                <option v-for="(item, i) in status" :key="i" :value="item.name">
                                     {{ item.name }}
                                 </option>
                             </select>
@@ -224,21 +242,21 @@ export default {
             isSubmitting: false,
             status: [
                 {
+                    id: 'ACTIVE',
                     name: 'ACTIVE',
                 },
                 {
+                    id: 'DRAFT',
                     name: 'DRAFT',
                 },
             ],
-            companies: [
-                {id: 1, name: 'COMPANY 1'},
-                {id: 2, name: 'COMPANY 2'},
-                {id: 3, name: 'COMPANY 3'}
-            ],
+            companies: [],
+            categories: [],
             selected: '',
             project: {
                 userId : '',
                 companyId  : '',
+                categoryId  : '',
                 title: '',
                 description: '',
                 projectBrief: '',
@@ -250,6 +268,8 @@ export default {
         }
     },
     mounted(){
+        this.getCompanies()
+        this.getCategories()
         const find_menu = this.userMenu.find(menu => menu == "projectAdd");
         if(!find_menu){
             this.$swal('Maaf, anda tidak punya hak akses untuk halaman ini!');
@@ -275,13 +295,18 @@ export default {
             let date = this.project.completedDate.toLocaleDateString('en-GB').split('/');
 			let fixDate = date[1]+'/'+date[0]+'/'+date[2];
             return fixDate;
-        }
+        },
+        isCompaniesLoaded() {
+            return this.companies.length > 0
+        },      
+        isCategoriesLoaded() {
+            return this.categories.length > 0
+        },            
     },
     methods: {
         addProject(){
             this.isSubmitting = true;
-            // {{apiHost}}projects?userId=1&companyId=1&title=My Project&description&projectBrief&startDate&completedDate&status=ACTIVE
-            axios.post(`/projects?userId=${this.project.userId}&companyId=${this.project.companyId}&title=${this.project.title}&description=${this.project.description}&projectBrief=${this.project.projectBrief}&startDate=${this.fixStartDate}&completedDate=${this.fixCompletedDate}&status=${this.project.status}`)
+            axios.post(`/projects?userId=${this.project.userId}&categoryId=${this.project.categoryId}&companyId=${this.project.companyId}&title=${this.project.title}&description=${this.project.description}&projectBrief=${this.project.projectBrief}&startDate=${this.fixStartDate}&completedDate=${this.fixCompletedDate}&status=${this.project.status}`)
             .then((response) => {
                 this.isSubmitting = false;
                 this.$swal("Success!", `Project berhasil disimpan!`, "success");
@@ -294,6 +319,28 @@ export default {
                 console.log('woooo...'+error);
             });
         },
+        getCategories(){
+            this.loadingPage = true;
+            axios.get(`/categories`)
+            .then((response) => {
+                this.loaderPage = false;
+                this.categories = response.data.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },           
+        getCompanies(){
+            this.loadingPage = true;
+            axios.get(`/companies`)
+            .then((response) => {
+                this.loaderPage = false;
+                this.companies = response.data.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },          
         canceling(){
             this.$router.go(-1);
         }
