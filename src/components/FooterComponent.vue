@@ -88,7 +88,7 @@ export default {
         getUserDetail(){
             axios.get(`/users/${localStorage.userId}`)
             .then((response) => {
-                this.projects = response.data.data.projects;
+                this.projects = response.data.data?.projects;
                 this.tasks = response.data.data.tasks;
                 console.log(response.data);
             })

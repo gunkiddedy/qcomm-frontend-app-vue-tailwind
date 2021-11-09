@@ -113,7 +113,9 @@
                                 <router-link to="/projects" class="text-gray-700 px-3 py-2 rounded-md text-sm font-semibold">Projects</router-link>
                                 
                                 <!-- MANAGE -->
-                                <div class="text-gray-700 px-3 py-2 rounded-md text-sm font-semibold flex flex-col">
+                                <div
+                                    v-if="localStorage && localStorage.menu.manage.length > 0"
+                                    class="text-gray-700 px-3 py-2 rounded-md text-sm font-semibold flex flex-col">
                                     <div @click="menuManage" class="cursor-pointer flex items-center">
                                         <div class="mr-1">Manage</div>
                                         <div>
@@ -336,7 +338,7 @@ export default {
         getUserDetail(){
             axios.get(`/users/${localStorage.userId}`)
             .then((response) => {
-                this.tasks = response.data.data.tasks;
+                this.tasks = response.data.data?.tasks;
                 console.log(response.data);
             })
             .catch((error) => {
