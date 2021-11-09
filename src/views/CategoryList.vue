@@ -15,8 +15,8 @@
                         <span class="text-2xl font-semibold leading-3">Category</span>
                     </div>
                     <div class="">
-                        <span class="text-md font-semibold text-gray-400">
-                            Daftar kategori project dan detailnya
+                        <span class="text-md text-gray-400">
+                            Daftar Kategori Project
                         </span>
                     </div>
                 </div>
@@ -31,6 +31,7 @@
                         <span class="block text-white font-semibold">Tambah</span>
                     </button>
                 </div>
+                <!--
                 <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
                     <input 
                         type="search"
@@ -47,6 +48,7 @@
                         </svg>
                     </button>
                 </div>
+                -->
             </div>
         </div>
 

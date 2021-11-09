@@ -110,6 +110,7 @@ export default {
             axios.post(`/auth/login?username=${this.user.username}&password=${this.user.password}`)
             .then((response) => {
                 if(response.data.status == 200){
+                    console.log(response.data)
                     this.isLoging = false;
                     this.$store.dispatch('currentUser/afterLogin', response);
                     this.$router.push('/');

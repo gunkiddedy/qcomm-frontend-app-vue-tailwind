@@ -8,11 +8,11 @@
                 </div>
                 <div class="flex flex-col">
                     <div class="project-title lg:mt-0 mt-2">
-                        <span class="text-2xl font-semibold leading-3">Group</span>
+                        <span class="text-2xl font-semibold leading-3">Daftar Group</span>
                     </div>
                     <div class="">
-                        <span class="text-md font-semibold text-gray-400">
-                            Group user untuk project atau broadcast
+                        <span class="text-md text-gray-400">
+                            Group User Project atau Broadcast
                         </span>
                     </div>
                 </div>
@@ -26,6 +26,7 @@
                         <span class="block text-white font-semibold">Tambah</span>
                     </button>
                 </div>
+                <!--
                 <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
                     <input 
                         type="search"
@@ -42,6 +43,7 @@
                         </svg>
                     </button>
                 </div>
+                -->
             </div>
         </div>
         <div class="loader-page flex justify-center" v-if="loaderPage">
@@ -83,9 +85,11 @@
                                     class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
                                     Modify
                                 </button>
+                                <!--
                                 <button @click="archiveGroup(item.id)" class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
                                     Archive
                                 </button>
+                                -->
                                 <button
                                     @click="toBroadcastForm(item.id)" 
                                     class="bg-purple-500 hover:bg-purple-700 focus:bg-purple-700 focus:ring-4 focus:ring-purple-300 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">

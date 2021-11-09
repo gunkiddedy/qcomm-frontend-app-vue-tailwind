@@ -24,12 +24,14 @@
             </div>
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
+                <!--
                 <div class="btn-selengkapnya lg:mt-0 mt-2">
                     <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none rounded px-6 py-2 shadow flex items-center leading-thight">
                         <svg class="w-4 mt-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                         <span class="block text-white font-semibold">Tambah</span>
                     </button>
                 </div>
+                
                 <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
                     <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-4 py-2 rounded-tl rounded-bl w-1/3 shadow leading-thight">
                         <span class="block mr-2 font-semibold text-md">Search</span>
@@ -40,6 +42,7 @@
                         class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
                         placeholder="Masukkan kata kunci...">
                 </div>
+                -->
             </div>
 
         </div>
@@ -72,7 +75,7 @@
                             <input
                                 v-model="user.title"
                                 type="text"
-                                placeholder="Project Manager" 
+                                placeholder="Jabatan di perusahaan" 
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
                             >
                         </div>                        
@@ -84,7 +87,7 @@
                             <input
                                 v-model="user.phoneNumber"
                                 type="text"
-                                placeholder="098778900987" 
+                                placeholder="Input no hp" 
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
                             >
                         </div>
@@ -103,6 +106,7 @@
                         <div class="lg:w-1/2 lg:mr-4">
                             <label for="" class="font-semibold text-gray-400">Company (Institution)</label>
                             <select
+                                v-if="isCompaniesLoaded"
                                 v-model="user.companyId"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
                             >
@@ -110,13 +114,14 @@
                                     Select Company
                                 </option>
                                 <option v-for="(item, i) in companies" :key="i" :value="item.id">
-                                    {{ item.name }}
+                                    {{ item.title }}
                                 </option>
                             </select>
                         </div>
                         <div class="lg:w-1/2">
                             <label for="" class="font-semibold text-gray-400">Group</label>
                             <select
+                                v-if="isGroupsLoaded"
                                 v-model="user.groupId"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
                             >
@@ -124,7 +129,7 @@
                                     Select Group
                                 </option>
                                 <option v-for="(item, i) in groups" :key="i" :value="item.id">
-                                    {{ item.name }}
+                                    {{ item.title }}
                                 </option>
                             </select>
                         </div>
@@ -207,54 +212,46 @@ export default {
             isSubmitting: false,
             roles: [
                 {
-                    id: 1,
+                    id: 'EMPLOYEE',
                     name: 'EMPLOYEE',
                 },
                 {
-                    id: 2,
+                    id: 'MANAGEMENT',
                     name: 'MANAGEMENT',
                 },
                 {
-                    id: 3,
+                    id: 'MEDIA',
                     name: 'MEDIA',
                 },
                 {
-                    id: 4,
+                    id: 'COMPANY',
                     name: 'COMPANY',
                 },
                 {
-                    id: 5,
+                    id: 'PARTNER',
                     name: 'PARTNER',
-                }
+                }                
             ],
             status: [
                 {
-                    id: 1,
+                    id: 'ACTIVE',
                     name: 'ACTIVE',
                 },
                 {
-                    id: 2,
+                    id: 'INACTIVE',
                     name: 'INACTIVE',
                 },
                 {
-                    id: 3,
+                    id: 'SUSPENDED',
                     name: 'SUSPENDED',
                 },
                 {
-                    id: 4,
+                    id: 'BLOCKED',
                     name: 'BLOCKED',
                 }
             ],
-            companies: [
-                {id: 1, name: 'COMPANY 1'},
-                {id: 2, name: 'COMPANY 2'},
-                {id: 3, name: 'COMPANY 3'}
-            ],
-            groups: [
-                {id: 1, name: 'GROUP 1'},
-                {id: 2, name: 'GROUP 2'},
-                {id: 3, name: 'GROUP 3'}
-            ],
+            companies: [],
+            groups: [],
             selected: '',
             user: {
                 companyId: '',
@@ -270,6 +267,8 @@ export default {
         }
     },
     mounted() {
+        this.getGroups()
+        this.getCompanies()
         const find_menu = this.userMenu.find(menu => menu == "userAdd");
         if(!find_menu){
             this.$swal('Maaf, anda tidak punya hak akses untuk halaman ini!');
@@ -278,6 +277,14 @@ export default {
         setTimeout(()=>{
             this.loadingPage = false;
         }, 1000)
+    },
+    computed: {
+        isGroupsLoaded() {
+            return this.groups.length > 0
+        },
+        isCompaniesLoaded() {
+            return this.companies.length > 0
+        },                
     },
     methods: {
         addUser(){
@@ -296,6 +303,30 @@ export default {
                 console.log('woooo...'+error);
             });
         },
+        getGroups(){
+            this.loadingPage = true;
+            axios.get(`/groups`)
+            .then((response) => {
+                this.loaderPage = false;
+                this.groups = response.data.data;
+                console.log(this.groups)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },      
+        getCompanies(){
+            this.loadingPage = true;
+            axios.get(`/companies`)
+            .then((response) => {
+                this.loaderPage = false;
+                this.companies = response.data.data;
+                console.log(this.companies)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },                     
         canceling(){
             this.$router.go(-1);
         }

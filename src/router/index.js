@@ -121,11 +121,6 @@ const route = [
 		component: () => import('../views/UserKpiTable.vue'),
 	},
 	{
-		path: '/table',
-		name: 'Table',
-		component: () => import('../views/Table.vue'),
-	},
-	{
 		path: '/user-password',
 		name: 'UserPassword',
 		component: () => import('../views/UserPassword.vue'),

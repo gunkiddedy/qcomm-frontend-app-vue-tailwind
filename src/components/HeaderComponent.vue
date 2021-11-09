@@ -58,7 +58,7 @@
                             <!-- <img class="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow"> -->
                             <router-link to="/">
                                 <span class="company text-purple-700 hover:text-green-600 text-2xl font-bold">
-                                    QComm PM
+                                    Project Manager
                                 </span>
                             </router-link>
                         </div>
@@ -203,7 +203,7 @@
                                                 <router-link :to="`/user-form-edit/${userId}`" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
                                                     Update Akun
                                                 </router-link>
-                                                <router-link to="/user-form" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <router-link to="/user-password" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
                                                     Ubah Password
                                                 </router-link>
                                                 <div
@@ -218,11 +218,8 @@
                                                     support
                                                 </div>
 
-                                                <router-link to="/projects" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <router-link to="/" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
                                                     Bantuan
-                                                </router-link>
-                                                <router-link to="/projects" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
-                                                    Dukungan
                                                 </router-link>
                                             </div>
                                         </div>

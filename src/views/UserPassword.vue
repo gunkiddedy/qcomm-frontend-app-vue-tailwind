@@ -16,7 +16,7 @@
                         <span class="text-2xl font-semibold leading-3">Change Password</span>
                     </div>
                     <div class="">
-                        <span class="text-md font-semibold text-gray-400">
+                        <span class="text-md text-gray-400">
                             Ubah Password Anda
                         </span>
                     </div>
@@ -24,6 +24,7 @@
             </div>
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
+                <!--
                 <div class="btn-selengkapnya lg:mt-0 mt-2">
                     <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none rounded px-6 py-2 shadow flex items-center leading-thight">
                         <svg class="w-4 mt-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
@@ -40,6 +41,7 @@
                         class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
                         placeholder="Masukkan kata kunci...">
                 </div>
+                -->
             </div>
 
         </div>
@@ -61,10 +63,10 @@
                         <div class="lg:w-1/2 lg:mr-4">
                             <label for="" class="font-semibold text-gray-400">Current Password</label>
                             <input
-                                v-model="user.fullName"
-                                type="text"
+                                v-model="user.currentPassword"
+                                type="password"
                                 placeholder="Current Password" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             >
                         </div>
                     </div>
@@ -73,10 +75,10 @@
                         <div class="lg:w-1/2 lg:mr-4">
                             <label for="" class="font-semibold text-gray-400">New Password</label>
                             <input
-                                v-model="user.fullName"
-                                type="text"
+                                v-model="user.password"
+                                type="password"
                                 placeholder="New Password" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             >
                         </div>
                     </div>
@@ -85,10 +87,10 @@
                         <div class="lg:w-1/2 lg:mr-4">
                             <label for="" class="font-semibold text-gray-400">Confirm New Password</label>
                             <input
-                                v-model="user.phoneNumber"
-                                type="text"
+                                v-model="user.passwordConfirmation"
+                                type="password"
                                 placeholder="Confirm New Password" 
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
                             >
                         </div>
                     </div>
@@ -138,56 +140,6 @@ export default {
         return {
             loadingPage: true,
             isSubmitting: false,
-            roles: [
-                {
-                    id: 1,
-                    name: 'EMPLOYEE',
-                },
-                {
-                    id: 2,
-                    name: 'MANAGEMENT',
-                },
-                {
-                    id: 3,
-                    name: 'MEDIA',
-                },
-                {
-                    id: 4,
-                    name: 'COMPANY',
-                },
-                {
-                    id: 5,
-                    name: 'PARTNER',
-                }
-            ],
-            status: [
-                {
-                    id: 1,
-                    name: 'ACTIVE',
-                },
-                {
-                    id: 2,
-                    name: 'INACTIVE',
-                },
-                {
-                    id: 3,
-                    name: 'SUSPENDED',
-                },
-                {
-                    id: 4,
-                    name: 'BLOCKED',
-                }
-            ],
-            companies: [
-                {id: 1, name: 'COMPANY 1'},
-                {id: 2, name: 'COMPANY 2'},
-                {id: 3, name: 'COMPANY 3'}
-            ],
-            groups: [
-                {id: 1, name: 'GROUP 1'},
-                {id: 2, name: 'GROUP 2'},
-                {id: 3, name: 'GROUP 3'}
-            ],
             selected: '',
             user: {
                 companyId: '',
@@ -216,7 +168,6 @@ export default {
                 }
             })
             .then((response) => {
-                // this.$store.dispatch('currentUser/afterLogin', response);
                 this.isSubmitting = false;
                 this.$swal("Success!", `${this.user.companyId}, ${this.user.groupId}, ${this.user.fullName},${this.user.email}, ${this.user.phoneNumber}, ${this.user.title},${this.user.role}, ${this.user.status}`, "success");
                 this.$router.push('/users');

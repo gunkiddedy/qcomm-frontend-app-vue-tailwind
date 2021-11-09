@@ -10,12 +10,12 @@
             <div class="grid lg:grid-cols-3 mt-12">
                 <div class="qcom flex flex-col">
                     <router-link to="/">
-                        <div class="text-xl font-bold">QComm PM</div>
+                        <div class="text-xl font-bold">Project Manager</div>
                     </router-link>
-                    <div>Project Management System</div>
+                    <div>QComm Project Management System</div>
                 </div>
                 <div class="qcom flex flex-col leading-loose lg:mt-0 mt-4">
-                    <div class="mb-4 uppercase font-bold">PROJEK SAYA</div>
+                    <div class="mb-4 uppercase font-bold">PROYEK SAYA</div>
                     <router-link
                         v-for="(item, i) in projects"
                         :key="i" 
@@ -47,12 +47,12 @@
             <div class="garis border-t border-gray-600 my-12"></div>
             <span hidden>{{checkRoute}}</span>
 
-            <div class="flex lg:flex-row flex-col items-center justify-between font-semibold">
+            <div class="flex lg:flex-row flex-col items-center justify-between text-sm">
                 <div class="copy">
                     Copyright &copy; 2021. QComm
                 </div>
                 <div class="bantuan">
-                    Bantuan:support@qcomm.id
+                    Bantuan: support@qcomm.id
                 </div>
             </div>
         </div>

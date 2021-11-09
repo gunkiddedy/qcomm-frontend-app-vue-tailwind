@@ -13,17 +13,18 @@
                 </div>
                 <div class="flex flex-col">
                     <div class="project-title lg:mt-0 mt-2">
-                        <span class="text-2xl font-semibold leading-3">Category</span>
+                        <span class="text-2xl font-semibold leading-3">Edit Category</span>
                     </div>
                     <div class="">
-                        <span class="text-md font-semibold text-gray-400">
-                            Daftar kategori project dan detailnya
+                        <span class="text-md text-gray-400">
+                            Edit Category Project
                         </span>
                     </div>
                 </div>
             </div>
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
+                <!--
                 <div class="btn-selengkapnya lg:mt-0 mt-2">
                     <button class="bg-red-500 hover:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none rounded px-6 py-2 shadow flex items-center leading-thight">
                         <svg class="w-4 mt-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
@@ -40,6 +41,7 @@
                         class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
                         placeholder="Masukkan kata kunci...">
                 </div>
+                -->
             </div>
 
         </div>
@@ -58,8 +60,8 @@
                         <input
                             v-model="category.title"
                             type="text"
-                            placeholder="Enter project title" 
-                            class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2">
+                            placeholder="Enter category title" 
+                            class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2">
                     </div>
 
                     <div class="txt-area px-4 pb-6">
@@ -67,7 +69,8 @@
                         <textarea
                             v-model="category.description"
                             rows="5" 
-                            class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2">
+                            placeholder="Enter category description" 
+                            class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2">
                         </textarea>
                     </div>
 
@@ -76,7 +79,7 @@
                             <label for="" class="font-semibold text-gray-400">Status</label>
                             <select
                                 v-model="category.status"
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
+                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
                             >
                                 <option class="text-gray-700" :value="selected">
                                     Select Status
@@ -148,9 +151,11 @@ export default {
             selected: '',
             status: [
                 {
+                    id: 'ACTIVE',
                     name: 'ACTIVE',
                 },
                 {
+                    id: 'DISABLED',
                     name: 'DISABLED',
                 },
             ],
@@ -169,12 +174,10 @@ export default {
         getCategoryDetail(){
             axios.get(`/categories/${this.id}`)
             .then((response) => {
-                this.category.title = response.data;
-                this.category.group = response.data;
-                this.category.description = response.data;
-                this.category.image = response.data;
-                this.category.status = response.data;
-                console.log(response.data);
+                this.category.title = response.data.data.title;
+                this.category.description = response.data.data.description;
+                this.category.image = response.data.data.image;
+                this.category.status = response.data.data.status;
             })
             .catch((error) => {
                 this.$swal("Error!", `${error}`, "error");
