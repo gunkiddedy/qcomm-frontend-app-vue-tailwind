@@ -113,9 +113,7 @@
                                 <router-link to="/projects" class="text-gray-700 px-3 py-2 rounded-md text-sm font-semibold">Projects</router-link>
                                 
                                 <!-- MANAGE -->
-                                <div
-                                    v-if="localStorage && localStorage.menu.manage.length > 0"
-                                    class="text-gray-700 px-3 py-2 rounded-md text-sm font-semibold flex flex-col">
+                                <div v-if="showMenuManage" class="text-gray-700 px-3 py-2 rounded-md text-sm font-semibold flex flex-col">
                                     <div @click="menuManage" class="cursor-pointer flex items-center">
                                         <div class="mr-1">Manage</div>
                                         <div>
@@ -271,6 +269,7 @@ export default {
             clickMyAccount: false,
             isLogin: false,
             userId: 1,
+            showMenuManage: false,
             tasks: '',
         }
     },
@@ -323,6 +322,12 @@ export default {
         if(localStorage.status == '200'){
             this.isLogin = true;
             this.userId = localStorage.userId;
+            if(localStorage.menuManage != 'undefinned') {
+                this.showMenuManage = true;
+            }else{
+                this.showMenuManage = false;
+            }
+            // this.showMenuManage = localStorage.menuManage;
         }else{
             this.isLogin = false;
             // this.$router.push('/login');
