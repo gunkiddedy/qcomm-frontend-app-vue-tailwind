@@ -98,11 +98,11 @@
                                                 <svg class="w-5 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                             </div>
                                             <div class="title flex flex-col">
-                                                <div class="small-title text-xs text-gray-400 font-semibold">
+                                                <div class="small-title text-sm text-gray-400 font-semibold">
                                                     {{item.title}}
                                                 </div>
-                                                <div class="isi text-sm text-gray-400">
-                                                    {{item.message}}
+                                                <div class="text-xs text-gray-400">
+                                                    {{item.createdAt}}
                                                 </div>
                                             </div>
                                         </router-link>
