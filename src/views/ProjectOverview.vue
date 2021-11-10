@@ -29,9 +29,9 @@
                         </div>
                         <div class="flex flex-col px-2 text-gray-400">
                             <div class="title text-sm font-bold">
-                                Gojek Indonesia
+                                {{ projectDetail.company.title }}
                             </div>
-                            <div class="client text-xs font-bold">
+                            <div class="client text-xs">
                                 Client
                             </div>
                         </div>
@@ -43,9 +43,9 @@
                         </div>
                         <div class="flex flex-col px-2 text-gray-400">
                             <div class="title text-sm font-bold">
-                                Ongoing
+                                {{ projectDetail.status }}
                             </div>
-                            <div class="client text-xs font-bold mr-24">
+                            <div class="client text-xs mr-24">
                                 Overall Progress
                             </div>
                         </div>
@@ -95,41 +95,22 @@
         </div>
         <div class="rincian w-full my-4 lg:px-28 justify-between bg-indigo-50">
             <div class="sidebar bg-white rounded px-0 py-4 shadow-lg">
+            <div 
+                    v-for="(item, i) in projectDetail.users"
+                    :key="i">
                 <div class="sidebar-contain flex items-center justify-between px-4">
                     <div class="title text-md font-semibold text-purple-700">
-                        Project Leader
+                        {{ item.title }}
                     </div>
                     <div class="flex items-center">
-                        <div class="mr-2 text-gray-400 font-bold">Budi Gunawan</div>
+                        <div class="mr-2 text-gray-400 font-bold">{{ item.fullName }}</div>
                         <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         </div>
                     </div>
                 </div>
                 <div class="garis w-full border-t my-2"></div>
-                <div class="sidebar-contain flex items-center justify-between px-4">
-                    <div class="title text-md font-semibold text-purple-700">
-                        Project Leader
-                    </div>
-                    <div class="flex items-center">
-                        <div class="mr-2 text-gray-400 font-bold">Budi Gunawan</div>
-                        <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="garis w-full border-t my-2"></div>
-                <div class="sidebar-contain flex items-center justify-between px-4">
-                    <div class="title text-md font-semibold text-purple-700">
-                        Project Leader
-                    </div>
-                    <div class="flex items-center">
-                        <div class="mr-2 text-gray-400 font-bold">Budi Gunawan</div>
-                        <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        </div>
-                    </div>
-                </div>
+            </div>
             </div>
         </div>
         <!-- TASKS -->
@@ -176,6 +157,7 @@ export default {
             projectDetail: '',
             tasks: 0,
             participants: 0,
+            users: 0,
         }
     },
     mounted(){
@@ -183,10 +165,7 @@ export default {
     },
     computed: {
         countParticipants(){
-            if(this.participants.length)
-                return this.participants.length;
-            else
-                return 5;
+            return this.projectDetail.users.length;
         },
         countTasks(){
             return this.tasks.length;

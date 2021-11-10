@@ -83,18 +83,11 @@
                             </div>
                         </div>
                         <div class="tag flex flex-wrap justify-start mt-2 w-1/4">
+                            <!--
                             <div class="tag-rounded text-xs text-green-500 px-2 mx-1 w-auto my-1">
                                 <span class="bg-green-200 rounded-full px-2">story pitch</span>
                             </div>
-                            <div class="tag-rounded text-xs text-green-500 px-2 mx-1 w-auto my-1">
-                                <span class="bg-green-200 rounded-full px-2">editorial opinion</span>
-                            </div>
-                            <div class="tag-rounded text-xs text-green-500 px-2 mx-1 w-auto my-1">
-                                <span class="bg-green-200 rounded-full px-2">inteligence gathering</span>
-                            </div>
-                            <div class="tag-rounded text-xs text-green-500 px-2 mx-1 w-auto my-1">
-                                <span class="bg-green-200 rounded-full px-2">insight</span>
-                            </div>
+                            -->
                         </div>
                     </div>
 
@@ -106,7 +99,7 @@
                                 <svg class="w-6 h-6 text-yellow-600" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                             </div>
                             <div class="jumprojek ml-2 text-yellow-600 font-semibold">
-                                4 Projects
+                                {{ item.projects.length }} projects
                             </div>
                         </div>
                         <div class="icon">
@@ -115,47 +108,23 @@
                     </div>
                     <transition name="slide">
                         <div class="isi" v-if="showProjects == i && showPro">
+                        <div
+                            v-for="(project, i) in item.projects"
+                            :key="i">
                             <div class="hide flex items-center justify-between px-8 py-4 border-b">
                                 <div class="text">
-                                    Sengketa Driver dan Perusahaan
+                                    {{ project.title }}
                                 </div>
                                 <div class="icon flex items-center justify-start">
                                     <div class="text mr-2">
-                                        Ongoing
+                                        {{ project.status }}
                                     </div>
                                     <div class="icon mr-2 rounded-full bg-blue-200 px-2 py-2">
                                         <svg class="w-5 text-purple-500" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="hide flex items-center justify-between px-8 py-4 border-b">
-                                <div class="text">
-                                    Event Go-Food Di Kemang
-                                </div>
-                                <div class="icon flex items-center justify-start">
-                                    <div class="text mr-2">
-                                        Ongoing
-                                    </div>
-                                    <div class="icon mr-2 rounded-full bg-blue-200 px-2 py-2">
-                                        <svg class="w-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="hide flex items-center justify-between px-8 py-4 border-b">
-                                <div class="text">
-                                    Sengketa Driver dan Perusahaan
-                                </div>
-                                <div class="icon flex items-center justify-start">
-                                    <div class="text mr-2">
-                                        Ongoing
-                                    </div>
-                                    <div class="icon mr-2 rounded-full bg-blue-200 px-2 py-2">
-                                        <svg class="w-5 text-purple-500" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
                         </div>
                     </transition>
                     
