@@ -10,9 +10,9 @@
             <div class="grid lg:grid-cols-3 mt-12">
                 <div class="qcom flex flex-col">
                     <router-link to="/">
-                        <div class="text-xl font-bold">Project Manager</div>
+                        <div class="text-xl font-bold">ProManager</div>
                     </router-link>
-                    <div>QComm Project Management System</div>
+                    <div>QComm Project Manager</div>
                 </div>
                 <div class="qcom flex flex-col leading-loose lg:mt-0 mt-4">
                     <div class="mb-4 uppercase font-bold">PROYEK SAYA</div>
@@ -52,7 +52,7 @@
                     Copyright &copy; 2021. QComm
                 </div>
                 <div class="bantuan">
-                    Bantuan: support@qcomm.id
+                    Whatsapp Support: +6281234567890
                 </div>
             </div>
         </div>

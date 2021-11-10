@@ -54,37 +54,19 @@
 
                     <div class="start-date px-4 py-6 flex items-center justify-start w-full">
                         <div class="w-full">
-                            <label for="" class="font-semibold text-gray-400">Full name</label>
-                            <input
-                                :value="user.fullName"
-                                readonly
-                                type="text"
-                                placeholder="Full Name" 
-                                class="w-full bg-gray-50 shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2"
-                            >
+                            <label for="" class="font-semibold text-gray-400">Select Employee</label>
+                            <multiselect label="fullName" class="text-large" placeholder="Select employee for KPI updating" :multiple="false" v-model="selectedUser" :options="users"></multiselect>
                         </div>
                     </div>
 
                     <div class="status px-4 py-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
                         <div class="lg:w-1/2 lg:mr-4">
                             <label for="" class="font-semibold text-gray-400">Select Project</label>
-                            <select
-                                v-model="user.projectId"
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
-                            >
-                                <option value="1">Project 1</option>
-                                <option value="2">Project 2</option>
-                            </select>
+                            <multiselect @select="loadTasks" label="title" class="text-large" placeholder="Select project" :multiple="false" v-model="selectedProject" :options="projects"></multiselect>
                         </div>
                         <div class="lg:w-1/2">
                             <label for="" class="font-semibold text-gray-400">Task (Optional)</label>
-                            <select
-                                v-model="user.taskId"
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded font-semibold px-2 py-2 text-gray-400"
-                            >
-                                <option value="1">Task 1</option>
-                                <option value="2">Task 2</option>
-                            </select>
+                            <multiselect label="title" class="text-large" placeholder="Select task" :multiple="false" v-model="selectedTask" :options="tasks"></multiselect>
                         </div>
                     </div>
 
@@ -130,7 +112,7 @@
                             <svg v-else class="w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
 
                             <span class="font-semibold text-white text-sm ml-2 leading-loose">
-                                {{ isSubmitting ? 'Processing...' : 'Update Kpi' }}
+                                {{ isSubmitting ? 'Processing...' : 'Update KPI' }}
                             </span>
                         </button>
                         <button 
@@ -148,7 +130,11 @@
 
 <script>
 import axios from 'axios'
+import Multiselect from 'vue-multiselect'
 export default {
+    components: {
+        Multiselect,
+    },    
     data() {
         return {
             isSubmitting: false,
@@ -161,7 +147,13 @@ export default {
                 quality: 0,
                 design: 0,
                 idea: 0,
-            }
+            },
+            selectedProject: {},
+            selectedTask: {},
+            selectedUser: {},
+            users: [],
+            projects: [],
+            tasks: [],
         }
     },
     computed: {
@@ -179,11 +171,12 @@ export default {
             console.log(user.data.data.user.id);
         });
         this.getUserDetail();
+        this.getUsers();
+        this.getProjects();
     },
     methods: {
         updateUserKpi(){
             this.isSubmitting = true;
-            // {{apiHost}}users?userId=9&projectId=1&taskId=1&scope=IDEA&score=100
             axios.put(`/users?userId=${this.user.userId}&projectId=${this.user.projectId}&taskId=${this.user.taskId}&scope=${this.user.scope}&score=${this.getScore}`)
             .then((response) => {
                 this.isSubmitting = false;
@@ -206,6 +199,33 @@ export default {
                 console.log(error);
             });
         },
+        getUsers(){
+            axios.get(`/users`)
+            .then((response) => {
+                this.users = response.data.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },   
+        getProjects(){
+            axios.get(`/projects`)
+            .then((response) => {
+                this.projects = response.data.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },    
+        loadTasks(){
+            axios.get(`/projects/${this.selectedProject.id}`)
+            .then((response) => {
+                this.tasks = response.data.data.tasks;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },                         
         canceling(){
             this.$router.go(-1);
         }

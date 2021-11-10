@@ -73,6 +73,10 @@
                         <div class="title text-purple-700 text-md font-bold px-4 py-3 rounded-t bg-gray-100">
                             Buat Task Baru
                         </div>
+                        <div class="px-4 pt-4">
+                            <multiselect label="fullName" class="text-large" placeholder="Add this task to someone" :allow-empty="false" :multiple="false" v-model="userMask" :options="users"></multiselect>
+                        </div>
+                        
                         <div class="txt-area px-4">
                             <textarea
                                 v-model="task.message"
@@ -160,21 +164,27 @@ const appToken = 'adadasd';
 import Loader from '@/components/Loader.vue'
 import MiniSidebarComponent from '@/components/MiniSidebarComponent.vue';
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
+import Multiselect from 'vue-multiselect'
 export default {
     components: {
         Loader,
         MiniSidebarComponent,
         DatePicker,
+        Multiselect,
     },
     props: ['id'],
     data() {
         return {
             dateMasks: {
                 input: 'DD-MM-YYYY',
-            },            
+            },
+            userMask: {
+                id: localStorage.userId,
+                fullName: localStorage.fullName
+            },
             isSubmitting: false,
             task: {
-                userId: '',
+                userId: localStorage.userId,
                 projectId: '',
                 creatorId: '',
                 categoryId: '',
@@ -185,11 +195,13 @@ export default {
                 priority: 'NORMAL',
                 status: '',
             },
+            users: [],
             projectDetail: {},
         }
     },
     mounted(){
         this.getProjectDetail();
+        this.getUsers();
     },
     computed: {
         fixDueDate(){
@@ -201,9 +213,11 @@ export default {
     methods: {
         addTask(){
             console.log(this)
+            this.task.creatorId = localStorage.userId
+            this.userId = this.userMask.id
             this.isSubmitting = true;
-            /**
-            axios.post("/tasks", this.tasks, {
+
+            axios.post("/tasks", this.task, {
                 headers: {
                     'Authorization': 'Bearer ' +appToken
                 }
@@ -211,7 +225,7 @@ export default {
             .then((response) => {
                 this.isSubmitting = false;
                 this.$swal("Success!", `Tasks berhasil disimpan!`, "success");
-                this.tasks = '';
+                this.task = '';
                 this.$router.push({
                     name: 'ProjectTask',
                     params: {id: this.id}
@@ -220,10 +234,10 @@ export default {
             .catch((error) => {
                 console.log('woooo...'+error);
             });
-            **/
         },
         getProjectDetail(){
-            this.loaderPage = true;
+            this.loaderPage = true
+            this.task.projectId = this.id
             axios.get(`/projects/${this.id}`)
             .then((response) => {
                 this.loaderPage = false;
@@ -233,7 +247,19 @@ export default {
                 this.$swal('Error!', `${error}`, 'error');
                 this.loaderPage = false;
             });
-        },        
+        },      
+        getUsers(){
+            this.loaderPage = true
+            axios.get(`/users`)
+            .then((response) => {
+                this.loaderPage = false;
+                this.users = response.data.data;
+            })
+            .catch((error) => {
+                this.$swal('Error!', `${error}`, 'error');
+                this.loaderPage = false;
+            });
+        },            
         selectImage(){
             this.$swal("Success!", `Belum ada fungsi`, "success");
         },

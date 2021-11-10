@@ -84,7 +84,7 @@
                     class="task-list py-6 px-4 shadow-lg rounded bg-white mt-4">
                     <!-- loop this -->
                     <div 
-                        v-for="(item, i) in tasks"
+                        v-for="(item, i) in tasks.reverse()"
                         :key="i"
                         class="flex lg:flex-row flex-col justify-between w-full border-b py-4">
 
@@ -106,11 +106,9 @@
                                 {{item.createdAt | momentDatetime}}
                             </div>
 
-                            <!--
                             <div class="bg-green-200 text-sm text-green-600 px-2 rounded-full">
-                                 responses
+                                {{ item.status }}
                             </div>
-                            -->
                             
                             <div class="archive-button my-2">
                                 <button

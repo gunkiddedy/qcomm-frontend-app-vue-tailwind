@@ -126,7 +126,7 @@
             <div class="sidebar bg-white rounded px-0 py-4 shadow-lg">
                 <!-- loop this -->
                 <div 
-                    v-for="(item, i) in projectDetail.tasks"
+                    v-for="(item, i) in projectDetail.tasks.reverse()"
                     :key="i">
                     <div class="sidebar-contain flex items-center justify-between px-4">
                         <div class="title text-md hover:text-purple-500 cursor-pointer">

@@ -17,6 +17,7 @@
                         </button>
                     </div> -->
                     <div class="img-profle rounded-full bg-blue-200 w-64 text-center">
+                    <!--
                         <img 
                             v-if="userDetail.profilePictureUrl"
                             class="object-contain rounded-full w-full" 
@@ -27,6 +28,10 @@
                             class="object-contain rounded-full w-full" 
                             src="../assets/users/user-1.jpeg" 
                             alt="img-user">
+                    -->
+                        <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
+                            <svg class="w-50 h-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>                       
                     </div>
                     <div class="flex flex-col items-center title text-2xl mt-4 font-bold text-gray-500" >
                         <div>
@@ -47,8 +52,8 @@
                     </div>
                     <div class="role text-center text-lg px-12 mt-2 font-bold text-gray-400">
                         <!-- {{ userDetail.role }} -->
-                        <span v-if="userDetail.roleName">{{userDetail.roleName}}</span>
-                        <span v-else>Project Manager, Senior Consultant, Lead Consultant, Dan 3 Role Lain</span>
+                        <span v-if="userDetail.title">{{userDetail.title}}</span>
+                        <span v-else>Role/Jabatan Lainnya</span>
                     </div>
                     <div class="bergabung flex items-center justify-center px-4 mt-4 mb-8 text-gray-400">
                         Bergabung {{userDetail.createdAt | momentRelativeTime}}
@@ -189,19 +194,19 @@
                         </div>
                         <div class="isi lg:ml-4 ml-0 my-2">
                             <ul>
-                                <li class="font-semibold text-gray-400">Quality: 90/100</li>
-                                <li class="font-semibold text-gray-400">Idea: 90/100</li>
-                                <li class="font-semibold text-gray-400">Design: 90/100</li>
-                                <li class="font-semibold text-gray-400">Deadline: 90/100</li>
+                                <li class="text-gray-400">Quality: 90/100</li>
+                                <li class="text-gray-400">Idea: 90/100</li>
+                                <li class="text-gray-400">Design: 90/100</li>
+                                <li class="text-gray-400">Deadline: 90/100</li>
                             </ul>
                         </div>
                     </div>
                     <div class="image-left flex items-center justify-start">
                         <div class="title text-base font-bold text-gray-400 mr-2">
-                            Gojek Indonesia
+                            {{ item.companyId }}
                         </div>
                         <div class="img-gojek flex-shrink-0 rounded-full bg-gray-200 px-2 py-2">
-                            <img src="https://pbs.twimg.com/media/EAKvmBZUIAUeWSN.jpg" class="rounded-full w-12">
+                            
                         </div>
                     </div>
                 </div>
@@ -252,7 +257,7 @@ export default {
             .then((response) => {
                 this.userDetail = response.data.data;
                 this.tasks = response.data.data.tasks;
-                this.projects = response.data.data.projects;
+                this.projects = response.data.data.user_projects;
                 console.log(response.data.data);
             })
             .catch((error) => {

@@ -29,7 +29,7 @@
                 @click="toProjectOverview(item.id)" 
                 class="card rounded shadow-lg relative cursor-pointer transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-100">
                 <div class="img-card-img">
-                    <img src="https://images.unsplash.com/photo-1582346992845-c963d5b0ba0d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="" class="object-contain w-full rounded-t">
+                    <img src="" alt="" class="object-contain w-full rounded-t">
                 </div>
                 <div class="title-card max-h-40 h-40 flex flex-col py-6 px-6 bg-white">
                     <div class="img-title text-lg font-semibold">
@@ -42,11 +42,11 @@
                 <div class="footer-card bg-gray-100 px-6 rounded-b py-1">
                     <div class="footer-contain flex items-center justify-start">
                         <div class="flex-shrink-0 shadow rounded-full mr-2">
-                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1551721434-8b94ddff0e6d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=401&q=80" alt="">
+                            <svg class="w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                         </div>
                         <div class="flex flex-col py-2">
                             <span class="text-sm font-semibold">
-                                Bank Mandiri
+                                {{ item.companyName }}
                             </span>
                             <span class="text-xs act-time">
                                 Aktifitas terakhir {{item.createdAt | momentRelativeTime}}
@@ -93,9 +93,6 @@
                             <div class="flex-shrink-0 shadow rounded-full">
                                 <img class="h-8 w-8 rounded-full" src="../assets/users/user-1.jpeg" alt="">
                             </div>
-                            <div class="flex-shrink-0 shadow rounded-full lg:mt-5 lg:mx-0 mx-3">
-                                <img class="h-8 w-8 rounded-full" src="../assets/users/user-1.jpeg" alt="">
-                            </div>
                         </div>
                         <div class="text flex flex-wrap w-3/4">
                             <router-link :to="`/tasks/${item.id}`"> 
@@ -112,7 +109,7 @@
                                 {{item.createdAt | momentDatetime}}
                             </div>
                             <div class="bg-green-200 text-sm text-green-600 px-2 rounded-full">
-                                3 responses
+                                {{ item.status }}
                             </div>
                         </div>
                     </div><!-- end loop-->
@@ -154,8 +151,8 @@ export default {
         getUserDetail(){
             axios.get(`/users/${localStorage.userId}`)
             .then((response) => {
-                this.projects = response.data.data.projects;
-                this.tasks = response.data.data.tasks;
+                this.projects = response.data.data.user_projects;
+                this.tasks = response.data.data.tasks.reverse();
                 console.log(response.data);
             })
             .catch((error) => {
@@ -164,7 +161,7 @@ export default {
         },
         toProjectOverview(param){
             this.$router.push({
-                name: 'ProjectOverview',
+                name: 'ProjectTask',
                 params: {id: param}
             });
         }

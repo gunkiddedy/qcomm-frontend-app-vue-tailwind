@@ -69,8 +69,8 @@
                         <div class="big-title text-xl font-bold text-gray-600">
                             {{ taskDetail.title }}
                         </div>
-                        <div class="pending bg-yellow-200 px-4 py-0 rounded lg:w-auto w-1/3 lg:mt-0 mt-2">
-                            <span class="text-yellow-500 text-sm font-bold">Pending</span>
+                        <div class="pending bg-green-200 px-4 py-0 rounded lg:w-auto w-1/3 lg:mt-0 mt-2">
+                            <span class="text-green-500 text-sm font-bold">{{ taskDetail.status }}</span>
                         </div>
                     </div>
                     <div class="bg-white shadow-lg rounded" v-if="taskDetail.discussions">

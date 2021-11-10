@@ -58,7 +58,7 @@
                             <!-- <img class="h-8 w-8" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow"> -->
                             <router-link to="/">
                                 <span class="company text-purple-700 hover:text-green-600 text-2xl font-bold">
-                                    Project Manager
+                                    ProManager
                                 </span>
                             </router-link>
                         </div>
