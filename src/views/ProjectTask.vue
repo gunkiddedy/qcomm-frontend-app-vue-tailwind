@@ -61,7 +61,7 @@
         <div class="garis border-t border-gray-300 mt-16 my-14 lg:mx-28"></div>
         <div class="wrap-second-content grid lg:grid-cols-4 grid-cols-1 gap-8 lg:px-28">
             <!-- SIDEBAR -->
-            <MiniSidebarComponent :taskId="id" />
+            <MiniSidebarComponent :taskId="id" :projectId="id" />
             <!-- SECOND CONTENT -->
             <div class="col-span-3 search">
                 <!-- SEARCH -->
@@ -89,9 +89,9 @@
                         class="flex lg:flex-row flex-col justify-between w-full border-b py-4">
 
                         <div class="img-ket flex lg:flex-col">
-                            <div class="flex-shrink-0 shadow rounded-full">
-                                <img class="h-8 w-8 rounded-full" src="../assets/users/user-1.jpeg" alt="">
-                            </div>
+                        <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
                         </div>
                         <router-link :to="`/tasks/${item.id}`" class="text flex flex-col w-3/4">
                             <div class="judul mb-2 font-semibold text-gray-500">
@@ -105,9 +105,13 @@
                             <div class="jam text-sm text-gray-300 font-semibold lg:mr-0 mr-2">
                                 {{item.createdAt | momentDatetime}}
                             </div>
+
+                            <!--
                             <div class="bg-green-200 text-sm text-green-600 px-2 rounded-full">
-                                3 responses
+                                 responses
                             </div>
+                            -->
+                            
                             <div class="archive-button my-2">
                                 <button
                                     @click="archiveThis" 
@@ -146,7 +150,6 @@ export default {
             loaderPage: false,
             projectDetail: '',
             tasks: '',
-            // participants: 0,
             keyword: '',
         }
     },
@@ -173,11 +176,6 @@ export default {
                 this.loaderPage = false;
                 this.projectDetail = response.data.data;
                 this.tasks = response.data.data.tasks;
-                // if(response.data.data.participants)
-                //     this.participants = response.data.data.participants;
-                // else
-                //     this.participants = 5;
-                console.log(response.data);
             })
             .catch((error) => {
                 this.$swal('Error!', `${error}`, 'error');

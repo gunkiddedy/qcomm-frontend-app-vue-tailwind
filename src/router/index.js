@@ -41,8 +41,9 @@ const route = [
 		component: () => import('../views/ProjectDocument.vue'),
 	},
 	{
-		path: '/project-new-task',
+		path: '/project-new-task/:id',
 		name: 'ProjectNewTask',
+		props: true,
 		component: () => import('../views/ProjectNewTask.vue'),
 	},
 	{

@@ -61,9 +61,8 @@
         <div class="garis border-t border-gray-300 mt-24 mb-12"></div>
 
         <!-- ############ SIDEBAR AND SEARCH ############# -->
-        <div class="wrap-second-content grid lg:grid-cols-4 gap-12">
+        <div class="wrap-second-content grid gap-12">
             <!-- SIDEBAR -->
-            <MiniSidebarComponent />
             <!-- SECOND CONTENT -->
             <div class="lg:col-span-3 search">
                 <!-- SEARCH -->

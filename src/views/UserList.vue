@@ -16,7 +16,7 @@
                         <span class="text-2xl font-semibold leading-3">Daftar User</span>
                     </div>
                     <div class="">
-                        <span class="text-md font-semibold text-gray-400">
+                        <span class="text-md text-gray-400">
                             Semua user yang menggunakan sistem
                         </span>
                     </div>
@@ -73,11 +73,12 @@
                     <span v-if="item.role">
                         {{ item.role }}
                     </span>
-                    <span v-else>Media</span>
+                    <span v-else>{{item.roleName}}</span>
                 </div>
 
                 <!-- IMAGE CARD -->
                 <div class="img-card-img flex items-center justify-center px-2 py-2">
+                    <!--
                     <img
                         v-if="!item.profilePictureUrl"
                         src="../assets/users/user-1.jpeg" 
@@ -88,6 +89,10 @@
                         :src="item.profilePictureUrl" 
                         :alt="item.id"
                         class="rounded-full w-60">
+                    -->
+                        <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
+                            <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>                    
                 </div>
 
                 <!-- FOOTER CARD -->

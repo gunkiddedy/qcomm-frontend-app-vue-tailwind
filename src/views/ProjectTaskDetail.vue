@@ -11,13 +11,13 @@
                         {{taskDetail.message}}
                     </div>
                     <div class="button flex lg:flex-row flex-col items-center justify-center px-4 mt-4 mb-8">
-                        <router-link :to="`/projects/${projectDetail.id}/progress`" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600 lg:mr-4 lg:mb-0 mb-2">
+                        <router-link :to="`/projects/${projectDetail.id}/progress`" class="bg-purple-500 px-6 py-1 rounded-full hover:bg-red-600 lg:mr-4 lg:mb-0 mb-2">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >Progress</span>
                         </router-link>
                         <router-link :to="`/projects/${projectDetail.id}/documents`" class="bg-red-500 px-6 py-1 rounded-full hover:bg-purple-600 lg:mr-4 lg:mb-0 mb-2">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >dokumen</span>
                         </router-link>
-                        <router-link :to="'/projects/'+projectDetail.id" class="bg-purple-500 px-6 py-1 rounded-full hover:bg-red-600">
+                        <router-link :to="'/projects/'+projectDetail.id" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >overview</span>
                         </router-link>
                     </div>
@@ -82,15 +82,15 @@
                                 <div class="isi flex items-center justify-between">
                                     <div class="nama flex flex-col">
                                         <div class="nama-saja text-gray-500 text-md font-bold">
-                                            {{item.userId}}
+                                            {{item.userFullName}}
                                         </div>
                                         <div class="waktu text-gray-400 text-xs">
                                             {{item.createdAt|momentRelativeTime}}
                                         </div>
                                     </div>
                                     <div class="img">
-                                        <div class="flex-shrink-0 shadow rounded-full">
-                                            <img class="h-8 w-8 rounded-full" src="" alt="">
+                                        <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                         </div>
                                     </div>
                                 </div>
@@ -223,8 +223,6 @@ export default {
                 this.rawFile = [];
                 this.resolved = false;
                 this.getTaskDetail();
-                // this.$swal('Success!', 'Task inserted successfully!', 'info');
-                console.log(response.data);
             })
             .catch((error) => {
                 this.isReply = false;
