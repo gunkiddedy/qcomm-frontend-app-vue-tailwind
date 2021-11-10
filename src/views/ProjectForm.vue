@@ -178,15 +178,15 @@
                     <div class="attachment px-4 py-8 grid lg:grid-cols-3 w-full">
                         <div class="border lg:px-2 px-1 py-2 lg:my-0 my-1 rounded lg:mr-2">
                             <label for="" class="font-semibold text-gray-400">Attachment 1</label>
-                            <input type="file" name="" id="" class="rounded text-sm">
+                            <input type="file" name="attachment1" id="" class="rounded text-sm">
                         </div>
                         <div class="border lg:px-2 px-1 py-2 lg:my-0 my-1 rounded lg:mr-2">
                             <label for="" class="font-semibold text-gray-400">Attachment 2</label>
-                            <input type="file" name="" id="" class="rounded text-sm">
+                            <input type="file" name="" id="attachment2" class="rounded text-sm">
                         </div>
                         <div class="border lg:px-2 px-1 py-2 lg:my-0 my-1 rounded mr">
                             <label for="" class="font-semibold text-gray-400">Attachment 3</label>
-                            <input type="file" name="" id="" class="rounded text-sm">
+                            <input type="file" name="" id="attachment3" class="rounded text-sm">
                         </div>
                     </div>
 
@@ -263,6 +263,9 @@ export default {
                 startDate: null,
                 completedDate: null,
                 status: '',
+                attachment1: '',
+                attachment2: '',
+                attachment3: '',
             },
             userMenu: localStorage.userMenuAdd.split(','),
         }

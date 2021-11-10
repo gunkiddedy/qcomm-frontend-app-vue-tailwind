@@ -14,10 +14,10 @@
                         <router-link :to="`/projects/${projectDetail.id}/progress`" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600 lg:mr-4 lg:mb-0 mb-2">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >Progress</span>
                         </router-link>
-                        <router-link :to="`/projects/${projectDetail.id}/documents`" class="bg-purple-500 px-6 py-1 rounded-full hover:bg-purple-600 lg:mr-4 lg:mb-0 mb-2">
+                        <router-link :to="`/projects/${projectDetail.id}/documents`" class="bg-red-500 px-6 py-1 rounded-full hover:bg-purple-600 lg:mr-4 lg:mb-0 mb-2">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >dokumen</span>
                         </router-link>
-                        <router-link :to="'/projects/'+projectDetail.id" class="bg-red-500 px-6 py-1 rounded-full hover:bg-red-600">
+                        <router-link :to="'/projects/'+projectDetail.id" class="bg-purple-500 px-6 py-1 rounded-full hover:bg-red-600">
                             <span class="font-bold uppercase text-xs text-gray-50 leading-loose" >overview</span>
                         </router-link>
                     </div>
@@ -64,7 +64,7 @@
                         Project Brief
                     </div>
                 </div>
-                <div class="btn-edit">
+                <div class="button flex lg:flex-row flex-col items-center justify-center px-4 mt-4 mb-8">
                     <button 
                         @click="editProject(projectDetail.id)"
                         class="bg-gray-200 hover:bg-gray-300 rounded lg:px-6 px-2 py-1 text-gray-500 font-semibold text-xs mr-4 flex items-center">
@@ -73,6 +73,12 @@
                         <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                         </svg>
                     </button>
+                    <button 
+                        @click="editProject(projectDetail.id)"
+                        class="bg-gray-200 hover:bg-gray-300 rounded lg:px-6 px-2 py-1 text-gray-500 font-semibold text-xs mr-4 flex items-center">
+                        <span class="mr-1">Add Participant</span>
+                        <svg class="w-4" fill="currentColor" stroke="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    </button>                    
                 </div>
             </div>
             <div class="text-justify text-gray-500 font-medium">
@@ -85,7 +91,7 @@
             <div class="font-bold text-lg text-gray-600">Participants</div>
             <div class="bg-blue-200 text-purple-500 rounded px-4 py-1 text-sm font-semibold">
                 {{countParticipants}} people
-            </div>
+            </div>                    
         </div>
         <div class="rincian w-full my-4 lg:px-28 justify-between bg-indigo-50">
             <div class="sidebar bg-white rounded px-0 py-4 shadow-lg">
