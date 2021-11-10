@@ -47,8 +47,9 @@
                     <!-- FOOTER CARD -->
                     <div class="footer-card bg-gray-100 px-6 rounded-b py-1">
                         <div class="footer-contain flex items-center justify-start">
-                            <div class="flex-shrink-0 shadow rounded-full mr-2">
-                                <img class="h-10 w-10 rounded-full" src="" alt="">
+                            <!--<div class="flex-shrink-0 shadow rounded-full mr-2">-->
+                            <div class="flex-shrink-0 mr-2">
+                                <svg class="w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
                             </div>
                             <div class="flex flex-col py-2">
                                 <span class="text-sm font-semibold">
