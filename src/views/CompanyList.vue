@@ -166,10 +166,12 @@
 const appToken = 'dsadsadsad';
 import Loader from '@/components/Loader.vue'
 import axios from 'axios'
+import appMixins from '../mixins/appMixins'
 export default {
     components: {
         Loader,
     },
+    mixins: [appMixins],
     data() {
         return {
             clicked1: false,

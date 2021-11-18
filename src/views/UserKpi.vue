@@ -131,10 +131,13 @@
 <script>
 import axios from 'axios'
 import Multiselect from 'vue-multiselect'
+import appMixins from '../mixins/appMixins'
+
 export default {
     components: {
         Multiselect,
-    },    
+    },
+    mixins: [ appMixins ],
     data() {
         return {
             isSubmitting: false,

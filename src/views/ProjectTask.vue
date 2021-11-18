@@ -137,11 +137,14 @@
 import axios from 'axios'
 import MiniSidebarComponent from '@/components/MiniSidebarComponent.vue'
 import Loader from '@/components/Loader'
+import appMixins from '../mixins/appMixins'
+
 export default {
     components: {
         MiniSidebarComponent,
         Loader
     },
+    mixins: [ appMixins ],
     props: ['id'],
     data() {
         return {

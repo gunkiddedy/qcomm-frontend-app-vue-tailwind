@@ -83,7 +83,7 @@
                         <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">
                             Select file
                         </span>
-                        <input hidden type="file" id="file" @change="onFileChange">
+                        <input hidden type="file" name="rawFile" id="file" @change="onFileChange">
                     </label>
                     
                     <button 
@@ -126,17 +126,7 @@
                     v-for="(item, i) in documents"
                     :key="i"
                     class="loop border-b py-2">
-                    <div class="sidebar-contain flex items-center justify-between px-4">
-                        <div class="title text-md">
-                            {{item.title}}
-                        </div>
-                        <div class="flex items-center">
-                            <div class="mr-2">{{item.rawFile}}</div>
-                            <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
-                                <svg class="w-6 h-6 text-purple-500" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                            </div>
-                        </div>
-                    </div>
+                    <ItemDocument :document="item" />
                 </div>
             </div>
         </div>
@@ -150,15 +140,18 @@
 <script>
 import axios from 'axios'
 import Loader from '@/components/Loader.vue'
+import appMixins from '../mixins/appMixins'
+import ItemDocument from '../components/ItemDocument'
 export default {
-    components: {Loader},
+    components: {Loader, ItemDocument},
     props: ['id'],
+    mixins: [ appMixins ],
     data() {
         return {
             loaderPage: false,
             isSubmitting: false,
             projectDetail: '',
-            documents: '',
+            documents: [],
             document: {
                 projectId: this.id,
                 taskId: '',
@@ -187,10 +180,16 @@ export default {
             this.isSubmitting = true;
             const formData = new FormData();
             formData.append('rawFile', this.document.rawFile);
-            axios.post(`/documents?projectId=${this.document.projectId}&title=${this.document.title}`)
+            axios.post(`/documents?projectId=${this.document.projectId}&title=${this.document.title}`, formData, {
+                headers: {
+                    'Authorization': 'Bearer ' + this.getAppToken(),
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
             .then((response) => {
                 this.isSubmitting = false;
                 this.$swal("Success!", `Document berhasil diupload!`, "success");
+                this.documents.push(response.data.data);
                 this.getProjectDetail();
                 console.log(response.data);
             })

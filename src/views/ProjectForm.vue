@@ -227,12 +227,14 @@ import axios from 'axios'
 import Loader from '@/components/Loader.vue'
 // import Calendar from 'v-calendar/lib/components/calendar.umd'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
+import appMixins from '../mixins/appMixins'
 export default {
     components: {
         Loader,
         DatePicker,
         // Calendar
     },
+    mixins: [ appMixins ],
     data() {
         return {
             masks: {

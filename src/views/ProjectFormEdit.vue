@@ -222,7 +222,7 @@ import Loader from '@/components/Loader.vue'
 // import Calendar from 'v-calendar/lib/components/calendar.umd'
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 import Multiselect from 'vue-multiselect'
-
+import appMixins from '../mixins/appMixins'
 export default {
     components: {
         Loader,
@@ -230,6 +230,7 @@ export default {
         Multiselect,
         // Calendar
     },
+    mixins: [ appMixins ],
     props: ['id'],
     data() {
         return {

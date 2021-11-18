@@ -85,6 +85,7 @@
 <script>
 import axios from 'axios'
 const appToken = "MEJIKU-HIBINIU";
+import appMixins from '../mixins/appMixins'
 export default {
     data(){
         return {
@@ -96,6 +97,7 @@ export default {
             isLoging: false
         }
     },
+    mixins: [appMixins],
     computed: {
        getUserData: {
           get: function () {

@@ -150,6 +150,8 @@
 
 <script>
 import axios from 'axios'
+import appMixins from '../mixins/appMixins'
+
 export default {
     props: ['id'],
     data() {
@@ -160,6 +162,7 @@ export default {
             users: 0,
         }
     },
+    mixins: [ appMixins ],
     mounted(){
         this.getProjectDetail();
     },

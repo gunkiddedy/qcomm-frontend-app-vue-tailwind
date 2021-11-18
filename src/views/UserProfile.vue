@@ -221,6 +221,8 @@
 
 <script>
 import axios from 'axios'
+import appMixins from '../mixins/appMixins'
+
 export default {
     props: ["id"],
     data() {
@@ -232,6 +234,7 @@ export default {
             currentUserId: '',
         }
     },
+    mixins: [ appMixins ],
     mounted() {
         this.getUserDetail();
         this.currentUserId = localStorage.userId;

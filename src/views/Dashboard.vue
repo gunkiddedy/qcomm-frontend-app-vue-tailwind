@@ -128,10 +128,12 @@
 <script>
 import axios from 'axios'
 import MiniSidebarComponent from '@/components/MiniSidebarComponent.vue'
+import appMixins from '../mixins/appMixins'
 export default {
     components: {
-        MiniSidebarComponent
+        MiniSidebarComponent,
     },
+    mixins: [appMixins],
     data() {
         return {
             projects: '',

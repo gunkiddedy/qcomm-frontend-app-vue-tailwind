@@ -178,24 +178,24 @@
                                             {{ broadcast.description }}
                                         </div>
                                         <div class="select-file w-30-persen max-w-xs py-2">
-                                            <label v-if="broadcast.attachment1" class="bg-gray-100 flex my-2 items-center justify-center py-1 rounded cursor-pointer hover:bg-gray-200 mr-4">
+                                            <a :href="assetUrl(broadcast.attachment1)" v-if="broadcast.attachment1" class="bg-gray-100 flex my-2 items-center justify-center py-1 rounded cursor-pointer hover:bg-gray-200 mr-4">
                                                 <svg class="w-4 text-gray-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                                                <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">{{ broadcast.attachment1 }}</span>
+                                                <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">Attachment 1</span>
+                                            </a>
+                                            <label v-if="assetUrl(broadcast.attachment2)" class="bg-gray-100 flex my-2 items-center justify-center py-1 rounded cursor-pointer hover:bg-gray-200 mr-4">
+                                                <svg class="w-4 text-gray-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
+                                                <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">Attachment 2</span>
                                             </label>
-                                            <label v-if="broadcast.attachment2" class="bg-gray-100 flex my-2 items-center justify-center py-1 rounded cursor-pointer hover:bg-gray-200 mr-4">
+                                            <label v-if="assetUrl(broadcast.attachment3)" class="bg-gray-100 flex my-2 items-center justify-center py-1 rounded cursor-pointer hover:bg-gray-200 mr-4">
                                                 <svg class="w-4 text-gray-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                                                <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">{{ broadcast.attachment2 }}</span>
-                                            </label>
-                                            <label v-if="broadcast.attachment3" class="bg-gray-100 flex my-2 items-center justify-center py-1 rounded cursor-pointer hover:bg-gray-200 mr-4">
-                                                <svg class="w-4 text-gray-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                                                <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">{{ broadcast.attachment3 }}</span>
+                                                <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">Attachment 3</span>
                                             </label>                                                                                        
                                         </div>
                                     </div>
                                     <div class="kanan flex flex-wrap w-1/5 py-4 justify-end">
                                         <div class="datetime">
                                             <span class="text-gray-400 text-sm">
-                                                {{ broadcast.createdAt }}
+                                                {{ broadcast.createdAt | momentRelativeTime}}
                                             </span>
                                         </div>
                                         <div class="status w-30-persen max-w-xs">
@@ -219,10 +219,12 @@
 const appToken = 'dsadsadsad';
 import Loader from '@/components/Loader.vue'
 import axios from 'axios'
+import appMixins from '../mixins/appMixins'
 export default {
     components: {
         Loader,
     },
+    mixins: [ appMixins ],
     data() {
         return {
             showBroadcast: null,
@@ -233,6 +235,7 @@ export default {
             groupList: [],
             keyword: '',
             userMenu: localStorage.userMenuManage.split(','),
+            assetHost: this.$assetHost
         }
     },
     mounted() {

@@ -159,10 +159,12 @@
 import axios from 'axios'
 const appToken = 'adadasd';
 import Loader from '@/components/Loader.vue'
+import appMixins from '../mixins/appMixins'
 export default {
     components: {
         Loader,
     },
+    mixins: [appMixins],
     props: ['groupId'],
     data() {
         return {
@@ -188,11 +190,6 @@ export default {
                     name: 'DRAFT',
                 },
             ],
-            // groups: [
-            //     {id: 1, name: 'GROUP 1'},
-            //     {id: 2, name: 'GROUP 2'},
-            //     {id: 3, name: 'GROUP 3'}
-            // ],
             groupList: '',
             userMenu: localStorage.userMenuAdd.split(','),
         }

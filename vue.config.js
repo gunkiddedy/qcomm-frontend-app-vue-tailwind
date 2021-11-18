@@ -1,6 +1,6 @@
 module.exports = {
     devServer: {
-        proxy: 'http://api.dapurtech.com/api'
+        proxy: 'http://localhost:3000/api'
     }
     // devServer: {
     //     proxy: {

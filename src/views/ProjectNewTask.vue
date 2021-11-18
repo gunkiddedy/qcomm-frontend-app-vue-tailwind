@@ -165,6 +165,8 @@ import Loader from '@/components/Loader.vue'
 import MiniSidebarComponent from '@/components/MiniSidebarComponent.vue';
 import DatePicker from 'v-calendar/lib/components/date-picker.umd'
 import Multiselect from 'vue-multiselect'
+import appMixins from '../mixins/appMixins'
+
 export default {
     components: {
         Loader,
@@ -172,6 +174,7 @@ export default {
         DatePicker,
         Multiselect,
     },
+    mixins: [ appMixins ],
     props: ['id'],
     data() {
         return {

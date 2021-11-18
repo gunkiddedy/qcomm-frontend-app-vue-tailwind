@@ -202,10 +202,13 @@
 <script>
 import axios from 'axios'
 import Loader from '@/components/Loader.vue'
+import appMixins from '../mixins/appMixins'
+
 export default {
     components: {
         Loader,
     },
+    mixins: [ appMixins ],
     data() {
         return {
             loadingPage: true,

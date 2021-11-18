@@ -97,8 +97,10 @@
 <script>
 import axios from 'axios'
 import Loader from '@/components/Loader'
+import appMixins from '../mixins/appMixins'
 export default {
     components: { Loader },
+    mixins: [ appMixins ],
     data() {
         return {
             loaderPage: false,

@@ -166,10 +166,13 @@
 <script>
 import axios from 'axios'
 import MiniSidebarComponent from '@/components/MiniSidebarComponent.vue'
+import appMixins from '../mixins/appMixins'
+
 export default {
     components: {
         MiniSidebarComponent,
     },
+    mixins: [ appMixins ],
     props: ['id'],
     data() {
         return {

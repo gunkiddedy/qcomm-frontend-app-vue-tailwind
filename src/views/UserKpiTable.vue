@@ -116,10 +116,13 @@
 import axios from 'axios'
 import Loader from '@/components/Loader.vue'
 const APP_ID = '6027c83b1a75fe2bb9fd75f4'
+import appMixins from '../mixins/appMixins'
+
 export default {
     components: {
         Loader
     },
+    mixins: [ appMixins ],
     data() {
         return {
             loaderPage: false,

@@ -135,10 +135,12 @@
 import axios from 'axios'
 const appToken = 'adadasd';
 import Loader from '@/components/Loader.vue'
+import appMixins from '../mixins/appMixins'
 export default {
     components: {
         Loader,
     },
+    mixins: [appMixins],
     props: ['id'],
     data() {
         return {
