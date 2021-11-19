@@ -177,6 +177,16 @@ export default {
             console.log(this.document.rawFile);
         },
         uploadDocument(){
+            if(!this.document.title) {
+                this.$swal('Deskripsi dokumen tidak boleh kosong..');
+                return false;
+            }
+
+            if(!this.document.rawFile) {
+                this.$swal('Dokumen untuk diupload belum dipilih..');
+                return false;
+            }            
+
             this.isSubmitting = true;
             const formData = new FormData();
             formData.append('rawFile', this.document.rawFile);

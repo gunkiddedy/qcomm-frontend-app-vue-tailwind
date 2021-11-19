@@ -120,7 +120,7 @@ export default {
         getProjects(){
             this.loaderPage = true;
             /**
-            if(localStorage.roleName == 'EMPLOYEE'){
+            if(localStorage.roleName === 'EMPLOYEE'){
                 axios.get(`/users/${localStorage.userId}`)
                 .then((response) => {
                     this.loaderPage = false;

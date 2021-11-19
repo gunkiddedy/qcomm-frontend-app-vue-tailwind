@@ -92,17 +92,18 @@
                                             v-for="(item, i) in tasks.slice(0,6)"
                                             :key="i"
                                             :to="`/tasks/${item.id}`"
+                                            style="border-bottom: 1px dashed #ccc"
                                             class="hover:bg-blue-100 sidebar-contain flex items-center justify-start px-4 py-3 cursor-pointer">
                                             <div
                                                 class="icon rounded-full bg-blue-200 px-1 py-1 mr-4">
                                                 <svg class="w-5 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                                             </div>
                                             <div class="title flex flex-col">
-                                                <div class="small-title text-sm text-gray-400 font-semibold">
+                                                <div class="small-title text-sm font-semibold">
                                                     {{item.title}}
                                                 </div>
                                                 <div class="text-xs text-gray-400">
-                                                    {{item.createdAt}}
+                                                    {{item.createdAt | momentRelativeTime}}
                                                 </div>
                                             </div>
                                         </router-link>

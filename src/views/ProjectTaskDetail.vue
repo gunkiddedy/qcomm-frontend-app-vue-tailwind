@@ -1,6 +1,5 @@
 <template>
     <div class="app project-task-detail">
-        <!-- GOJEK PROJEK -->
         <div class="tambahkan-dokumen w-full mt-8 lg:px-28 justify-between bg-indigo-50">
             <div class="bg-white shadow-lg rounded">
                 <div class="body flex flex-col px-4">
@@ -59,7 +58,7 @@
         <div class="wrap-second-content grid lg:grid-cols-4 grid-cols-1 gap-8 lg:px-28">
 
             <!-- SIDEBAR -->
-            <MiniSidebarComponent />
+            <MiniSidebarComponent :projectId="taskDetail.projectId" />
 
             <!-- SECOND CONTENT -->
             <div class="col-span-3 search">
@@ -215,10 +214,14 @@ export default {
         replyTask(){
             this.isReply = true;
             if(!this.message) {
-                this.$swal('tidak boleh kosong');
+                this.$swal('Komentar tidak boleh kosong');
                 this.isReply = false;
                 return false;
             }
+
+            const formData = new FormData();
+            formData.append('rawFile', this.document.rawFile);
+
             axios.post(`/tasks/reply?userId=${this.taskDetail.userId}&projectId=${this.taskDetail.projectId}&taskId=${this.taskDetail.id}&title=${this.taskDetail.title}&message=${this.message}&progress=${this.progress}&rawFile=${this.rawFile}&resolved=${this.resolved}`)
             .then((response) => {
                 this.isReply = false;
@@ -237,7 +240,6 @@ export default {
             await axios.get(`/tasks/${this.id}`)
             .then((response) => {
                 this.taskDetail = response.data.data;
-                console.log(response.data);
                 this.loaderPage = true;
                 axios.get(`/projects/${this.taskDetail.projectId}`)
                 .then((response) => {

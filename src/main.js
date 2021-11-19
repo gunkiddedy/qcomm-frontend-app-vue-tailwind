@@ -7,14 +7,17 @@ import './assets/css/tailwind.css'
 
 import VueSweetalert2 from 'vue-sweetalert2'
 // If you don't need the styles, do not connect
-import 'sweetalert2/dist/sweetalert2.min.css'
-Vue.use(VueSweetalert2);
+import './assets/css/sweetalert2.css'
+const options = {
+	confirmButtonColor: '#8B5CF6',
+	cancelButtonColor: '#ccc',
+};
+Vue.use(VueSweetalert2, options);
 
 // axios.defaults.baseURL = 'https://api.dapurtech.com/api';
 
 // dummy API
 // axios.defaults.baseURL = 'https://dummyapi.io/data/api/';
-
 
 Vue.config.productionTip = false;
 

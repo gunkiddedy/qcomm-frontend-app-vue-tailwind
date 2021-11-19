@@ -71,7 +71,7 @@
                 <div class="tambahkan-dokumen w-full justify-between bg-indigo-50">
                     <div class="bg-white shadow-lg rounded pb-1">
                         <div class="title text-purple-700 text-md font-bold px-4 py-3 rounded-t bg-gray-100">
-                            Buat Task Baru
+                            Buat Task Baru Untuk:
                         </div>
                         <div class="px-4 pt-4">
                             <multiselect label="fullName" class="text-large" placeholder="Add this task to someone" :allow-empty="false" :multiple="false" v-model="userMask" :options="users"></multiselect>
@@ -136,10 +136,20 @@
                             </div>
                         </div>   
 
-                        <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start py-4 px-4 mb-4">
-                            <label @click="selectImage" class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:mr-4 lg:my-0 my-2">
+                        <div class="flex lg:flex-row flex-col lg:items-center justify-start py-4 px-4 mb-4">
+                            <div v-if="task.attachment" class="px-4">
+                                <span>Dokumen: {{task.attachment.name}}</span>
+                            </div>                                    
+                        </div>
+
+                        <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start py-4 px-4 mb-4">            
+                            <label 
+                                class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:mr-4 lg:my-0 my-2">
                                 <svg class="w-4 text-gray-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
-                                <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">Tambahkan dokumen (file)</span>
+                                <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">
+                                    Tambahkan dokumen (file)
+                                </span>
+                                <input hidden type="file" name="rawFile" id="file" @change="onFileChange">
                             </label>
                             <button 
                                 @click="addTask"
@@ -197,6 +207,7 @@ export default {
                 dueDate: '',
                 priority: 'NORMAL',
                 status: '',
+                attachment: ''
             },
             users: [],
             projectDetail: {},
@@ -215,14 +226,53 @@ export default {
     },
     methods: {
         addTask(){
-            console.log(this)
             this.task.creatorId = localStorage.userId
             this.userId = this.userMask.id
             this.isSubmitting = true;
 
-            axios.post("/tasks", this.task, {
+            // if(!this.task.userId) {
+            //     this.$swal('Pilih dahulu user yang akan diberi task..');
+            //     this.isSubmitting = false;
+            //     return false;
+            // }   
+            // if(!this.task.message) {
+            //     this.$swal('Isi dahulu deskripsi task secara rinci..');
+            //     this.isSubmitting = false;
+            //     return false;
+            // }                   
+            // if(!this.task.title) {
+            //     this.$swal('Isi dahulu judul atau keterangan singkat task..');
+            //     this.isSubmitting = false;
+            //     return false;
+            // }   
+            // if(!this.task.startDate) {
+            //     this.$swal('Pilih dahulu tanggal mulai task..');
+            //     this.isSubmitting = false;
+            //     return false;
+            // }   
+            // if(!this.task.dueDate) {
+            //     this.$swal('Pilih dahulu deadline dari task..');
+            //     this.isSubmitting = false;
+            //     return false;
+            // }                        
+
+            const formData = new FormData();
+            formData.append('attachment', this.task.attachment);
+            formData.append('userId', this.task.userId);
+            formData.append('projectId', this.task.projectId);
+            formData.append('categoryId', this.task.categoryId);
+            formData.append('creatorId', this.task.creatorId);
+            formData.append('title', this.task.title);
+            formData.append('message', this.task.message);
+            formData.append('startDate', this.formatDate(this.task.startDate));
+            formData.append('dueDate', this.formatDate(this.task.dueDate));         
+            formData.append('priority', this.task.priority);
+            formData.append('status', this.task.status);            
+
+            axios.post("/tasks", formData, {
                 headers: {
-                    'Authorization': 'Bearer ' +appToken
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': 'Bearer ' + this.getAppToken()
                 }
             })
             .then((response) => {
@@ -262,10 +312,11 @@ export default {
                 this.$swal('Error!', `${error}`, 'error');
                 this.loaderPage = false;
             });
-        },            
-        selectImage(){
-            this.$swal("Success!", `Belum ada fungsi`, "success");
         },
+        onFileChange(e){
+            const file = e.target.files[0] || e.dataTransfer.files[0];
+            this.task.attachment = file;
+        },        
     },
 }
 </script>
