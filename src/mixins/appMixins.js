@@ -1,7 +1,22 @@
 export const appMixins = {
     data() {
         return {
-            defaultTitle: '',
+            authRules: [],
+        }
+    },
+
+    created: function() {
+        if (localStorage.status === '200') {
+            const rules = [...localStorage.userMenuUpdate.split(","),
+            ...localStorage.userMenuTask.split(","),
+            ...localStorage.userMenuProject.split(","),
+            ...localStorage.userMenuManage.split(","),
+            ...localStorage.userMenuEdit.split(","),
+            ...localStorage.userMenuDashboard.split(","),
+            ...localStorage.userMenuArchive.split(","),
+            ...localStorage.userMenuAdd.split(",")
+            ]
+            this.authRules = rules
         }
     },
 
@@ -19,6 +34,10 @@ export const appMixins = {
                 let date = inputDate.toLocaleDateString('en-GB').split('/');
                 return date[1]+'/'+date[0]+'/'+date[2];
             }
+        },
+
+        allowedTo(action) {
+            return this.authRules.filter(e => e === action).length > 0
         },
     }
 }

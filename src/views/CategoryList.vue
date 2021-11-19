@@ -1,10 +1,5 @@
 <template>
     <div id="app" class="category-list">
-
-        <!-- ############ HEADER APP ############# -->
-   		<!-- <HeaderComponent /> -->
-
-        <!-- ############ PROJECT TITLE ############# -->
         <div class="project flex lg:flex-row flex-col items-center justify-between mt-10">
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
                 <div class="img-gojek rounded-full mr-4 bg-purple-700 w-16 h-16 flex items-center justify-center">
@@ -22,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="flex lg:flex-row flex-col lg:items-center justify-start">
+            <div v-if="allowedTo('categoryAdd')" class="flex lg:flex-row flex-col lg:items-center justify-start">
                 <div class="btn-selengkapnya lg:mt-0 mt-2">
                     <button 
                         @click="goToCategoryForm"
@@ -31,24 +26,6 @@
                         <span class="block text-white font-semibold">Tambah</span>
                     </button>
                 </div>
-                <!--
-                <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
-                    <input 
-                        type="search"
-                        v-model="keyword"
-                        @change="searchCategory" 
-                        class="w-full rounded-tl rounded-bl py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
-                        placeholder="Masukkan kata kunci...">
-                    <button
-                        @click="searchCategory" 
-                        class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-4 py-2 rounded-tr rounded-br w-1/3 shadow leading-thight">
-                        <span class="block mr-1 font-semibold text-md">Search</span>
-                        <svg class="w-8 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </button>
-                </div>
-                -->
             </div>
         </div>
 
@@ -56,7 +33,6 @@
             <Loader />
         </div>
 
-        <!-- ############ ADVOCASY ############# -->
         <div class="form-project mt-8">
             <div class="w-full my-4 justify-between">
                 <div 
@@ -83,11 +59,6 @@
                             </div>
                         </div>
                         <div class="tag flex flex-wrap justify-start mt-2 w-1/4">
-                            <!--
-                            <div class="tag-rounded text-xs text-green-500 px-2 mx-1 w-auto my-1">
-                                <span class="bg-green-200 rounded-full px-2">story pitch</span>
-                            </div>
-                            -->
                         </div>
                     </div>
 
@@ -161,7 +132,7 @@ export default {
     },
     mounted() {
         const find_menu = this.userMenu.find(menu => menu == "categoryList");
-        if(!find_menu){
+        if (!find_menu) {
             this.$swal('Maaf, anda tidak punya hak akses untuk halaman ini!');
             this.$router.go(-1);
         }
@@ -172,12 +143,11 @@ export default {
             this.loaderPage = true;
             axios.get(`/categories?sort=ASC&order&limit&keyword=${this.keyword}`, {
                 headers: {
-                    'Authorization': 'Bearer ' + appToken
+                    'Authorization': 'Bearer ' + getAppToken()
                 }
             }).then((response) => {
                 this.loaderPage = false;
                 this.categoryList = response.data.data;
-                console.log(response.data);
             }).catch((error) => {
                 console.log(error);
             });

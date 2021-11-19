@@ -5,7 +5,7 @@
                     <div class="title text-lg lg:text-center mt-4 font-bold text-gray-500">
                         {{project.title}}
                     </div>
-                    <div class="desc lg:text-center text-sm lg:px-12 mt-2 font-semibold text-gray-400">
+                    <div class="desc lg:text-center text-sm lg:px-12 mt-2 text-gray-400">
                         {{project.description}}
                     </div>
                     <div class="button flex lg:flex-row flex-col items-center justify-center px-4 mt-4 mb-8">
@@ -65,7 +65,7 @@ export default {
     methods: {
         activeMenu(menu) {
             if (this.currentMenu === menu) {
-                return 'bg-purple-500 px-6 py-1 rounded-full lg:mr-4 hover:bg-purple-600'
+                return 'bg-purple-500 px-6 py-1 rounded-full lg:mr-4 hover:bg-purple-600 mb-2'
             } else {
                 return 'bg-red-500 px-6 py-1 rounded-full hover:bg-purple-600 lg:mr-4 lg:mb-0 mb-2'
             }

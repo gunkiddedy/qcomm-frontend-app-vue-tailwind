@@ -32,17 +32,20 @@ export default {
 	data() {
 		return {
 			isLoginPage: false,
+			authRules: []
 		}
 	},
 	computed: {
-		checkRoute(){
-			if(this.$route.name =='Login'){
+		checkRoute() {
+			if (this.$route.name == 'Login') {
 				this.isLoginPage = true;
-			}else{
+			} else {
 				this.isLoginPage = false;
 			}
 		}
 	},
+	created: function() {
+	}
 }
 </script>
 
