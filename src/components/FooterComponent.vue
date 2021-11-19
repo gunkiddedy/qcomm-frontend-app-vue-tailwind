@@ -66,8 +66,8 @@ export default {
     data() {
         return {
             isUserPage: false,
-            projects: '',
-            tasks: '',
+            projects: [],
+            tasks: [],
         }
     },
     computed: {
@@ -89,7 +89,7 @@ export default {
             axios.get(`/users/${localStorage.userId}`)
             .then((response) => {
                 this.projects = response.data.data?.projects;
-                this.tasks = response.data.data.tasks;
+                this.tasks = response.data.data.tasks.reverse().slice(0,5);
                 console.log(response.data);
             })
             .catch((error) => {
@@ -105,15 +105,3 @@ export default {
     },
 }
 </script>
-<style lang="scss">
-    // .footer-small{
-    //     border-radius: 0 0 100% 0;
-    // }
-    // .svg-border-rounded svg {
-    //     position: absolute;
-    //     bottom: 0;
-    //     left: 0;
-    //     height: 3rem;
-    //     width: 100%;
-    // }
-</style>

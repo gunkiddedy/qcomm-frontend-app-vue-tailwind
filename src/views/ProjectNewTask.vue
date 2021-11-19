@@ -230,31 +230,31 @@ export default {
             this.userId = this.userMask.id
             this.isSubmitting = true;
 
-            // if(!this.task.userId) {
-            //     this.$swal('Pilih dahulu user yang akan diberi task..');
-            //     this.isSubmitting = false;
-            //     return false;
-            // }   
-            // if(!this.task.message) {
-            //     this.$swal('Isi dahulu deskripsi task secara rinci..');
-            //     this.isSubmitting = false;
-            //     return false;
-            // }                   
-            // if(!this.task.title) {
-            //     this.$swal('Isi dahulu judul atau keterangan singkat task..');
-            //     this.isSubmitting = false;
-            //     return false;
-            // }   
-            // if(!this.task.startDate) {
-            //     this.$swal('Pilih dahulu tanggal mulai task..');
-            //     this.isSubmitting = false;
-            //     return false;
-            // }   
-            // if(!this.task.dueDate) {
-            //     this.$swal('Pilih dahulu deadline dari task..');
-            //     this.isSubmitting = false;
-            //     return false;
-            // }                        
+            if(!this.task.userId) {
+                this.$swal('Pilih dahulu user yang akan diberi task..');
+                this.isSubmitting = false;
+                return false;
+            }   
+            if(!this.task.message) {
+                this.$swal('Isi dahulu deskripsi task secara rinci..');
+                this.isSubmitting = false;
+                return false;
+            }                   
+            if(!this.task.title) {
+                this.$swal('Isi dahulu judul atau keterangan singkat task..');
+                this.isSubmitting = false;
+                return false;
+            }   
+            if(!this.task.startDate) {
+                this.$swal('Pilih dahulu tanggal mulai task..');
+                this.isSubmitting = false;
+                return false;
+            }   
+            if(!this.task.dueDate) {
+                this.$swal('Pilih dahulu deadline dari task..');
+                this.isSubmitting = false;
+                return false;
+            }                        
 
             const formData = new FormData();
             formData.append('attachment', this.task.attachment);

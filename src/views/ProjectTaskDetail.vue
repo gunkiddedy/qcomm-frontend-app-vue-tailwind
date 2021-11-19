@@ -28,7 +28,7 @@
                         </div>
                         <div class="flex flex-col px-2 text-gray-400">
                             <div class="title text-sm font-bold">
-                                {{ projectDetail.company.title }}
+                                {{ projectDetail.company && projectDetail.company.title }}
                             </div>
                             <div class="client text-xs">
                                 Client
@@ -122,19 +122,18 @@
                                 class="w-full border focus:outline-none focus:shadow-inner my-4 rounded font-semibold px-2 py-2">
                             </textarea>
                         </div>
-                        <div v-if="rawFile.length" class="flex flex-col px-4 pt-2 pb-4">
+                        <div v-if="attachment" class="flex flex-col px-4 pt-2 pb-4">
                             <span class="text-xs">
-                                {{rawFile}}
-                                <span @click="clearFiles" class="text-xs text-red-400 cursor-pointer">clear files</span>
+                                {{attachment.name}}
+                                <span @click="clearFiles" class="text-xs text-red-400 cursor-pointer">clear file</span>
                             </span>
-                            
                         </div>
                         <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start px-4 mb-4">
                             <button
                                 @click="replyTask" 
                                 class="bg-red-400 text-white px-4 py-1 rounded hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none">
                                 <span class="font-semibold text-gray-50 text-sm leading-loose" >
-                                    {{isReply ? 'Processing...' : 'Reply Task' }}
+                                    {{isReply ? 'Processing...' : 'Reply To This Task' }}
                                 </span>
                             </button>
                             <label 
@@ -142,16 +141,16 @@
                                 <svg class="w-4 text-gray-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
                                 <input multiple @change="onFileChange" type="file" id="fileid" hidden class="rounded text-sm">
                                 <span class="font-semibold text-gray-600 text-sm ml-2 leading-loose">
-                                    Attach File
+                                    Attach Files (multiple)
                                 </span>
                             </label>
                             <label
                                 @click="isResolved"
-                                class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
+                                class="bg-purple-500 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-400 lg:ml-4 lg:mt-0 mt-2">
                                 <svg v-if="resolved" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                                 <span
-                                    class="font-semibold text-sm ml-2 leading-loose">
-                                    {{resolved ? 'Resolved' : 'Mark as Resolved'}}
+                                    class="font-semibold text-sm ml-2 text-white leading-loose">
+                                    {{resolved ? 'Resolved' : 'Mark as Completed'}}
                                 </span>
                             </label>
                         </div>
@@ -175,13 +174,17 @@ export default {
     props: ['id'],
     data() {
         return {
-            isReply: false,
-            resolved: false,
+            userId: localStorage.userId,
+            taskId: '',
+            projectId: '',
+            title: '',
             taskDetail: '',
             projectDetail: {},
-            rawFile: [],
+            attachment: '',
             message: '',
-            progress: 'on going'
+            progress: 'ONGOING',
+            isReply: false,
+            resolved: false,            
         }
     },
     mounted(){
@@ -195,21 +198,14 @@ export default {
     },
     methods: {
         clearFiles(){
-            this.rawFile = [];
+            this.attachment = '';
         },
         isResolved(){
             this.resolved = !this.resolved;
         },
         onFileChange(e){
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length) return;
-            files.forEach(el => {
-                if(this.rawFile.length > 2){
-                    alert('maksimal 3 files');
-                    return false;
-                }
-                this.rawFile.push(el.name)
-            });
+            const file = e.target.files[0] || e.dataTransfer.files[0];
+            this.attachment = file;
         },
         replyTask(){
             this.isReply = true;
@@ -220,13 +216,25 @@ export default {
             }
 
             const formData = new FormData();
-            formData.append('rawFile', this.document.rawFile);
+            formData.append('attachment', this.attachment);
+            formData.append('taskId', this.taskId);
+            formData.append('userId', this.userId);
+            formData.append('projectId', this.projectId);
+            formData.append('title', this.title);
+            formData.append('message', this.message);
+            formData.append('progress', this.progress);
+            formData.append('resolved', this.resolved);
 
-            axios.post(`/tasks/reply?userId=${this.taskDetail.userId}&projectId=${this.taskDetail.projectId}&taskId=${this.taskDetail.id}&title=${this.taskDetail.title}&message=${this.message}&progress=${this.progress}&rawFile=${this.rawFile}&resolved=${this.resolved}`)
+            axios.post("/tasks/reply", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': 'Bearer ' + this.getAppToken()
+                    }
+            })
             .then((response) => {
                 this.isReply = false;
                 this.message = '';
-                this.rawFile = [];
+                this.attachment = '';
                 this.resolved = false;
                 this.getTaskDetail();
             })
@@ -240,6 +248,8 @@ export default {
             await axios.get(`/tasks/${this.id}`)
             .then((response) => {
                 this.taskDetail = response.data.data;
+                this.projectId = this.taskDetail.projectId;
+                this.taskId = this.id;
                 this.loaderPage = true;
                 axios.get(`/projects/${this.taskDetail.projectId}`)
                 .then((response) => {
@@ -250,7 +260,7 @@ export default {
                     this.$swal('Error!', `${error}`, 'error');
                     this.loaderPage = false;
                     console.log(error);
-                });                
+                });
             })
             .catch((error) => {
                 console.log(error);
