@@ -54,7 +54,7 @@
                                 {{ item.title }}
                             </div>
 
-                            <div class="sub text-gray-400 text-sm font-semibold">
+                            <div class="sub text-gray-400 text-sm">
                                 {{ item.description }} 
                             </div>
 

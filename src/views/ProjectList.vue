@@ -91,7 +91,7 @@ export default {
     methods: {
         getProjects(){
             this.loaderPage = true;
-            /**
+            
             if(localStorage.roleName === 'EMPLOYEE'){
                 axios.get(`/users/${localStorage.userId}`)
                 .then((response) => {
@@ -103,7 +103,6 @@ export default {
                     console.log(error);
                 });
             }else {
-            **/
                 axios.get('/projects')
                 .then((response) => {
                     this.loaderPage = false;
@@ -113,7 +112,7 @@ export default {
                 .catch((error) => {
                     console.log(error);
                 });
-            //}
+            }
             
         },
         goToProjectOverview(param){

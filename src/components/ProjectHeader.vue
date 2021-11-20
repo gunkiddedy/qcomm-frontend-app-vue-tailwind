@@ -44,7 +44,7 @@
                                 {{ project.status }}
                             </div>
                             <div class="client text-xs mr-24">
-                                Overall Progress
+                                Status
                             </div>
                         </div>
                     </div>

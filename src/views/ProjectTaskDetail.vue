@@ -19,7 +19,7 @@
                             {{ taskDetail.title }}
                         </div>
                         <div class="pending bg-green-200 px-4 py-0 rounded lg:w-auto w-1/3 lg:mt-0 mt-2">
-                            <span class="text-green-500 text-sm font-bold">{{ taskDetail.status }}</span>
+                            <span class="text-green-500 text-sm font-bold">{{ status }}</span>
                         </div>
                     </div>
                     <div class="bg-white shadow-lg rounded" v-if="taskDetail.discussions">
@@ -49,7 +49,7 @@
                                     {{item.message}}
                                 </div>
                                 <div v-if="allowedTo('discussionArchive')" class="content-end btn-archive py-2 flex justify-end">
-                                    <button class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
+                                    <button v-if="0===1" class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">
                                         <svg class="w-4 mr-1 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
                                         <span class="text-white">Archive</span>
                                     </button>
@@ -61,11 +61,12 @@
                 <!-- BUAT TASK BARU -->
                 <div v-if="allowedTo('taskReply')" class="tambahkan-dokumen w-full justify-between bg-indigo-50 my-8">
                     <div class="bg-white shadow-lg rounded pb-1">
-                        <div class="title text-purple-700 text-md font-bold px-4 py-3 rounded-t bg-gray-100">
+                        <div v-if="status === 'ACTIVE'" class="title text-purple-700 text-md font-bold px-4 py-3 rounded-t bg-gray-100">
                             Tambahkan Balasan (Komentar)
                         </div>
                         <div class="txt-area px-4">
                             <textarea
+                                v-if="status === 'ACTIVE'"
                                 v-model="message"
                                 placeholder="Tulis komentar disini..." 
                                 rows="5" 
@@ -78,8 +79,9 @@
                                 <span @click="clearFiles" class="text-xs text-red-400 cursor-pointer">clear file</span>
                             </span>
                         </div>
-                        <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start px-4 mb-4">
+                        <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start px-4 mb-4 pt-5">
                             <button
+                                v-if="status === 'ACTIVE'"
                                 @click="replyTask" 
                                 class="bg-red-400 text-white px-4 py-1 rounded hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none">
                                 <span class="font-semibold text-gray-50 text-sm leading-loose" >
@@ -87,6 +89,7 @@
                                 </span>
                             </button>
                             <label 
+                                v-if="status === 'ACTIVE'"
                                 class="bg-gray-100 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-200 lg:ml-4 lg:mt-0 mt-2">
                                 <svg class="w-4 text-gray-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path></svg>
                                 <input multiple @change="onFileChange" type="file" id="fileid" hidden class="rounded text-sm">
@@ -95,14 +98,25 @@
                                 </span>
                             </label>
                             <label
-                                @click="isResolved"
+                                v-if="status === 'ACTIVE'"
+                                @click="updateTaskStatus(1)"
                                 class="bg-purple-500 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-400 lg:ml-4 lg:mt-0 mt-2">
-                                <svg v-if="resolved" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                
                                 <span
                                     class="font-semibold text-sm ml-2 text-white leading-loose">
-                                    {{resolved ? 'Resolved' : 'Mark as Completed'}}
+                                    {{resolved ? 'Closing..' : 'Close This Task'}}
                                 </span>
                             </label>
+                            <label
+                                v-if="status === 'RESOLVED'"
+                                @click="updateTaskStatus(0)"
+                                class="bg-purple-500 flex justify-center px-4 items-center py-1 rounded cursor-pointer hover:bg-gray-400 lg:ml-4 lg:mt-0 mt-2">
+                                
+                                <span
+                                    class="font-semibold text-sm ml-2 text-white leading-loose">
+                                    {{resolved ? 'Open This Task' : 'Open This Task'}}
+                                </span>
+                            </label>                            
                         </div>
                     </div>
                 </div>
@@ -136,7 +150,8 @@ export default {
             message: '',
             progress: 'ONGOING',
             isReply: false,
-            resolved: false,            
+            resolved: false,      
+            status: 'RESOLVED',      
         }
     },
     mounted(){
@@ -202,6 +217,7 @@ export default {
                 this.taskDetail = response.data.data;
                 this.projectId = this.taskDetail.projectId;
                 this.taskId = this.id;
+                this.status = this.taskDetail.status;
                 this.loaderPage = true;
                 axios.get(`/projects/${this.taskDetail.projectId}`)
                 .then((response) => {
@@ -230,7 +246,24 @@ export default {
                 this.loaderPage = false;
                 console.log(error);
             });
-        },        
+        },
+        updateTaskStatus(param) {
+            axios.put(`/tasks/resolve?taskId=${this.taskId}&resolveStatus=${param}`, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': 'Bearer ' + this.getAppToken()
+                    }
+            })
+            .then((response) => {
+                this.status = response.data.data.status;
+                this.resolved = this.status === 'RESOLVED';
+            })
+            .catch((error) => {
+                this.isReply = false;
+                this.$swal('Error!', `${error}`, 'error');
+                console.log(error);
+            });            
+        }
     },
 }
 </script>

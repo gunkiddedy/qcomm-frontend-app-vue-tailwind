@@ -72,7 +72,7 @@
                         <label for="" class="font-semibold text-gray-400">Description</label>
                         <textarea
                             v-model="project.description"
-                            placeholder="Deskripsi dokumen..." 
+                            placeholder="Deskripsi project..." 
                             rows="5" 
                             class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2">
                         </textarea>
@@ -314,7 +314,7 @@ export default {
     methods: {
         addProject(){
             this.isSubmitting = true;
-            axios.post(`/projects?userId=${this.project.userId}&categoryId=${this.project.categoryId}&companyId=${this.project.companyId}&title=${this.project.title}&description=${this.project.description}&projectBrief=${this.project.projectBrief}&startDate=${this.fixStartDate}&completedDate=${this.fixCompletedDate}&status=${this.project.status}`)
+            axios.post(`/projects?userId=${localStorage.userId}&categoryId=${this.project.categoryId}&companyId=${this.project.companyId}&title=${this.project.title}&description=${this.project.description}&projectBrief=${this.project.projectBrief}&startDate=${this.fixStartDate}&completedDate=${this.fixCompletedDate}&status=${this.project.status}`)
             .then((response) => {
                 this.isSubmitting = false;
                 this.$swal("Success!", `Project berhasil disimpan!`, "success");

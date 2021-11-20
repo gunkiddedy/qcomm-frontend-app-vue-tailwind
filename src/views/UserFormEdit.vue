@@ -101,7 +101,7 @@
                         </div>                        
                     </div>
 
-                    <div class="status px-4 py-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
+                    <div v-if="user.role === 'MANAGEMENT'" class="status px-4 py-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
                         <div class="lg:w-1/2 lg:mr-4">
                             <label for="" class="font-semibold text-gray-400">Company (Institution)</label>
                             <select
@@ -134,9 +134,9 @@
                         </div>
                     </div>
 
-                    <div class="status px-4 pb-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
+                    <div v-if="user.role === 'MANAGEMENT'" class="status px-4 pb-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
                         <div class="lg:w-1/2 lg:mr-4">
-                            <label for="" class="font-semibold text-gray-400">Role {{user.role}}</label>
+                            <label for="" class="font-semibold text-gray-400">Role</label>
                             <select
                                 v-model="user.role"
                                 class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
