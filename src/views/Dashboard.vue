@@ -56,18 +56,12 @@
                         </div>
                     </div>
                 </div>
-            </div><!-- end loop-->
+            </div>
         </div>
 
-        <!-- ############ GARIS ############# -->
         <div class="garis border-t border-gray-300 mt-24 mb-12"></div>
-
-        <!-- ############ SIDEBAR AND SEARCH ############# -->
         <div class="wrap-second-content grid gap-12">
-            <!-- SIDEBAR -->
-            <!-- SECOND CONTENT -->
             <div class="lg:col-span-3 search">
-                <!-- SEARCH -->
                 <div class="search flex items-center w-full">
                     <input 
                         type="search" 
@@ -84,9 +78,7 @@
                         </svg>
                     </button>
                 </div>
-                <!-- TASKS -->
                 <div class="task-list py-6 px-4 shadow-lg rounded bg-white mt-4">
-                    <!-- LOOP -->
                     <div 
                         v-for="(item, i) in tasks"
                         :key="i"
@@ -114,7 +106,7 @@
                                 {{ item.status }}
                             </div>
                         </div>
-                    </div><!-- end loop-->
+                    </div>
                     <div class="tampilkan justify-center flex mt-4">
                         <button class=" flex items-center">
                             <span class="text-gray-500 text-sm font-semibold leading-thight">Tampilkan selanjutnya</span>
@@ -124,7 +116,7 @@
                 </div>
             </div>
         </div>
-	</div><!--end DIV app -->
+	</div>
 </template>
 
 <script>
@@ -141,16 +133,25 @@ export default {
             projects: '',
             tasks: '',
             keyword: '',
+            userId: '',
+            projectId: '',
         }
     },
     mounted(){
         if(localStorage.userId == undefined)
-            this.$router.push('/login');
+        this.$router.push('/login');
         this.getUserDetail();
     },
     methods: {
         searchTask(){
-            this.$swal('belum ada');
+            axios.get(`/tasks?userId=${localStorage.userId}&keyword=${this.keyword}`)
+            .then((response) => {
+                this.tasks = response.data.data;
+                console.log(response.data.data)
+            })
+            .catch((error) => {
+                this.$swal('Error! Sistem gagal merespon dengan data');
+            });            
         },
         getUserDetail(){
             axios.get(`/users/${localStorage.userId}`)

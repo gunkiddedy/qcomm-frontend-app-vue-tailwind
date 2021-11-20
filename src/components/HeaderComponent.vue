@@ -78,7 +78,7 @@
                                             class="hover:bg-blue-100 sidebar-contain flex items-center justify-start px-4 py-3 cursor-pointer">
                                             <div
                                                 class="icon rounded-full bg-blue-200 px-1 py-1 mr-4">
-                                                <svg class="w-5 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                                <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                             </div>
                                             <div class="title flex flex-col">
                                                 <div class="small-title text-sm font-semibold">
@@ -118,16 +118,16 @@
                                                 <div class="small-title text-purple-600 uppercase text-md font-bold px-4 w-full">
                                                     Account
                                                 </div>
-                                                <router-link to="/users" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <router-link to="/users" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer title">
                                                     Daftar User
                                                 </router-link>
-                                                <router-link to="/projects" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <router-link to="/projects" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer title">
                                                     Daftar Project
                                                 </router-link>
-                                                <router-link to="/companies" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <router-link to="/companies" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer title">
                                                     Daftar Company
                                                 </router-link>
-                                                <router-link to="/user-kpi" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <router-link to="/user-kpi" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer title">
                                                     Update KPI
                                                 </router-link>
                                             </div>
@@ -137,10 +137,10 @@
                                                     setting
                                                 </div>
 
-                                                <router-link to="/groups" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <router-link to="/groups" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer title">
                                                     Daftar Group
                                                 </router-link>
-                                                <router-link to="/categories" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <router-link to="/categories" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer title">
                                                     Daftar Kategori
                                                 </router-link>
                                             </div>
@@ -173,15 +173,15 @@
                                                 <div class="small-title text-purple-600 uppercase text-md font-bold px-4 w-full">
                                                     Account
                                                 </div>
-                                                <router-link :to="`/user-form-edit/${userId}`" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <router-link :to="`/user-form-edit/${userId}`" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer title">
                                                     Update Akun
                                                 </router-link>
-                                                <router-link to="/user-password" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <router-link to="/user-password" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer title">
                                                     Ubah Password
                                                 </router-link>
                                                 <div
                                                     @click="handleLogout"
-                                                    class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                    class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer title">
                                                     Logout
                                                 </div>
                                             </div>
@@ -191,7 +191,7 @@
                                                     support
                                                 </div>
 
-                                                <router-link to="/" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
+                                                <router-link to="/" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer title">
                                                     Bantuan
                                                 </router-link>
                                             </div>

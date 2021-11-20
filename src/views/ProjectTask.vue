@@ -10,27 +10,23 @@
         <div class="wrap-second-content grid lg:grid-cols-4 grid-cols-1 gap-8 lg:px-28">
 
             <MiniSidebarComponent :taskId="id" :projectId="id" />
-            <!-- SECOND CONTENT -->
             <div class="col-span-3 search">
-                <!-- SEARCH -->
                 <div v-if="tasks.length" class="search flex items-center w-full">
-                    <button 
-                        @click="searchTask()"
-                        class="bg-red-400 text-white flex items-center px-4 py-2 rounded-tl rounded-bl shadow leading-thight">
-                        <span class="block mr-2 font-semibold text-md">Search</span>
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
                     <input 
                         v-model="keyword"
                         type="search" 
                         class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
                         placeholder="Masukkan kata kunci...">
+                    <button 
+                        @click="searchTask()"
+                        class="bg-red-400 text-white flex items-center px-4 py-2 rounded-tl rounded-bl shadow leading-thight">
+                        <span class="block mr-2 font-semibold text-md">Search</span>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </button>                        
                 </div>
-                <!-- DAFTAR TUGAS -->
                 <div
                     v-if="tasks.length" 
                     class="task-list py-6 px-4 shadow-lg rounded bg-white mt-4">
-                    <!-- loop this -->
                     <div 
                         v-for="(item, i) in tasks"
                         :key="i"
@@ -115,10 +111,14 @@ export default {
     },
     methods: {
         searchTask(){
-            if(this.keyword)
-                this.$swal(this.keyword);
-            else
-                return false;
+            axios.get(`/tasks?projectId=${this.projectDetail.id}&userId=${localStorage.userId}&keyword=${this.keyword}`)
+            .then((response) => {
+                this.tasks = response.data.data;
+                console.log(response.data.data)
+            })
+            .catch((error) => {
+                this.$swal('Error! Sistem gagal merespon dengan data');
+            });            
         },
         getProjectDetail(){
             this.loaderPage = true;

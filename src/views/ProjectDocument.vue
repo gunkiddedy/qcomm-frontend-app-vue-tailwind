@@ -49,15 +49,13 @@
         
         <div class="garis border-t border-gray-300 mt-16 mb-8 mx-28"></div>
 
-
-        <!-- SEARCH -->
         <div class="documents flex items-center w-full my-4 lg:px-28 justify-between">
             <div class="font-bold text-lg">Documents</div>
             <div class="bg-blue-200 text-blue-500 rounded px-4 py-1 text-sm font-semibold">
                 {{countDocuments}} files
             </div>
         </div>
-        <div class="search flex items-center w-full my-8 lg:px-28">
+        <div class="search flex items-center w-full my-8 lg:px-28" style="display:none">
             <button class="bg-red-400 text-white flex items-center px-4 py-2 rounded-tl rounded-bl shadow leading-thight">
                 <span class="block mr-2 font-semibold text-md">Search</span>
                 <svg class="w-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
