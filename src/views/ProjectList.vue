@@ -96,7 +96,7 @@ export default {
                 axios.get(`/users/${localStorage.userId}`)
                 .then((response) => {
                     this.loaderPage = false;
-                    this.projectList = response.data.data.projects;
+                    this.projectList = response.data.data.user_projects;
                     console.log(response.data);
                 })
                 .catch((error) => {
