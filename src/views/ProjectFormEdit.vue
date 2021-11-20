@@ -271,6 +271,9 @@ export default {
             userMenu: localStorage.userMenuEdit.split(','), 
         }
     },
+    created() {
+        this.allowedHere('projectUpdate')
+    },      
     mounted(){
         this.getCompanies()
         this.getCategories()    

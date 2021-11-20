@@ -58,7 +58,7 @@
                                 {{ item.status }}
                             </div>
                             
-                            <div class="archive-button my-2">
+                            <div v-if="allowedTo('taskArchive')" class="archive-button my-2">
                                 <button
                                     @click="archiveThis" 
                                     class="flex items-center justify-between bg-red-500 hover:bg-green-600 focus:bg-green-600 focus:ring-4 focus:ring-green-200 focus:outline-none px-2 py-1 rounded">

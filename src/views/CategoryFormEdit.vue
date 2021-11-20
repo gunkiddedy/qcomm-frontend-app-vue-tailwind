@@ -164,6 +164,9 @@ export default {
             userMenu: localStorage.userMenuEdit.split(','),
         }
     },
+    created() {
+        this.allowedHere('categoryUpdate')
+    },      
     mounted(){
         const find_menu = this.userMenu.find(menu => menu == "categoryUpdate");
         if(!find_menu){

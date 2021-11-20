@@ -1,28 +1,30 @@
 <template>
     <div id="app" class="aa">
-        <!-- ############ PROJECT SAYA ############# -->
+
         <div class="project flex items-center justify-between mt-10">
             <div class="project-title">
                 <span class="text-2xl font-semibold leading-3">Project Saya</span>
             </div>
             <div class="btn-selengkapnya">
                 <router-link to="/projects">
-                    <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white rounded-full px-6 py-2 shadow flex items-center leading-thight">
+                    <button v-if="projects.length > 0" class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white rounded-full px-6 py-2 shadow flex items-center leading-thight">
                         <span class="block text-white font-semibold leading-none tracking-wider">Selengkapnya</span>
                         <svg class="w-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </button>
                 </router-link>
             </div>
         </div>
-        <!-- ############ PROJECT AKTIF TITLE SMALL ############# -->
+
         <div class="">
-            <span class="text-md font-base">
+            <span v-if="projects.length > 0" class="text-md font-base">
                 Project aktif yang sedang berjalan
             </span>
+            <span v-if="projects.length === 0" class="text-md font-base text-gray-400">
+                Belum ada project yang di-assign ke anda..
+            </span>            
         </div>
-        <!-- ############ IMAGE PROJEk ############# -->
+
         <div class="image-project mt-8 grid xl:grid-cols-4 lg:grid-cols-2 gap-12">
-            <!-- CARD LOOP-->
             <div 
                 v-for="(item, i) in projects"
                 :key="i"
@@ -90,9 +92,9 @@
                         :key="i"
                         class="flex lg:flex-row flex-col lg:justify-between w-full border-b py-4">
                         <div class="img-ket flex lg:flex-col">
-                            <div class="flex-shrink-0 shadow rounded-full">
-                                <img class="h-8 w-8 rounded-full" src="../assets/users/user-1.jpeg" alt="">
-                            </div>
+                            <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            </div>                 
                         </div>
                         <div class="text flex flex-wrap w-3/4">
                             <router-link :to="`/tasks/${item.id}`"> 

@@ -160,6 +160,9 @@ export default {
             projectDetail: {},
         }
     },
+    created() {
+        this.allowedHere('taskAdd')
+    },      
     mounted(){
         this.getProjectDetail();
         this.getUsers();

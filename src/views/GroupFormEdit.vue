@@ -1,10 +1,5 @@
 <template>
     <div id="app" class="group-form">
-
-        <!-- ############ HEADER APP ############# -->
-   		<!-- <HeaderComponent /> -->
-
-        <!-- ############ PROJECT TITLE ############# -->
         <div class="project flex lg:flex-row flex-col lg:items-center justify-between mt-10">
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
@@ -24,35 +19,15 @@
             </div>
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
-                <!--
-                <div class="btn-selengkapnya lg:mt-0 mt-2">
-                    <button class="bg-red-500 hover:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none rounded px-6 py-2 shadow flex items-center leading-thight">
-                        <svg class="w-4 mt-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                        <span class="block text-white font-semibold">Tambah</span>
-                    </button>
-                </div>
-                <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
-                    <button class="bg-red-500 hover:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-4 py-2 rounded-tl rounded-bl w-1/3 shadow leading-thight">
-                        <span class="block mr-2 font-semibold text-md">Search</span>
-                        <svg class="w-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <input 
-                        type="search" 
-                        class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
-                        placeholder="Masukkan kata kunci...">
-                </div>
-                -->
             </div>
 
         </div>
 
-        <!-- ############ FORM PROJEk ############# -->
         <div class="form-project mt-8 bg-gray-200">
-            <!-- TAMBAHKAN DOKUMEN -->
             <div class="tambahkan-dokumen w-full my-4 justify-between bg-indigo-50">
                 <div class="bg-white shadow-lg rounded pb-1">
                     <div class="title text-purple-600 text-base font-bold px-4 py-3 rounded-t bg-gray-100">
-                        Tambah Group
+                        Edit Group
                     </div>
 
                     <div class="txt-area px-4 py-6">
@@ -162,6 +137,9 @@ export default {
             userMenu: localStorage.userMenuEdit.split(','),
         }
     },
+    created() {
+        this.allowedHere('groupUpdate')
+    },      
     mounted(){
         const find_menu = this.userMenu.find(menu => menu == "groupUpdate");
         if(!find_menu){

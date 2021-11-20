@@ -159,6 +159,9 @@ export default {
             tasks: [],
         }
     },
+    created() {
+        this.allowedHere('kpiUpdate')
+    },    
     computed: {
         getScore(){
             let quality = parseInt(this.user.quality);

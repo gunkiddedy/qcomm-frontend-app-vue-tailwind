@@ -290,6 +290,9 @@ export default {
             console.log(user.data.data.user.id);
         });
     },
+    created() {
+        this.allowedHere('projectAdd')
+    },      
     computed: {
         fixStartDate(){
             let date = this.project.startDate.toLocaleDateString('en-GB').split('/');

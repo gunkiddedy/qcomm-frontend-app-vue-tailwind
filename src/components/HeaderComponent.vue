@@ -94,7 +94,7 @@
 
                                 <router-link to="/projects" class="text-gray-700 px-3 py-2 rounded-md text-sm font-semibold">Projects</router-link>
                                 
-                                <div v-if="showMenuManage" class="text-gray-700 px-3 py-2 rounded-md text-sm font-semibold flex flex-col">
+                                <div v-if="showMenuManage && allowedTo('projectUpdate')" class="text-gray-700 px-3 py-2 rounded-md text-sm font-semibold flex flex-col">
                                     <div @click="menuManage" class="cursor-pointer flex items-center">
                                         <div class="mr-1">Manage</div>
                                         <div>
@@ -231,10 +231,10 @@
 import axios from 'axios'
 import appMixins from '../mixins/appMixins'
 export default {
-    components: {
-        appMixins,
-    },
     name: 'HeaderComponent',
+    mixins: [
+        appMixins,
+    ],
     data(){
         return {
             isMenuOpen: false,
@@ -288,11 +288,6 @@ export default {
         }
     },
     mounted() {
-        // let userdata = this.$store.getters['currentUser/userData'];
-        // userdata.forEach(user => {
-        //     this.userStatus = user.data.status;
-        //     console.log('userdata ' +user.data.status);
-        // });
         if(localStorage.status == '200'){
             this.isLogin = true;
             this.userId = localStorage.userId;
@@ -301,13 +296,13 @@ export default {
             }else{
                 this.showMenuManage = false;
             }
-            // this.showMenuManage = localStorage.menuManage;
         }else{
             this.isLogin = false;
             // this.$router.push('/login');
         }
         this.getUserDetail();
     },
+
     methods: {
         toTasks(param){
             this.$router.push({
@@ -376,7 +371,6 @@ export default {
 
 <style scoped>
 .outside {
-    /* background-color: #24d0b9; */
     width: 100vw;
     height: 100vh;
     position: fixed;
@@ -384,10 +378,7 @@ export default {
     left: 0px;
 }
 .router-link-exact-active {
-  /* background-color: #1947ee; */
-  /* color: #1e30b8; */
-  color: #24d0b9;
-  cursor: pointer;
-  /*border-radius: 0.5rem;*/
+    color: #24d0b9;
+    cursor: pointer;
 }
 </style>

@@ -269,6 +269,9 @@ export default {
             userMenu: localStorage.userMenuAdd.split(','),
         }
     },
+    created() {
+        this.allowedHere('userAdd')
+    },      
     mounted() {
         this.getGroups()
         this.getCompanies()

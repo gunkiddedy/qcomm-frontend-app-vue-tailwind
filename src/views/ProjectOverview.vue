@@ -14,7 +14,8 @@
                     </div>
                 </div>
                 <div class="button flex lg:flex-row flex-col items-center justify-center px-4 mt-4 mb-8">
-                    <button 
+                    <button
+                        v-if="allowedTo('projectUpdate')" 
                         @click="editProject(projectDetail.id)"
                         class="bg-gray-200 hover:bg-gray-300 rounded lg:px-6 px-2 py-1 text-gray-500 font-semibold text-xs mr-4 flex items-center">
                         <span class="mr-1">Edit Project</span>
@@ -23,6 +24,7 @@
                         </svg>
                     </button>
                     <button 
+                        v-if="allowedTo('projectUpdate')" 
                         @click="editProject(projectDetail.id)"
                         class="bg-gray-200 hover:bg-gray-300 rounded lg:px-6 px-2 py-1 text-gray-500 font-semibold text-xs mr-4 flex items-center">
                         <span class="mr-1">Add Participant</span>

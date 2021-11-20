@@ -7,7 +7,7 @@
 
         <ProjectHeader :project="projectDetail" currentMenu="document" />
 
-        <div class="tambahkan-dokumen w-full my-4 lg:px-28 justify-between bg-indigo-50">
+        <div v-if="allowedTo('documentAdd')" class="tambahkan-dokumen w-full my-4 lg:px-28 justify-between bg-indigo-50">
             <div class="bg-white shadow-lg rounded pb-1">
                 <div class="title text-purple-600 text-base font-bold px-4 py-3 rounded-t bg-gray-100">
                     Tambahkan Dokumen
@@ -77,9 +77,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- ###### FOOTER APP ####### -->
-        <!-- <FooterComponent /> -->
 
 	</div><!--end DIV app -->
 </template>

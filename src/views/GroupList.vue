@@ -1,6 +1,5 @@
 <template>
     <div id="app" class="group-list">
-        <!-- ############ PROJECT TITLE ############# -->
         <div class="project flex lg:flex-row flex-col items-center justify-between mt-10">
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
                 <div class="img-gojek rounded-full mr-4 bg-purple-700 w-16 h-16 flex items-center justify-center">
@@ -26,33 +25,14 @@
                         <span class="block text-white font-semibold">Tambah</span>
                     </button>
                 </div>
-                <!--
-                <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
-                    <input 
-                        type="search"
-                        v-model="keyword"
-                        @change="searchGroup" 
-                        class="w-full rounded-tl rounded-bl py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
-                        placeholder="Masukkan kata kunci...">
-                    <button
-                        @click="searchGroup" 
-                        class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-4 py-2 rounded-tr rounded-br w-1/3 shadow leading-thight">
-                        <span class="block mr-1 font-semibold text-md">Search</span>
-                        <svg class="w-8 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </button>
-                </div>
-                -->
             </div>
         </div>
         <div class="loader-page flex justify-center" v-if="loaderPage">
             <Loader />
         </div>
-        <!-- ############ ADVOCASY ############# -->
+
         <div class="form-project mt-8">
             <div class="w-full my-4">
-                <!-- LOOP -->
                 <div 
                     v-for="(item, i) in groupList"
                     :key="i"
@@ -60,7 +40,7 @@
                     <div class="title-wrap px-4 py-8 flex justify-between">
 
                         <div class="flex flex-col title-list w-4/5">
-                            <!-- <div class="mb-2">
+                            <div class="mb-2">
                                 <button 
                                     @click="editGroup(item.id)"
                                     class="bg-gray-200 hover:bg-gray-300 rounded lg:px-6 px-2 py-1 text-gray-500 font-semibold text-xs mr-4 flex items-center">
@@ -69,27 +49,16 @@
                                     <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                     </svg>
                                 </button>
-                            </div> -->
-                            <!-- TITLE -->
+                            </div>
                             <div class="title text-lg text-gray-500 font-semibold">
                                 {{ item.title }}
                             </div>
-                            <!-- DESCRIPTION -->
+
                             <div class="sub text-gray-400 text-sm font-semibold">
                                 {{ item.description }} 
                             </div>
-                            <!-- 3 BUTTONS -->
+
                             <div class="btn flex lg:flex-row flex-col lg:items-center justify-start my-4">
-                                <button
-                                    @click="editGroup(item.id)" 
-                                    class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
-                                    Modify
-                                </button>
-                                <!--
-                                <button @click="archiveGroup(item.id)" class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
-                                    Archive
-                                </button>
-                                -->
                                 <button
                                     @click="toBroadcastForm(item.id)" 
                                     class="bg-purple-500 hover:bg-purple-700 focus:bg-purple-700 focus:ring-4 focus:ring-purple-300 focus:outline-none px-4 py-1 text-white rounded lg:mr-2 mr-0 lg:my-0 my-1">
@@ -97,7 +66,7 @@
                                 </button>
                             </div>
                         </div>
-                        <!-- TIME -->
+
                         <div class="w-1/6">
                             <div class="flex justify-end">
                                 <span class="waktu bg-green-200 text-green-600 text-xs rounded-full px-4 text-right">
@@ -107,7 +76,6 @@
                         </div>
 
                     </div>
-                    <!-- CLICK MEMBER -->
                     <div 
                         @click="clickMember(i)" 
                         class="jumlah-projek flex items-center justify-between px-4 py-6 cursor-pointer border-t">
@@ -123,16 +91,18 @@
                             <svg class="w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </div>
                     </div>
-                    <!-- MEMBER SHOW -->
+
                     <transition name="slide">
                         <div class="isi grid grid-cols-2 border-t" v-if="showMember == i && showMem">
                             <div class="hide py-4 px-4">
                             <div
                                 v-for="(user, i) in item.users"
                                 :key="i">                            
-                                <div class="image-left flex items-center justify-start">
+                                <div class="image-left flex items-center justify-start mb-2">
                                     <div class="img-gojek">
-                                        <img src="../assets/users/user-4.png" class="rounded-full w-12">
+                                        <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                        </div>                                        
                                     </div>
                                     <div class="flex flex-col px-2 text-gray-400">
                                         <div class="title text-sm font-bold">
@@ -147,7 +117,7 @@
                             </div>
                         </div>
                     </transition>
-                    <!-- CLICK BROADCAST -->
+
                     <div @click="clickBroadcast(i)" class="jumlah-projek flex items-center justify-between px-4 py-6 cursor-pointer border-t border-b">
                         <div class="jum-projek flex items-center justify-start">
                             <div class="icon">
@@ -161,13 +131,13 @@
                             <svg class="w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </div>
                     </div>
-                    <!-- BROADCAST SHOW -->
+
                     <transition name="slide">
                         <div class="wraper-broadcast" v-if="showBroadcast == i && showBrod">
                         <div
                             v-for="(broadcast, i) in item.broadcasts"
                             :key="i">
-                            <!-- LOOP THIS -->
+
                             <div class="broadcast px-4 py-0">
                                 <div class="hover hover:bg-indigo-50 border-b flex items-start justify-between px-4 py-4 cursor-pointer">
                                     <div class="kiri flex flex-col px-4 py-4 w-4/5">
@@ -209,10 +179,10 @@
                         </div>
                         </div>
                     </transition>
-                </div><!-- end loop-->
+                </div>
             </div>
         </div>
-	</div><!--end DIV app -->
+	</div>
 </template>
 
 <script>
@@ -238,6 +208,9 @@ export default {
             assetHost: this.$assetHost
         }
     },
+    created() {
+        this.allowedHere('groupList')
+    },    
     mounted() {
         const find_menu = this.userMenu.find(menu => menu == "groupList");
         if(!find_menu){

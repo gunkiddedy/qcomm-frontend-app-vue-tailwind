@@ -164,6 +164,9 @@ export default {
             userMenu: localStorage.userMenuAdd.split(','),
         }
     },
+    created() {
+        this.allowedHere('groupAdd')
+    },      
     mounted(){
         const find_menu = this.userMenu.find(menu => menu == "groupAdd");
         if(!find_menu){

@@ -2,6 +2,7 @@ export const appMixins = {
     data() {
         return {
             authRules: [],
+            showMenu: false,
         }
     },
 
@@ -39,6 +40,12 @@ export const appMixins = {
         allowedTo(action) {
             return this.authRules.filter(e => e === action).length > 0
         },
+
+        allowedHere(action) {
+            if (!this.allowedTo(action)) {
+                this.$router.push('/error');
+            }            
+        }
     }
 }
 export default appMixins

@@ -292,6 +292,9 @@ export default {
             return this.companies.length > 0
         },                
     },    
+    created() {
+        this.allowedHere('userUpdate')
+    },      
     methods: {
         updateUserProfile(){
             this.isSubmitting = true;

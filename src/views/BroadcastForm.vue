@@ -1,10 +1,5 @@
 <template>
     <div id="app" class="broadcast-form">
-
-        <!-- ############ HEADER APP ############# -->
-   		<!-- <HeaderComponent /> -->
-
-        <!-- ############ PROJECT TITLE ############# -->
         <div class="project flex lg:flex-row flex-col lg:items-center justify-between mt-10">
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
@@ -24,31 +19,11 @@
             </div>
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
-                <!--
-                <div class="btn-selengkapnya lg:mt-0 mt-2">
-                    <button class="bg-red-500 hover:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none rounded px-6 py-2 shadow flex items-center leading-thight">
-                        <svg class="w-4 mt-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                        <span class="block text-white font-semibold">Tambah</span>
-                    </button>
-                </div>
-                <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
-                    <button class="bg-red-500 hover:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-4 py-2 rounded-tl rounded-bl w-1/3 shadow leading-thight">
-                        <span class="block mr-2 font-semibold text-md">Search</span>
-                        <svg class="w-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <input 
-                        type="search" 
-                        class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
-                        placeholder="Masukkan kata kunci...">
-                </div>
-                -->
             </div>
 
         </div>
 
-        <!-- ############ FORM PROJEk ############# -->
         <div class="form-project mt-8 bg-gray-200">
-            <!-- TAMBAHKAN DOKUMEN -->
             <div class="tambahkan-dokumen w-full my-4 justify-between bg-indigo-50">
                 <div class="bg-white shadow-lg rounded pb-1">
                     <div class="title text-purple-600 text-base font-bold px-4 py-3 rounded-t bg-gray-100">
@@ -75,22 +50,6 @@
                     </div>
 
                     <div class="status px-4 py-6 flex lg:flex-row flex-col lg:items-center justify-start w-full">
-                        <!--
-                        <div class="lg:w-1/2 lg:mr-4">
-                            <label for="" class="font-semibold text-gray-400">Status</label>
-                            <select
-                                v-model="broadcast.status"
-                                class="w-full shadow border border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent my-1 rounded px-2 py-2 text-gray-400"
-                            >
-                                <option class="text-gray-700" :value="selected">
-                                    Select Status
-                                </option>
-                                <option v-for="(item, i) in status" :key="i" :value="item.name">
-                                    {{ item.name }}
-                                </option>
-                            </select>
-                        </div>
-                        -->
                         <div class="lg:w-1/2">
                             <label for="" class="font-semibold text-gray-400">Group</label>
                             <select
@@ -117,12 +76,6 @@
                             <label for="" class="font-semibold text-gray-400">Attachment 2</label>
                             <input type="file" name="" id="" class="rounded text-sm" @change="onFileChange2">
                         </div>
-                        <!--
-                        <div class="border lg:px-2 px-1 py-2 lg:my-0 my-1 rounded lg:mr-2">
-                            <label for="" class="font-semibold text-gray-400">Attachment 3</label>
-                            <input type="file" name="" id="" class="rounded text-sm" @change="onFileChange3">
-                        </div>
-                        -->
                     </div>
 
                     <div class="select-file flex lg:flex-row flex-col lg:items-center justify-start py-4 px-4 mb-4">
@@ -149,15 +102,11 @@
             </div>
         </div>
 
-        <!-- ###### FOOTER APP ####### -->
-        <!-- <FooterComponent /> -->
-
 	</div><!--end DIV app -->
 </template>
 
 <script>
 import axios from 'axios'
-const appToken = 'adadasd';
 import Loader from '@/components/Loader.vue'
 import appMixins from '../mixins/appMixins'
 export default {
@@ -194,6 +143,9 @@ export default {
             userMenu: localStorage.userMenuAdd.split(','),
         }
     },
+    created() {
+        this.allowedHere('broadcastAdd')
+    },     
     mounted(){
         const find_menu = this.userMenu.find(menu => menu == "broadcastAdd");
         if(!find_menu){
@@ -206,7 +158,7 @@ export default {
         getGroups(){
             axios.get(`/groups?sort=ASC&order&limit&keyword`, {
                 headers: {
-                    'Authorization': 'Bearer ' + appToken
+                    'Authorization': 'Bearer ' + this.getAppToken()
                 }
             })
             .then((response) => {
@@ -241,7 +193,7 @@ export default {
 
             axios.post(`/broadcasts?userId=${this.broadcast.userId}&groupId=${this.broadcast.groupId}&title=${this.broadcast.title}&description=${this.broadcast.description}&status=${this.broadcast.status}`, formData, {
                 headers: {
-                    'Authorization': 'Bearer ' +appToken,
+                    'Authorization': 'Bearer ' + this.getappToken(),
                     'Content-Type': 'multipart/form-data'
                 }
             })

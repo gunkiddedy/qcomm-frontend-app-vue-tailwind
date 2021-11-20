@@ -1,57 +1,29 @@
 <template>
     <div class="app user-profile">
-
-        <!-- ############ HEADER APP ############# -->
-   		<!-- <HeaderComponent /> -->
-
-        <!-- GOJEK PROJEK -->
         <div class="white-user lg:py-12 py-6 bg-white lg:-mx-36 -mx-4">
             <div class="wraper">
                 <div class="body flex flex-col px-4 items-center">
-                    <!-- <div class="btn-edit-profile my-2">
-                        <button class="bg-blue-200 rounded lg:px-6 px-2 py-1 text-white font-semibold text-xs cursor-text mr-4 flex items-center">
-                            <span class="mr-1">Edit Profile</span>
-                            <svg class="w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                            </svg>
-                        </button>
-                    </div> -->
                     <div class="img-profle rounded-full bg-blue-200 w-64 text-center">
-                    <!--
-                        <img 
-                            v-if="userDetail.profilePictureUrl"
-                            class="object-contain rounded-full w-full" 
-                            :src="userDetail.profilePictureUrl" 
-                            alt="img-user">
-                        <img 
-                            v-else
-                            class="object-contain rounded-full w-full" 
-                            src="../assets/users/user-1.jpeg" 
-                            alt="img-user">
-                    -->
                         <div class="icon mr-2 rounded-full bg-blue-200 px-1 py-1">
                             <svg class="w-50 h-50" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         </div>                       
                     </div>
-                    <div class="flex flex-col items-center title text-2xl mt-4 font-bold text-gray-500" >
+                    <div v-if="allowedTo('userUpdate')" class="my-4">
+                        <button 
+                            @click="editProfile(userDetail.id)"
+                            class="bg-gray-200 hover:bg-gray-300 rounded lg:px-6 px-2 py-1 text-gray-500 font-semibold text-xs mr-4 flex items-center">
+                            <span class="mr-1">Edit</span>
+                            <svg class="w-4" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            </svg>
+                        </button>
+                    </div>                    
+                    <div class="flex flex-col items-center title text-2xl mt-2 font-bold text-gray-500" >
                         <div>
                             {{ userDetail.fullName }}
                         </div>
-                        <!-- <div 
-                            v-if="currentUserId == userDetail.id"
-                            class="mt-4 mb-2">
-                            <button 
-                                @click="editProfile(userDetail.id)"
-                                class="bg-gray-200 hover:bg-gray-300 rounded lg:px-6 px-2 py-1 text-gray-500 font-semibold text-xs mr-4 flex items-center">
-                                <span class="mr-1">Edit Profile</span>
-                                <svg class="w-4" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                                </svg>
-                            </button>
-                        </div> -->
                     </div>
                     <div class="role text-center text-lg px-12 mt-2 font-bold text-gray-400">
-                        <!-- {{ userDetail.role }} -->
                         <span v-if="userDetail.title">{{userDetail.title}}</span>
                         <span v-else>Role/Jabatan Lainnya</span>
                     </div>
@@ -212,10 +184,6 @@
                 </div>
             </div>            
         </div>
-
-        <!-- ###### FOOTER APP ####### -->
-        <!-- <FooterComponent></FooterComponent> -->
-
 	</div><!--end DIV app -->
 </template>
 
@@ -249,7 +217,6 @@ export default {
     },
     methods: {
         editProfile(param){
-            // alert(param);
             this.$router.push({
                 name: 'UserFormEdit',
                 params: {id: param}

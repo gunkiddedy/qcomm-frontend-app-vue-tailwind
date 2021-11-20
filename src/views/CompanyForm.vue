@@ -165,6 +165,9 @@ export default {
             userMenu: localStorage.userMenuAdd.split(','),
         }
     },
+    created() {
+        this.allowedHere('companyAdd')
+    },      
     mounted(){
         const find_menu = this.userMenu.find(menu => menu == "companyAdd");
         if(!find_menu){

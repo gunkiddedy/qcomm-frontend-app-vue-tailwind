@@ -130,6 +130,9 @@ export default {
             userMenu: localStorage.userMenuManage.split(','),
         }
     },
+    created() {
+        this.allowedHere('categoryList')
+    },    
     mounted() {
         const find_menu = this.userMenu.find(menu => menu == "categoryList");
         if (!find_menu) {
