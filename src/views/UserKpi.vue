@@ -1,7 +1,5 @@
 <template>
     <div id="app" class="user-kpi">
-
-        <!-- ############ PROJECT TITLE ############# -->
         <div class="project flex lg:flex-row flex-col lg:items-center justify-between mt-10">
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start lg:mb-0 mb-4">
@@ -21,31 +19,19 @@
             </div>
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start lg:mb-0 mb-4">
-                <!--
                 <div class="btn-selengkapnya lg:mt-0 mt-2">
-                    <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none rounded px-6 py-2 shadow flex items-center leading-thight">
-                        <svg class="w-4 mt-1 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                        <span class="block text-white font-semibold">Tambah</span>
+                    <button
+                        @click="goToKpiTable" 
+                        class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none rounded px-6 py-2 shadow flex items-center leading-thight">
+                        
+                        <span class="block text-white font-semibold">TABEL</span>
                     </button>
                 </div>
-                <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
-                    <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-4 py-2 rounded-tl rounded-bl w-1/3 shadow leading-thight">
-                        <span class="block mr-2 font-semibold text-md">Search</span>
-                        <svg class="w-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <input 
-                        type="search" 
-                        class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
-                        placeholder="Masukkan kata kunci...">
-                </div>
-                -->
             </div>
 
         </div>
 
-        <!-- ############ FORM PROJEk ############# -->
         <div class="form-project mt-8 bg-gray-200">
-            <!-- TAMBAHKAN DOKUMEN -->
             <div class="tambahkan-dokumen w-full my-4 justify-between bg-indigo-50">
                 <div class="bg-white shadow-lg rounded pb-1">
                     <div class="title text-purple-600 text-base font-bold px-4 py-3 rounded-t bg-gray-100">
@@ -146,9 +132,9 @@ export default {
                 userId: '',
                 projectId: '',
                 taskId: '',
-                scope: 'IDEA',
                 quality: 0,
                 design: 0,
+                deadline: 0,
                 idea: 0,
             },
             selectedProject: {},
@@ -167,6 +153,7 @@ export default {
             let quality = parseInt(this.user.quality);
             let design = parseInt(this.user.design);
             let idea = parseInt(this.user.idea);
+            let deadline = parseInt(this.user.deadline);
             return  quality + design + idea;
         }
     },
@@ -174,7 +161,6 @@ export default {
         let userdata = this.$store.getters['currentUser/userData'];
         userdata.forEach(user => {
             this.user.userId = user.data.data.user.id;
-            console.log(user.data.data.user.id);
         });
         this.getUserDetail();
         this.getUsers();
@@ -182,12 +168,16 @@ export default {
     },
     methods: {
         updateUserKpi(){
+            this.user.userId = this.selectedUser.id
+            this.user.projectId = this.selectedProject.id
+            this.user.taskId = this.selectedTask.id
             this.isSubmitting = true;
-            axios.put(`/users?userId=${this.user.userId}&projectId=${this.user.projectId}&taskId=${this.user.taskId}&scope=${this.user.scope}&score=${this.getScore}`)
+            axios.put(`/update-kpi?userId=${this.user.userId}&projectId=${this.user.projectId}&taskId=${this.user.taskId}&quality=${this.user.quality}&design=${this.user.design}&idea=${this.user.idea}&deadline=${this.user.deadline}`)
             .then((response) => {
                 this.isSubmitting = false;
                 this.$swal("Success!", `Data berhasil diupdate`, "success");
                 console.log(response.data);
+                this.$router.push('/user-kpi-table');
             })
             .catch((error) => {
                 this.$swal("Error!", `${error}`, "error");
@@ -231,6 +221,9 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
+        },        
+        goToKpiTable(){
+            this.$router.push('/user-kpi-table');
         },                         
         canceling(){
             this.$router.go(-1);

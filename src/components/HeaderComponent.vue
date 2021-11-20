@@ -116,7 +116,7 @@
                                         <div class="sidebar-contain flex flex-col px-2 py-8">
                                             <div class="title flex flex-col items-center">
                                                 <div class="small-title text-purple-600 uppercase text-md font-bold px-4 w-full">
-                                                    Accounts
+                                                    Account
                                                 </div>
                                                 <router-link to="/users" class="isi py-2 hover:bg-indigo-50 px-4 w-full cursor-pointer text-gray-400">
                                                     Daftar User
@@ -378,7 +378,7 @@ export default {
     left: 0px;
 }
 .router-link-exact-active {
-    color: #24d0b9;
+    color: #EF4444;
     cursor: pointer;
 }
 </style>

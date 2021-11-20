@@ -1,18 +1,16 @@
 <template>
     <div class="bg-purple-700 -mx-36 h-screen relative">
 
-        <!-- TITLE -->
         <div class="wrap-all py-20">
             <div class="big-title-wrap flex flex-col items-center mx-auto w-2/3 px-8">
                 <div class="big-title md:text-4xl text-2xl font-semibold text-white w-full text-center">
                     QComm Project Management System
                 </div>
-                <div class="small text-gray-300 text-md font-semibold md:w-3/4 w-full text-center">
+                <div class="small text-gray-400 text-md md:w-3/4 w-full text-center">
                     Untuk dapat memulai, silahkan login pada form di bawah ini dengan menggunakan username dan password anda!
                 </div>
             </div>
 
-            <!-- FORM -->
             <div class="form md:max-w-md w-2/3 mx-auto pt-4 px-8">
                 <form class="login-form">
                     <div class="bg-white shadow-lg rounded-lg px-8 pt-6 py-8 mb-4 flex flex-col">
@@ -51,16 +49,14 @@
                 </form>
             </div>
 
-            <!-- LUPA PASS -->
             <div class="forgot mx-auto text-center">
-                <span class="text-gray-300">
+                <span class="text-gray-300" style="display:none">
                     Lupa password? Klik
                     <router-link to="/user-password" class="font-bold text-gray-200">disini</router-link> untuk reset.
                 </span>
             </div>
         </div>
 
-        <!-- FOOTER -->
         <div class="flex flex-col absolute w-full" style="bottom:0">
             <div class="footer-small text-gray-800">
                 <svg class="svg" style="pointer-events: none" fill="currentColor" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 75">
@@ -70,7 +66,7 @@
                     <g class="b"><path class="d" d="M1998,484H-243V100c445.8,26.8,794.2-4.1,1035-39,141-20.4,231.1-40.1,378-45,349.6-11.6,636.7,73.8,828,150"></path></g>
                 </svg>
             </div>
-            <div class="flex lg:flex-row flex-col items-center justify-between font-semibold bg-gray-800 text-gray-400 lg:py-4 py-2 lg:px-24 px-2">
+            <div class="flex lg:flex-row flex-col items-center justify-between bg-gray-800 text-gray-400 lg:py-4 py-2 lg:px-24 px-2">
                 <div class="copy">
                     Copyright &copy; 2021. QComm
                 </div>
@@ -84,7 +80,6 @@
 </template>
 <script>
 import axios from 'axios'
-const appToken = "MEJIKU-HIBINIU";
 import appMixins from '../mixins/appMixins'
 export default {
     data(){

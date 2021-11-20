@@ -8,27 +8,17 @@
                 </div>
                 <div class="flex flex-col">
                     <div class="project-title lg:mt-0 mt-2">
-                        <span class="text-2xl font-semibold leading-3">Daftar User</span>
+                        <span class="text-2xl font-semibold leading-3">User KPI</span>
                     </div>
                     <div class="">
-                        <span class="text-md font-semibold text-gray-400">
-                            Semua user yang menggunakan sistem
+                        <span class="text-md text-gray-400">
+                            Daftar User KPI
                         </span>
                     </div>
                 </div>
             </div>
 
             <div class="flex lg:flex-row flex-col lg:items-center justify-start">
-                <div class="search flex items-center w-full lg:my-8 my-2 lg:px-2">
-                    <button class="bg-red-500 hover:bg-green-700 focus:bg-green-700 focus:ring-4 focus:ring-green-200 focus:outline-none text-white flex items-center px-4 py-2 rounded-tl rounded-bl w-1/3 shadow leading-thight">
-                        <span class="block mr-2 font-semibold text-md">Search</span>
-                        <svg class="w-4 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
-                    <input 
-                        type="search" 
-                        class="w-full rounded-tr rounded-br py-2 shadow-sm focus:outline-none focus:shadow-inner px-2"
-                        placeholder="Masukkan kata kunci...">
-                </div>
             </div>
 
         </div>
@@ -45,36 +35,26 @@
                         <thead class="bg-white text-gray-700 text-lg font-extrabold">
                             <tr>
                             <th class="text-left py-4 px-4 uppercase font-semibold text-sm">Employee</th>
-                            <th class="text-left py-4 px-4 uppercase font-semibold text-sm">Deadline</th>
                             <th class="text-left py-4 px-4 uppercase font-semibold text-sm">Quality</th>
                             <th class="text-left py-4 px-4 uppercase font-semibold text-sm">Idea</th>
                             <th class="text-left py-4 px-4 uppercase font-semibold text-sm">Design</th>
+                            <th class="text-left py-4 px-4 uppercase font-semibold text-sm">Deadline</th>
                             <th class="text-left py-4 px-4 uppercase font-semibold text-sm">Total Projects</th>
                             <th class="text-left py-4 px-4 uppercase font-semibold text-sm">&nbsp;</th>
                             </tr>
                         </thead>
-                        <tbody class="text-gray-700">
+                        <tbody 
+                            v-for="(item, i) in userList"
+                            :key="i"
+                            @click="goToUserProfile(item.id)"                         
+                            class="text-gray-700">
                             <tr class="bg-gray-100">
-                                <td class="text-left py-4 px-4">Lian</td>
-                                <td class="text-left py-4 px-4">Smith</td>
-                                <td class="text-left py-4 px-4">90</td>
-                                <td class="text-left py-4 px-4">90</td>
-                                <td class="text-left py-4 px-4">90</td>
-                                <td class="text-left py-4 px-4">6</td>
-                                <td>
-                                    <button class="bg-purple-600 px-6 py-1 rounded-full flex items-center justify-between hover:bg-purple-700 focus:bg-purple-700 focus:ring-4 focus:ring-purple-300 focus:outline-none">
-                                        <span class="mr-1 text-white">Detail</span>
-                                        <svg class="w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr class="bg-white">
-                                <td class="text-left py-4 px-4">Lian</td>
-                                <td class="text-left py-4 px-4">Smith</td>
-                                <td class="text-left py-4 px-4">90</td>
-                                <td class="text-left py-4 px-4">90</td>
-                                <td class="text-left py-4 px-4">90</td>
-                                <td class="text-left py-4 px-4">6</td>
+                                <td class="text-left py-4 px-4">{{item.userFullName}}</td>
+                                <td class="text-left py-4 px-4">{{item.quality}}</td>
+                                <td class="text-left py-4 px-4">{{item.idea}}</td>
+                                <td class="text-left py-4 px-4">{{item.design}}</td>
+                                <td class="text-left py-4 px-4">{{item.deadline}}</td>
+                                <td class="text-left py-4 px-4">{{item.totalProjects}}</td>
                                 <td>
                                     <button class="bg-purple-600 px-6 py-1 rounded-full flex items-center justify-between hover:bg-purple-700 focus:bg-purple-700 focus:ring-4 focus:ring-purple-300 focus:outline-none">
                                         <span class="mr-1 text-white">Detail</span>
@@ -130,7 +110,7 @@ export default {
         },
         getUserList(){
             this.loaderPage = true;
-            axios.get('/users', {
+            axios.get('/user-kpi', {
                 headers: {
                     'app-id': APP_ID
                 }
@@ -138,7 +118,7 @@ export default {
             .then((response) => {
                 this.loaderPage = false;
                 this.userList = response.data.data;
-                // console.log('user list ' + response.data);
+                console.log(this.userList)
             })
             .catch((error) => {
                 console.log(error);
