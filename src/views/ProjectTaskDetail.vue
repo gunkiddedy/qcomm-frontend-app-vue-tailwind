@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <!-- BUAT TASK BARU -->
-                <div v-if="allowedTo('taskReply')" class="tambahkan-dokumen w-full justify-between bg-indigo-50 my-8">
+                <div v-if="allowedToReply" class="tambahkan-dokumen w-full justify-between bg-indigo-50 my-8">
                     <div class="bg-white shadow-lg rounded pb-1">
                         <div v-if="status === 'ACTIVE'" class="title text-purple-700 text-md font-bold px-4 py-3 rounded-t bg-gray-100">
                             Tambahkan Balasan (Komentar)
@@ -140,7 +140,7 @@ export default {
     props: ['id'],
     data() {
         return {
-            userId: localStorage.userId,
+            userId: '',
             taskId: '',
             projectId: '',
             title: '',
@@ -217,8 +217,10 @@ export default {
                 this.taskDetail = response.data.data;
                 this.projectId = this.taskDetail.projectId;
                 this.taskId = this.id;
+                this.userId = this.userId;
                 this.status = this.taskDetail.status;
-                this.loaderPage = true;
+                this.loaderPage = true;           
+
                 axios.get(`/projects/${this.taskDetail.projectId}`)
                 .then((response) => {
                     this.loaderPage = false;
@@ -246,6 +248,9 @@ export default {
                 this.loaderPage = false;
                 console.log(error);
             });
+        },
+        allowedToReply() {
+            this.allowedTo('taskReply') && (localStorage.roleName === 'MANAGEMENT' || localStorage.userId ==  this.userId)
         },
         updateTaskStatus(param) {
             axios.put(`/tasks/resolve?taskId=${this.taskId}&resolveStatus=${param}`, {
